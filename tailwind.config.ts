@@ -20,6 +20,7 @@ export default {
         deepPrimaryBorder: '#8B4115',
         congressBlue: '#133B67',
         destructive: '#DC2626',
+        placeholder: '#5D5D5D',
         textPrimary: '#0C1B31',
         textSecondary: '#3D3D3D',
         textLight: '#D1D1D1',
@@ -95,6 +96,7 @@ export default {
         gradientBg:
           'linear-gradient(180deg, rgba(71, 157, 233, 0.25) 0%, rgba(18, 75, 134, 0.25) 100%)',
         'custom-blend': 'linear-gradient(180deg, #7F7F7F80, #3D3D3D)',
+        'primary-gradient': 'linear-gradient(135deg, #CE7411 0%, #8B4115 100%)',
       },
       boxShadow: {
         input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`,

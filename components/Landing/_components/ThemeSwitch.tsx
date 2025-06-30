@@ -19,7 +19,7 @@ export function ThemeSwitch({ isDarkMode, toggleMode }: ThemeSwitchProps) {
         >
           {/* White border on left for light, right for dark */}
           <div
-            className={`z-[100] absolute top-[2px] ${isDarkMode ? 'right-1 rounded-r-md border-r-2' : 'left-1 rounded-l-md border-l-2'} h-5 w-1 border-white`}
+            className={`z-[100] absolute top-[2px] ${isDarkMode ? 'right-1 rounded-r-md border-r-2 border-black' : 'left-1 rounded-l-md border-l-2'} h-5 w-1 border-white`}
           />
         </div>
         {/* Switch content */}

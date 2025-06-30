@@ -27,12 +27,12 @@ const LandingNav: FC<LandingGeneralProps> = ({ isDarkModeActive }) => {
       <div
         className={` ${isDarkModeActive ? 'flex min-h-20 w-full items-center justify-between bg-[#0A0A0AF2] shadow-lg' : 'flex min-h-20 w-full items-center justify-between bg-white shadow-lg'}`}
       >
-        <div className='hidden items-center justify-start lg:flex 2xl:pl-[120px]'>
+        <div className='hidden items-center justify-start lg:flex lg:pl-[80px] xl:pl-[120px] 2xl:pl-[120px]'>
           <Link href={'/'}>
             <Image
               src={isDarkModeActive ? DarkNavLogo : NavLogo}
               alt='logo'
-              className='pl-5 2xl:py-9'
+              className='pl-5 xl:py-9 2xl:py-9'
             />
           </Link>
         </div>
@@ -40,15 +40,15 @@ const LandingNav: FC<LandingGeneralProps> = ({ isDarkModeActive }) => {
           <Link href={'/'}>
             <Image
               src={isDarkModeActive ? DarkSmallNavLogo : SmallNavLogo}
-              width={140}
-              height={24}
+              width={200}
+              height={32}
               alt='logo'
               className='py-6 pl-5'
             />
           </Link>
         </div>
 
-        <ul className='hidden items-center justify-end gap-6 2xl:gap-6 2xl:pr-[120px] lg:flex'>
+        <ul className='hidden items-center justify-end gap-6 2xl:gap-6 lg:pr-[80px] xl:pr-[120px] 2xl:pr-[120px] lg:flex lg:pt-2 xl:pt-2 2xl:pt-2'>
           {/* <Link href={'/about'}>
             <li
               className={`cursor-pointer ${isDarkModeActive ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-primary'}`}
