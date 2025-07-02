@@ -9,9 +9,9 @@ import LandingNav from '@/components/Landing/LandingNav';
 import LandingProjectsSection from '@/components/Landing/LandingProjects';
 import LandingServicesSection from '@/components/Landing/LandingServicesSection';
 import LandingTechSection from '@/components/Landing/LandingTechSection';
-import LandingWhoSection from '@/components/Landing/LandingWhoSection';
 import { ModeContext } from '@/contexts/ModeContext';
 import { useContext } from 'react';
+import LandingNotesSection from '@/components/Landing/LandingNotesSection';
 
 export default function Home() {
   const { isDarkModeActive, setIsDarkModeActive } = useContext(
@@ -31,7 +31,7 @@ export default function Home() {
 
       <div className='mx-auto w-full max-w-[1920px]'>
         <LandingHeroSection DarkModeActive={isDarkModeActive} />
-        <LandingWhoSection DarkModeActive={isDarkModeActive} />
+        <LandingNotesSection DarkModeActive={isDarkModeActive} />
         <LandingAchievementSection DarkModeActive={isDarkModeActive} />
         <LandingServicesSection DarkModeActive={isDarkModeActive} />
         <LandingTechSection DarkModeActive={isDarkModeActive} />

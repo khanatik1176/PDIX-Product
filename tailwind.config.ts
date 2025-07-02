@@ -18,6 +18,7 @@ export default {
         secondary: '#AB5212',
         tertiary: '#F1F7FE',
         deepPrimaryBorder: '#8B4115',
+        lightBlack: '#454545',
         congressBlue: '#133B67',
         destructive: '#DC2626',
         placeholder: '#5D5D5D',
