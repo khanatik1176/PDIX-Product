@@ -1,143 +1,132 @@
 import React, { FC } from 'react';
-import FooterLogo from '@/public/logo/FooterLogo.svg';
 import Image from 'next/image';
-import { Mail, MapPin, Smartphone } from 'lucide-react';
-import Link from 'next/link';
 import { LandingGeneralProps } from '@/types/LandingTypes';
-import DarkFooterLogo from '@/public/logo/DarkFooterLogo.svg';
+
+// Replace these with your actual image imports
+import GooglePlay from '@/public/Images/GooglePlay.svg';
+import AppleStore from '@/public/Images/AppleStore.svg';
+import Link from 'next/link';
+import { Button } from '../ui/button';
+import { Facebook, Instagram, Linkedin } from 'lucide-react';
+
+const footerLinks = [
+  {
+    title: 'About us',
+    links: [
+      { label: 'About Scribbler', href: '#' },
+      { label: 'How Scribbler Works', href: '#' },
+      { label: 'Advertise with us', href: '#' },
+    ],
+  },
+  {
+    title: 'Contact & help',
+    links: [
+      { label: 'F.A.Q', href: '#' },
+      { label: 'Contact', href: '#' },
+      { label: 'Newsroom', href: '#' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Terms', href: '#' },
+      { label: 'Privacy policy', href: '#' },
+      { label: 'Cookie settings', href: '#' },
+    ],
+  },
+];
+
 const LandingFooter: FC<LandingGeneralProps> = ({ DarkModeActive }) => {
+  const textColor = DarkModeActive ? 'text-white' : 'text-black';
+  const sectionBg = DarkModeActive ? 'bg-black' : 'bg-[#e5e5e5]';
+
   return (
-    <div className='px-12 lg:px-36 lg:py-10 2xl:px-[384px]'>
-      <div className='grid grid-cols-1 pt-12 lg:grid-cols-2 lg:gap-[200px] lg:pb-14 lg:pt-32 xl:gap-[430px] 2xl:gap-[420px]'>
-        <div className='flex flex-col items-start gap-6'>
-          <Image
-            src={DarkModeActive ? DarkFooterLogo : FooterLogo}
-            alt='Footer-Logo'
-          />
-          <div
-            className={`${DarkModeActive ? 'flex gap-2 text-textLight' : 'flex gap-2 text-textSecondary'}`}
-          >
-            <span>
-              <Mail size={24} />
-            </span>{' '}
-            <p>info@pentadevIX.com</p>
+    <footer
+      className={`px-4 py-12 md:px-8 md:py-16 lg:px-16 xl:px-[120px] 2xl:px-64 ${sectionBg}`}
+    >
+      <div className='grid w-full grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 xl:max-w-[1100px] 2xl:max-w-[1300px]'>
+        {/* About us, Contact & help, Legal */}
+        {footerLinks.map((col) => (
+          <div key={col.title}>
+            <h2 className={`mb-4 text-[20px] font-semibold ${textColor}`}>
+              {col.title}
+            </h2>
+            <ul className='flex flex-col gap-4'>
+              {col.links.map((link) => (
+                <li className='text-[16px]' key={link.label}>
+                  <Link
+                    href={link.href}
+                    className={`transition-colors hover:text-primary ${textColor}`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div
-            className={`${DarkModeActive ? 'flex gap-2 text-textLight' : 'flex gap-2 text-textSecondary'}`}
-          >
-            <span>
-              <Smartphone size={24} />
-            </span>{' '}
-            <p>+8801618559862</p>
-          </div>
-          <div
-            className={`${DarkModeActive ? 'flex gap-2 text-textLight' : 'flex gap-2 text-textSecondary'}`}
-          >
-            <span>
-              <MapPin size={24} />
-            </span>{' '}
-            <p>Uttara, Dhaka, Bangladesh</p>
-          </div>
-        </div>
-        <div className='flex w-full flex-col gap-12 pt-12 lg:flex-row lg:gap-10 lg:pt-0 xl:gap-[115px] 2xl:gap-[115px]'>
-          <div>
-            <h1
-              className={`${DarkModeActive ? 'text-[20px] font-semibold text-[#F6F6F6]' : 'text-[20px] font-semibold text-black'}`}
-            >
-              Link
-            </h1>
-            <div className='mt-4 flex flex-col gap-2'>
-              {/* <Link
-                href='/#'
-                className={`${DarkModeActive ? 'text-textLight' : 'text-textSecondary'}`}
-              >
-                About Us
-              </Link>
-              <Link
-                href='#'
-                className={`${DarkModeActive ? 'text-textLight' : 'text-textSecondary'}`}
-              >
-                Show All Services
-              </Link> */}
-              <Link
-                href='casestudies'
-                className={`${DarkModeActive ? 'text-textLight' : 'text-textSecondary'}`}
-              >
-                Case Study
-              </Link>
-              <Link
-                href='blogs'
-                className={`${DarkModeActive ? 'text-textLight' : 'text-textSecondary'}`}
-              >
-                Blog
-              </Link>
-            </div>
-          </div>
-          <div>
-            <h1
-              className={`${DarkModeActive ? 'text-[20px] font-semibold text-[#F6F6F6]' : 'text-[20px] font-semibold text-black'}`}
-            >
-              Follow US
-            </h1>
-            <div className='mt-4 flex flex-col gap-2'>
-              <span
-                className={`${DarkModeActive ? 'cursor-not-allowed text-textLight opacity-60' : 'cursor-not-allowed text-textSecondary opacity-60'}`}
-                tabIndex={-1}
-                aria-disabled='true'
-              >
-                Facebook
-              </span>
-              <span
-                className={`${DarkModeActive ? 'cursor-not-allowed text-textLight opacity-60' : 'cursor-not-allowed text-textSecondary opacity-60'}`}
-                tabIndex={-1}
-                aria-disabled='true'
-              >
-                Linkedin
-              </span>
-              <span
-                className={`${DarkModeActive ? 'cursor-not-allowed text-textLight opacity-60' : 'cursor-not-allowed text-textSecondary opacity-60'}`}
-                tabIndex={-1}
-                aria-disabled='true'
-              >
-                Instagram
-              </span>
-              <span
-                className={`${DarkModeActive ? 'cursor-not-allowed text-textLight opacity-60' : 'cursor-not-allowed text-textSecondary opacity-60'}`}
-                tabIndex={-1}
-                aria-disabled='true'
-              >
-                Twitter
-              </span>
-            </div>
+        ))}
+        {/* Get the app */}
+        <div>
+          <h2 className={`mb-4 text-[20px] font-semibold ${textColor}`}>
+            Get the app
+          </h2>
+          <div className='flex flex-col gap-3'>
+            <Link href='#' aria-label='Get on Google Play'>
+              <Image
+                src={GooglePlay}
+                alt='Google Play'
+                className='h-[40px] w-[120px]'
+              />
+            </Link>
+            <Link href='#' aria-label='Get on App Store'>
+              <Image
+                src={AppleStore}
+                alt='App Store'
+                className='h-[40px] w-[120px]'
+              />
+            </Link>
           </div>
         </div>
       </div>
-      <div className='flex flex-col gap-2 py-12 lg:flex-row lg:items-center lg:gap-[205px] lg:py-0 xl:gap-[625px] 2xl:gap-[595px]'>
+      <div className='mt-8 md:mt-12 flex flex-col items-start justify-between gap-4 pt-6 md:flex-row md:items-center'>
+        {/* Social Icons Left */}
+        <div className='flex gap-4 md:order-1'>
+          <Button className='mt-2 flex h-10 w-10 items-center justify-center rounded-md border-b-2 border-deepPrimaryBorder bg-white text-[20px] font-medium'>
+            <span
+              className={`mt-[2px] flex items-center md:gap-1 md:text-[12px] lg:gap-2 lg:text-[18px] xl:text-[20px] ${DarkModeActive ? 'text-deepPrimaryBorder' : 'text-deepPrimaryBorder'}`}
+            >
+              <span className='mt-[2px] w-full text-deepPrimaryBorder'>
+                <Facebook size={24} />
+              </span>
+            </span>
+          </Button>
+          <Button className='mt-2 flex h-10 w-10 items-center justify-center rounded-md border-b-2 border-deepPrimaryBorder bg-white text-[20px] font-medium'>
+            <span
+              className={`mt-[2px] flex items-center md:gap-1 md:text-[12px] lg:gap-2 lg:text-[18px] xl:text-[20px] ${DarkModeActive ? 'text-deepPrimaryBorder' : 'text-deepPrimaryBorder'}`}
+            >
+              <span className='mt-[2px] w-full text-deepPrimaryBorder'>
+                <Instagram size={24} />
+              </span>
+            </span>
+          </Button>
+          <Button className='mt-2 flex h-10 w-10 items-center justify-center rounded-md border-b-2 border-deepPrimaryBorder bg-white text-[20px] font-medium'>
+            <span
+              className={`mt-[2px] flex items-center md:gap-1 md:text-[12px] lg:gap-2 lg:text-[18px] xl:text-[20px] ${DarkModeActive ? 'text-deepPrimaryBorder' : 'text-deepPrimaryBorder'}`}
+            >
+              <span className='mt-[2px] w-full text-deepPrimaryBorder'>
+                <Linkedin size={24} />
+              </span>
+            </span>
+          </Button>
+        </div>
+        {/* Copyright Right */}
         <p
-          className={`pb-2 lg:pb-0 ${DarkModeActive ? 'text-base text-[#BFDBF8]' : 'text-base text-[#133B67]'}`}
+          className={`pt-6 text-sm md:order-2 ${DarkModeActive ? 'text-gray-400' : 'text-gray-700'}`}
         >
-          © 2025 PentaDeviX. All rights reserved.
+          © 2025-2026 Scribbler. All rights reserved.
         </p>
-        <div className='flex gap-6'>
-          {/* <Link href='/'> */}
-          <p
-            className={`${DarkModeActive ? 'cursor-not-allowed text-textLight opacity-60' : 'cursor-not-allowed text-textSecondary opacity-60'}`}
-            aria-disabled='true'
-          >
-            Terms of Service
-          </p>
-          {/* </Link> */}
-          {/* <Link href='/'> */}
-          <p
-            className={`${DarkModeActive ? 'cursor-not-allowed text-textLight opacity-60' : 'cursor-not-allowed text-textSecondary opacity-60'}`}
-            aria-disabled='true'
-          >
-            Privacy Policy
-          </p>
-          {/* </Link> */}
-        </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

@@ -1,17 +1,13 @@
 'use client';
-import LandingBlogSection from '@/components/Landing/LandingBlogSection';
-import LandingClientSection from '@/components/Landing/LandingClientSection';
-import LandingContactSection from '@/components/Landing/LandingContactSection';
 import LandingFooter from '@/components/Landing/LandingFooter';
 import LandingHeroSection from '@/components/Landing/LandingHeroSection';
 import LandingNav from '@/components/Landing/LandingNav';
-import LandingProjectsSection from '@/components/Landing/LandingProjects';
-import LandingTechSection from '@/components/Landing/LandingTechSection';
 import { ModeContext } from '@/contexts/ModeContext';
 import { useContext } from 'react';
 import LandingNotesSection from '@/components/Landing/LandingNotesSection';
 import LandingOverviewSection from '@/components/Landing/LandingOverviewSection';
 import LandingFacilitesSection from '@/components/Landing/LandingFacilitesSection';
+import LandingUpgradeSection from '@/components/Landing/LandingUpgradeSection';
 
 export default function Home() {
   const { isDarkModeActive, setIsDarkModeActive } = useContext(
@@ -34,13 +30,7 @@ export default function Home() {
         <LandingNotesSection DarkModeActive={isDarkModeActive} />
         <LandingOverviewSection DarkModeActive={isDarkModeActive} />
         <LandingFacilitesSection DarkModeActive={isDarkModeActive} />
-        <LandingTechSection DarkModeActive={isDarkModeActive} />
-        <LandingProjectsSection DarkModeActive={isDarkModeActive} />
-        <LandingBlogSection DarkModeActive={isDarkModeActive} />
-        <LandingClientSection DarkModeActive={isDarkModeActive} />
-        <div id='contact-section'>
-          <LandingContactSection DarkModeActive={isDarkModeActive} />
-        </div>
+        <LandingUpgradeSection DarkModeActive={isDarkModeActive} />
         <LandingFooter DarkModeActive={isDarkModeActive} />
       </div>
     </div>
