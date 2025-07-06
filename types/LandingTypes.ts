@@ -30,8 +30,7 @@ export type CaseStudiesDetails = {
 };
 
 // Types
-export type Blogs = 
-{
+export type Blogs = {
   blog_post_id: number;
   title: string;
   summary: string;
@@ -39,4 +38,12 @@ export type Blogs =
   thumbnail_url: string;
   published_at: string;
   slug?: string;
-}
+};
+
+// FacilityCard component
+export type FacilityCardProps = {
+  icon: any;
+  title: string;
+  description: string;
+  DarkModeActive?: boolean;
+};
