@@ -6,8 +6,8 @@ import Providers from '@/components/providers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'PentaDevIX',
-  description: 'Performance Automation for 6sense Team',
+  title: 'Scribbler',
+  description: 'Performance Automation for PentadevIX Team',
   icons: {
     icon: './favicon.ico',
   },

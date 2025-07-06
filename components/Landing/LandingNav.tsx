@@ -27,12 +27,12 @@ const LandingNav: FC<LandingGeneralProps> = ({ isDarkModeActive }) => {
       <div
         className={` ${isDarkModeActive ? 'flex min-h-20 w-full items-center justify-between bg-[#0A0A0AF2] shadow-lg' : 'flex min-h-20 w-full items-center justify-between bg-white shadow-lg'}`}
       >
-        <div className='hidden items-center justify-start lg:flex 2xl:pl-[120px]'>
+        <div className='hidden items-center justify-start lg:flex lg:pl-[80px] xl:pl-[120px] 2xl:pl-[120px]'>
           <Link href={'/'}>
             <Image
               src={isDarkModeActive ? DarkNavLogo : NavLogo}
               alt='logo'
-              className='pl-5 2xl:py-9'
+              className='pl-5 xl:py-9 2xl:py-9'
             />
           </Link>
         </div>
@@ -40,15 +40,15 @@ const LandingNav: FC<LandingGeneralProps> = ({ isDarkModeActive }) => {
           <Link href={'/'}>
             <Image
               src={isDarkModeActive ? DarkSmallNavLogo : SmallNavLogo}
-              width={140}
-              height={24}
+              width={200}
+              height={32}
               alt='logo'
               className='py-6 pl-5'
             />
           </Link>
         </div>
 
-        <ul className='hidden items-center justify-end gap-6 2xl:gap-6 2xl:pr-[120px] lg:flex'>
+        <ul className='hidden items-center justify-end gap-6 lg:flex lg:pr-[80px] lg:pt-2 xl:pr-[120px] xl:pt-2 2xl:gap-6 2xl:pr-[120px] 2xl:pt-2'>
           {/* <Link href={'/about'}>
             <li
               className={`cursor-pointer ${isDarkModeActive ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-primary'}`}
@@ -95,54 +95,27 @@ const LandingNav: FC<LandingGeneralProps> = ({ isDarkModeActive }) => {
               className={`${isDarkModeActive ? 'flex min-h-20 w-full items-center justify-between rounded-xl bg-[#3D3D3D69] px-6 py-4 shadow-sm' : 'flex min-h-20 w-full items-center justify-between rounded-xl px-6 py-4 shadow-sm'}`}
             >
               <X size={24} className='cursor-pointer' onClick={toggleSheet} />
-              <div className='rounded-xl bg-primary p-2'>
-                {isDarkModeActive ? (
-                  <Moon
-                    size={24}
-                    className='cursor-pointer text-white'
-                    strokeWidth={1.5}
-                    onClick={toggleMode}
-                  />
-                ) : (
-                  <Sun
-                    size={24}
-                    className='cursor-pointer text-white'
-                    strokeWidth={1.5}
-                    onClick={toggleMode}
-                  />
-                )}
-              </div>
+              {/* ThemeSwitch replaces Sun/Moon */}
+              <ThemeSwitch
+                isDarkMode={!!isDarkModeActive}
+                toggleMode={toggleMode}
+              />
             </div>
 
             {/* Navigation Links */}
             <div className='mt-10 flex flex-col items-start gap-6 px-8'>
-              {/* <div
-                className={`cursor-pointer text-[20px] font-semibold ${
-                  isDarkModeActive ? 'text-white' : 'text-primary'
-                }`}
+              <Button
+                className='w-full rounded-[6px] border-b-2 border-deepPrimaryBorder px-4 py-2'
+                onClick={toggleSheet}
               >
-                About
-              </div> */}
-              <Link href={'/blogs'}>
-                <div
-                  onClick={toggleSheet}
-                  className={`cursor-pointer text-[20px] font-semibold ${
-                    isDarkModeActive ? 'text-white' : 'text-primary'
-                  }`}
-                >
-                  Blog
-                </div>
-              </Link>
-              <Link href={'/casestudies'}>
-                <div
-                  className={`flex cursor-pointer items-center gap-1 text-[20px] font-semibold ${
-                    isDarkModeActive ? 'text-white' : 'text-primary'
-                  }`}
-                  onClick={toggleSheet}
-                >
-                  Case Studies
-                </div>
-              </Link>
+                Sign in
+              </Button>
+              <Button
+                className='w-full rounded-[6px] border-b-2 border-deepPrimaryBorder px-4 py-2'
+                onClick={toggleSheet}
+              >
+                Sign up
+              </Button>
             </div>
 
             {/* Small Logo at the Bottom */}
