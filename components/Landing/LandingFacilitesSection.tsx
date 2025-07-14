@@ -16,7 +16,7 @@ const LandingFacilitesSection: FC<LandingGeneralProps> = ({
   const textColor = DarkModeActive ? 'text-white' : 'text-black';
 
   return (
-    <div className='relative px-4 py-16 sm:pb-0 md:px-4 md:py-28 lg:px-16 xl:px-[120px] 2xl:px-64'>
+    <div className='relative bg-notepad px-4 py-16 sm:pb-0 md:px-4 md:py-28 lg:px-16 xl:px-[120px] 2xl:px-64'>
       <div className='flex flex-col items-center justify-center text-center'>
         <div className='relative flex w-full items-center justify-center'>
           {/* Trophy icon on the left for xl and up, above for mobile */}

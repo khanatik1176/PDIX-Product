@@ -145,7 +145,7 @@ const LandingNotesSection: FC<LandingGeneralProps> = ({ DarkModeActive }) => {
 
   return (
     <div
-      className={`flex min-h-[600px] w-full flex-col items-center justify-center gap-8 pt-8 lg:pt-20 ${DarkModeActive ? 'bg-black' : 'bg-white'}`}
+      className={`flex min-h-[600px] w-full flex-col items-center justify-center gap-8 pt-8 lg:pt-20 ${DarkModeActive ? 'bg-black' : 'bg-notepad'}`}
     >
       {/* Desktop: 2 rows, Mobile: 3 rows */}
       <div className="hidden lg:flex flex-col w-full gap-8">
