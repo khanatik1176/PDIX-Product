@@ -1,15 +1,13 @@
 'use client';
 
-import NavLogo from '../public/logo/navLogo.svg';
-
 import {
-  BadgeCheck,
-  BoxesIcon,
-  CircleAlert,
-  FileCode,
-  FileSymlink,
+  Trash2,
+  NotepadTextDashed,
+  BookOpen,
+  Bookmark,
+  Earth,
   FolderKey,
-  SquareTerminal,
+  House,
 } from 'lucide-react';
 
 
@@ -20,11 +18,12 @@ import {
   SidebarRail,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { TeamSwitcher } from './team-switcher';
 import { NavMain } from './nav-main';
+
+import SidebarLogo from '../public/logo/SidebarLogo.svg';
 
 const defaultData = {
   user: {
@@ -34,47 +33,42 @@ const defaultData = {
   },
   teams: [
     {
-      name: 'DepShield.io',
-      logo: NavLogo,
+      name: 'Scribbbleer',
+      logo: SidebarLogo,
       plan: 'User',
     },
   ],
   navMain: [
     {
-      title: 'Dashboard',
-      url: '/dashboard',
-      icon: SquareTerminal,
+      title: 'Home',
+      url: '/home',
+      icon: House,
       isActive: true,
     },
     {
-      title: 'Repositories',
-      url: '/repositories',
-      icon: FileCode,
+      title: 'Draft',
+      url: '/draft',
+      icon: NotepadTextDashed,
     },
     {
-      title: 'Vulnerabilities',
-      url: '/vulnerabilities',
-      icon: CircleAlert,
+      title: 'Saved',
+      url: '/saved',
+      icon: Bookmark,
     },
     {
-      title: 'Dependencies',
-      url: '/dependencies',
-      icon: FileSymlink,
+      title: 'My notes',
+      url: '/my-notes',
+      icon: BookOpen,
     },
     {
-      title: 'Licenses',
-      url: '/licenses',
-      icon: BadgeCheck,
+      title: 'Community',
+      url: '/community',
+      icon: Earth,
     },
     {
-      title: 'Access Control',
-      url: '/access-control',
-      icon: FolderKey,
-    },
-    {
-      title: 'Integrations',
-      url: '/integrations',
-      icon: BoxesIcon,
+      title: 'Bin',
+      url: '/bin',
+      icon: Trash2,
     },
   ],
 };
@@ -84,7 +78,6 @@ const isScreenBelowMd = () => {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const session = useSession();
   const pathname = usePathname();
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
@@ -116,8 +109,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   };
 
   const userData = {
-    name: session?.data?.user?.name || defaultData.user.name,
-    email: session?.data?.user?.email || defaultData.user.email,
+    name:defaultData.user.name,
+    email:defaultData.user.email,
     avatar: defaultData.user.avatar,
   };
 

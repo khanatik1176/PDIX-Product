@@ -1,18 +1,16 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
-import { signOut, useSession } from 'next-auth/react';
 import { LogOut, User, X } from 'lucide-react';
 import Link from 'next/link';
 import { getInitials } from '@/constants/globalFunctions';
 
 const AvatarMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: session } = useSession();
   const defaultAvatarUrl = 'https://via.placeholder.com/150/0000FF/808080?Text=Default+Avatar';
 
   const handleLogout = async () => {
-    await signOut({ redirectTo: '/sign-in' })
+
     // router.replace('/sign-in');
   };
 
@@ -55,7 +53,7 @@ const AvatarMenu = () => {
           <AvatarImage src={defaultAvatarUrl} alt="Avatar" />
           {/* <AvatarImage src={session?.avatarUrl || defaultAvatarUrl} alt="Avatar" /> */}
           <AvatarFallback className="bg-primary text-white">
-            {session?.user?.name ? getInitials(session.user.name) : "NA"}
+            {"NA"}
           </AvatarFallback>
         </Avatar>
       </div>
@@ -63,7 +61,7 @@ const AvatarMenu = () => {
         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-10 avatar-menu-content">
           <div className="flex items-center justify-between px-4 py-2">
             <div className="flex flex-col">
-              <p className="font-semibold text-sm text-miniSubheadingColor">{session?.user?.name || 'Ahsan Aasim'}</p>
+              <p className="font-semibold text-sm text-miniSubheadingColor">{'Khan Atik Faisal'}</p>
               <p className="text-twelve text-miniSubheadingColor font-normal">
                 {/* {session?.role ? capitalizeFirstLetter(session.role) : 'Admin'} */}
                 Admin

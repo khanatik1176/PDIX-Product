@@ -25,7 +25,7 @@ const LandingNav: FC<LandingGeneralProps> = ({ isDarkModeActive }) => {
   return (
     <nav className='sticky top-0 z-50'>
       <div
-        className={` ${isDarkModeActive ? 'flex min-h-20 w-full items-center justify-between bg-[#0A0A0AF2] shadow-lg' : 'flex min-h-20 w-full items-center justify-between bg-white shadow-lg'}`}
+        className={` ${isDarkModeActive ? 'flex min-h-20 w-full items-center justify-between bg-[#0A0A0AF2] shadow-lg' : 'flex min-h-20 w-full items-center justify-between bg-[#E5E5E5F2] shadow-lg'}`}
       >
         <div className='hidden items-center justify-start lg:flex lg:pl-[80px] xl:pl-[120px] 2xl:pl-[120px]'>
           <Link href={'/'}>
@@ -63,16 +63,20 @@ const LandingNav: FC<LandingGeneralProps> = ({ isDarkModeActive }) => {
             />
           </li>
           <li>
-            <Button
-              className={`bg-transparent ${isDarkModeActive ? 'text-white' : 'text-black'}`}
-            >
-              Sign in
-            </Button>
+            <Link href={'/sign-in'}>
+              <Button
+                className={`bg-transparent ${isDarkModeActive ? 'text-white' : 'text-black'}`}
+              >
+                Sign in
+              </Button>
+            </Link>
           </li>
           <li>
-            <Button className='rounded-[6px] border-b-2 border-deepPrimaryBorder px-4 py-2'>
-              Sign up
-            </Button>
+            <Link href={'/sign-up'}>
+              <Button className='rounded-[6px] border-b-2 border-deepPrimaryBorder px-4 py-2'>
+                Sign up
+              </Button>
+            </Link>
           </li>
         </ul>
         <div className='flex items-center justify-end gap-5 pr-10 lg:hidden'>
@@ -103,19 +107,24 @@ const LandingNav: FC<LandingGeneralProps> = ({ isDarkModeActive }) => {
             </div>
 
             {/* Navigation Links */}
-            <div className='mt-10 flex flex-col items-start gap-6 px-8'>
-              <Button
-                className='w-full rounded-[6px] border-b-2 border-deepPrimaryBorder px-4 py-2'
-                onClick={toggleSheet}
-              >
-                Sign in
-              </Button>
-              <Button
-                className='w-full rounded-[6px] border-b-2 border-deepPrimaryBorder px-4 py-2'
-                onClick={toggleSheet}
-              >
-                Sign up
-              </Button>
+            <div className='mt-10 flex flex-col items-start gap-6 px-8 md:items-center'>
+              <Link href={'/sign-in'} className='block w-full'>
+                <Button
+                  variant='outline'
+                  className='w-full rounded-[6px] border-b-2 border-deepPrimaryBorder px-4 py-2'
+                  onClick={toggleSheet}
+                >
+                  Sign in
+                </Button>
+              </Link>
+              <Link href={'/sign-up'} className='block w-full'>
+                <Button
+                  className='w-full rounded-[6px] border-b-2 border-deepPrimaryBorder px-4 py-2'
+                  onClick={toggleSheet}
+                >
+                  Sign up
+                </Button>
+              </Link>
             </div>
 
             {/* Small Logo at the Bottom */}
