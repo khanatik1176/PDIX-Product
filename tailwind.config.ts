@@ -23,7 +23,7 @@ export default {
         destructive: '#DC2626',
         placeholder: '#5D5D5D',
         textPrimary: '#0C1B31',
-        textSecondary: '#3D3D3D',
+        textSecondary: '#a2acb9',
         textLight: '#D1D1D1',
         subHeading: '#858C95',
         errorColor: '#C8322B',
