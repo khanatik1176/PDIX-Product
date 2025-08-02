@@ -5,11 +5,17 @@ import Image from 'next/image';
 import CardMenu from './CardMenu';
 import RenameFileModal from './RenameFileModal';
 import { toast } from '@/hooks/use-toast';
+import EditNoteModal from './EditNoteModal';
 
 const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [renameOpen, setRenameOpen] = useState(false);
   const [filename, setFilename] = useState(title);
+  const [editOpen, setEditOpen] = useState(false);
+  const [topic, setTopic] = useState('');
+  const [educationLevel, setEducationLevel] = useState('');
+  const [classYear, setClassYear] = useState('');
+  const [subject, setSubject] = useState('');
 
   const handleRenameClick = () => {
     setMenuOpen(false);
@@ -25,6 +31,15 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
       variant: 'default',
     });
   };
+
+  const handleDownload = () => {
+    // Your download logic here
+    toast({
+      title: 'Download complete',
+      description: 'Your note has been downloaded successfully.',
+      variant: 'default',
+    });
+  }
 
   return (
     <div className='mb-5 flex w-full flex-col gap-2 rounded-lg border bg-[#E7E7E799] p-4 shadow-sm md:h-[310px] 2xl:h-[350px]'>
@@ -48,6 +63,8 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
             open={menuOpen}
             onClose={() => setMenuOpen(false)}
             onRename={handleRenameClick}
+            onEdit={() => setEditOpen(true)}
+            onDownload={handleDownload}
           />
           <RenameFileModal
             open={renameOpen}
@@ -55,6 +72,27 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
             filename={filename}
             onFilenameChange={setFilename}
             onUpdate={handleUpdate}
+          />
+          <EditNoteModal
+            open={editOpen}
+            onClose={() => setEditOpen(false)}
+            filename={filename}
+            onFileUpload={() => {
+              /* upload logic */
+            }}
+            onFileRemove={() => setFilename('')}
+            setFilename={setFilename}
+            topic={topic}
+            onTopicChange={setTopic}
+            educationLevel={educationLevel}
+            onEducationLevelChange={setEducationLevel}
+            classYear={classYear}
+            onClassYearChange={setClassYear}
+            subject={subject}
+            onSubjectChange={setSubject}
+            onUpdate={() => {
+              /* update logic */
+            }}
           />
         </div>
       </div>

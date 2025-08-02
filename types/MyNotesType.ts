@@ -16,6 +16,8 @@ export type CardMenuProps = {
   open: boolean;
   onClose: () => void;
   onRename: () => void;
+  onEdit: () => void;
+  onDownload: () => void;
 };
 
 export type RenameFileModalProps = {
@@ -25,3 +27,21 @@ export type RenameFileModalProps = {
   onFilenameChange: (val: string) => void;
   onUpdate: () => void;
 };
+
+export type EditNoteModalProps = {
+  open: boolean;
+  onClose: () => void;
+  filename: string;
+  onFileUpload: (file: File) => void;
+  onFileRemove: () => void;
+  topic: string;
+  onTopicChange: (val: string) => void;
+  educationLevel: string;
+  onEducationLevelChange: (val: string) => void;
+  classYear: string;
+  onClassYearChange: (val: string) => void;
+  subject: string;
+  onSubjectChange: (val: string) => void;
+  onUpdate: () => void;
+  setFilename: (val: string) => void;
+}

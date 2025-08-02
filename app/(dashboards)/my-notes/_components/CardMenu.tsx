@@ -9,7 +9,13 @@ import {
 } from 'lucide-react';
 import { CardMenuProps } from '@/types/MyNotesType';
 
-const CardMenu: FC<CardMenuProps> = ({ open, onClose, onRename }) => {
+const CardMenu: FC<CardMenuProps> = ({
+  open,
+  onClose,
+  onRename,
+  onEdit,
+  onDownload,
+}) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -39,11 +45,17 @@ const CardMenu: FC<CardMenuProps> = ({ open, onClose, onRename }) => {
         <SquarePen className='h-4 w-4' />
         Rename file
       </button>
-      <button className='flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100'>
+      <button
+        className='flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100'
+        onClick={onEdit}
+      >
         <PencilLine className='h-4 w-4' />
         Edit Note
       </button>
-      <button className='flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100'>
+      <button
+        className='flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100'
+        onClick={onDownload}
+      >
         <Download className='h-4 w-4' />
         Download
       </button>
