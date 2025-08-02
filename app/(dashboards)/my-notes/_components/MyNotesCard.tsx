@@ -7,6 +7,7 @@ import RenameFileModal from './RenameFileModal';
 import { toast } from '@/hooks/use-toast';
 import EditNoteModal from './EditNoteModal';
 import ShareNoteModal from './ShareNoteModal';
+import RemoveNoteDialog from './RemoveNoteDialog';
 
 const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,6 +20,7 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
   const [subject, setSubject] = useState('');
   const [shareOpen, setShareOpen] = useState(false);
   const shareLink = 'https://yourapp.com/note/123'; // Replace with your actual link
+  const [removeDialogOpen, setRemoveDialogOpen] = useState(false);
 
   const handleRenameClick = () => {
     setMenuOpen(false);
@@ -43,6 +45,16 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
       variant: 'default',
     });
   };
+
+  const handleRemove = () => {
+    // Your remove logic here
+    setRemoveDialogOpen(false);
+    toast({
+      title: 'Note removed',
+      description: 'You can restore it from the bin anytime.',
+      variant: 'default',
+    });
+  }
 
   return (
     <div className='mb-5 flex w-full flex-col gap-2 rounded-lg border bg-[#E7E7E799] p-4 shadow-sm md:h-[310px] 2xl:h-[350px]'>
@@ -69,7 +81,7 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
             onEdit={() => setEditOpen(true)}
             onDownload={handleDownload}
             onShare={() => setShareOpen(true)}
-            
+            onRemove={() => setRemoveDialogOpen(true)}
           />
           <RenameFileModal
             open={renameOpen}
@@ -103,6 +115,11 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
             open={shareOpen}
             onClose={() => setShareOpen(false)}
             shareLink={shareLink}
+          />
+          <RemoveNoteDialog
+            open={removeDialogOpen}
+            onOpenChange={setRemoveDialogOpen}
+            onRemove={handleRemove}
           />
         </div>
       </div>

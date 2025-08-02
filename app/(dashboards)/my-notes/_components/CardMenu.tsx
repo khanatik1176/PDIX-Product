@@ -70,7 +70,7 @@ const CardMenu: FC<CardMenuProps> = ({
         <Info className='h-4 w-4' />
         Details
       </button>
-      <button className='flex w-full items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-gray-100'>
+      <button className='flex w-full items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-gray-100' onClick={onRemove}>
         <Trash2 className='h-4 w-4 text-red-500' />
         Remove
       </button>

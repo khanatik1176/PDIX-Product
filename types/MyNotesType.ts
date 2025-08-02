@@ -54,3 +54,9 @@ export type ShareNoteModalProps = {
   shareLink: string;
 }
 
+export type RemoveNoteDialogProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onRemove: () => void;
+}
+
