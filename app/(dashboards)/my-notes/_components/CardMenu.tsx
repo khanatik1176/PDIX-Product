@@ -15,6 +15,8 @@ const CardMenu: FC<CardMenuProps> = ({
   onRename,
   onEdit,
   onDownload,
+  onShare,
+  onRemove,
 }) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -59,7 +61,7 @@ const CardMenu: FC<CardMenuProps> = ({
         <Download className='h-4 w-4' />
         Download
       </button>
-      <button className='flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100'>
+      <button className='flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100' onClick={onShare}>
         <Share2 className='h-4 w-4' />
         Share
       </button>

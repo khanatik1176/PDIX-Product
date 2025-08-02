@@ -6,6 +6,7 @@ import CardMenu from './CardMenu';
 import RenameFileModal from './RenameFileModal';
 import { toast } from '@/hooks/use-toast';
 import EditNoteModal from './EditNoteModal';
+import ShareNoteModal from './ShareNoteModal';
 
 const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,6 +17,8 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
   const [educationLevel, setEducationLevel] = useState('');
   const [classYear, setClassYear] = useState('');
   const [subject, setSubject] = useState('');
+  const [shareOpen, setShareOpen] = useState(false);
+  const shareLink = 'https://yourapp.com/note/123'; // Replace with your actual link
 
   const handleRenameClick = () => {
     setMenuOpen(false);
@@ -39,7 +42,7 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
       description: 'Your note has been downloaded successfully.',
       variant: 'default',
     });
-  }
+  };
 
   return (
     <div className='mb-5 flex w-full flex-col gap-2 rounded-lg border bg-[#E7E7E799] p-4 shadow-sm md:h-[310px] 2xl:h-[350px]'>
@@ -65,6 +68,8 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
             onRename={handleRenameClick}
             onEdit={() => setEditOpen(true)}
             onDownload={handleDownload}
+            onShare={() => setShareOpen(true)}
+            
           />
           <RenameFileModal
             open={renameOpen}
@@ -93,6 +98,11 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
             onUpdate={() => {
               /* update logic */
             }}
+          />
+          <ShareNoteModal
+            open={shareOpen}
+            onClose={() => setShareOpen(false)}
+            shareLink={shareLink}
           />
         </div>
       </div>

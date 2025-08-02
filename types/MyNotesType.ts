@@ -18,6 +18,8 @@ export type CardMenuProps = {
   onRename: () => void;
   onEdit: () => void;
   onDownload: () => void;
+  onShare: () => void;
+  onRemove?: () => void;
 };
 
 export type RenameFileModalProps = {
@@ -45,3 +47,10 @@ export type EditNoteModalProps = {
   onUpdate: () => void;
   setFilename: (val: string) => void;
 }
+
+export type ShareNoteModalProps = {
+  open: boolean;
+  onClose: () => void;
+  shareLink: string;
+}
+
