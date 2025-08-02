@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, FC } from 'react';
 import { ChevronDown, ChevronUp, Plus, ListFilter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/select';
 import { MyNotesToolbarProps } from '@/types/MyNotesType';
 
-const MyNotesToolbar: React.FC<MyNotesToolbarProps> = ({
+const MyNotesToolbar: FC<MyNotesToolbarProps> = ({
   filterValue,
   onFilterChange,
   onUpload,

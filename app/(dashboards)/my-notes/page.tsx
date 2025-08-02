@@ -10,6 +10,7 @@ import { notesData } from '@/utils/TempData/MynotesData';
 const MyNotes = () => {
   const [open, setOpen] = useState(false);
   const [filterValue, setFilterValue] = useState('last-added');
+  
 
   const handleUpload = () => {
     // Handle the upload logic here

@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { FileText, MoreHorizontal, Link } from 'lucide-react';
 import { MyNotesCardProps } from '@/types/MyNotesType';
 import Image from 'next/image';
 import CardMenu from './CardMenu';
+import RenameFileModal from './RenameFileModal';
+import { toast } from '@/hooks/use-toast';
 
-const MyNotesCard: React.FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
+const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [renameOpen, setRenameOpen] = useState(false);
+  const [filename, setFilename] = useState(title);
+
+  const handleRenameClick = () => {
+    setMenuOpen(false);
+    setRenameOpen(true);
+  };
+
+  const handleUpdate = () => {
+    // Your update logic here
+    setRenameOpen(false);
+    toast({
+      title: 'File renamed successfully',
+      description: 'Your file name has been updated.',
+      variant: 'default',
+    });
+  };
 
   return (
-    <div className='flex md:h-[310px] 2xl:h-[350px] w-full flex-col gap-2 rounded-lg border bg-[#E7E7E799] p-4 shadow-sm mb-5'>
+    <div className='mb-5 flex w-full flex-col gap-2 rounded-lg border bg-[#E7E7E799] p-4 shadow-sm md:h-[310px] 2xl:h-[350px]'>
       <div className='flex items-center justify-between pb-6'>
         <div className='flex items-center gap-2'>
           {iconType === 'file' ? (
@@ -16,16 +35,27 @@ const MyNotesCard: React.FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) 
           ) : (
             <Link className='h-5 w-5 text-black' />
           )}
-          <span className='max-w-[60px] md:max-w-[100px] truncate text-base font-semibold lg:max-w-[150px] xl:max-w-[180px] 2xl:max-w-[220px]'>
+          <span className='max-w-[60px] truncate text-base font-semibold md:max-w-[100px] lg:max-w-[150px] xl:max-w-[180px] 2xl:max-w-[220px]'>
             {title}
           </span>
         </div>
-        <div className="relative">
+        <div className='relative'>
           <MoreHorizontal
             className='h-5 w-5 cursor-pointer text-black'
             onClick={() => setMenuOpen((prev) => !prev)}
           />
-          <CardMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+          <CardMenu
+            open={menuOpen}
+            onClose={() => setMenuOpen(false)}
+            onRename={handleRenameClick}
+          />
+          <RenameFileModal
+            open={renameOpen}
+            onClose={() => setRenameOpen(false)}
+            filename={filename}
+            onFilenameChange={setFilename}
+            onUpdate={handleUpdate}
+          />
         </div>
       </div>
       <div className='my-2 flex items-center justify-center rounded-2xl border'>
@@ -34,7 +64,7 @@ const MyNotesCard: React.FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) 
           alt='Note preview'
           width={300}
           height={188}
-          className='h-32 md:h-52 2xl:h-64 w-full rounded-2xl object-cover'
+          className='h-32 w-full rounded-2xl object-cover md:h-52 2xl:h-64'
         />
       </div>
     </div>
