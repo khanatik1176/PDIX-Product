@@ -19,13 +19,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={inter.className}>
-      <body className='antialiased'>
-          <Providers>
-            {children}
-            <Toaster />
-          </Providers>
-      </body>
-    </html>
+    <>
+      <Providers>
+        {children}
+        <Toaster />
+      </Providers>
+    </>
   );
 }
