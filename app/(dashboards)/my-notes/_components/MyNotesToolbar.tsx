@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { MyNotesToolbarProps } from '@/types/MyNotesType';
+import UploadNoteModal from './UploadNoteModal';
 
 const MyNotesToolbar: FC<MyNotesToolbarProps> = ({
   filterValue,
@@ -17,6 +18,8 @@ const MyNotesToolbar: FC<MyNotesToolbarProps> = ({
   onUpload,
   open,
   setOpen,
+  setModalOpen,
+  modalOpen,
 }) => {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const mobileFilterRef = useRef<HTMLDivElement>(null);
@@ -126,6 +129,7 @@ const MyNotesToolbar: FC<MyNotesToolbarProps> = ({
           <Plus size={16} />
         </Button>
       </div>
+      <UploadNoteModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 };

@@ -4,6 +4,8 @@ export type MyNotesToolbarProps = {
   onUpload: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
+  setModalOpen: (open: boolean) => void;
+  modalOpen: boolean;
 };
 
 export type MyNotesCardProps = {
@@ -59,4 +61,14 @@ export type RemoveNoteDialogProps = {
   onOpenChange: (open: boolean) => void;
   onRemove: () => void;
 }
+
+export type UploadNoteModalProps ={
+  open: boolean;
+  onClose: () => void;
+}
+
+export type EmptyNoteTypes = {
+  setModalOpen: (open: boolean) => void;
+  modalOpen: boolean;
+};
 

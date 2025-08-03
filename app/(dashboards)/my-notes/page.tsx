@@ -10,10 +10,11 @@ import { notesData } from '@/utils/TempData/MynotesData';
 const MyNotes = () => {
   const [open, setOpen] = useState(false);
   const [filterValue, setFilterValue] = useState('last-added');
-  
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleUpload = () => {
     // Handle the upload logic here
+    setModalOpen(true);
     console.log('Upload Notes clicked');
   };
 
@@ -30,10 +31,15 @@ const MyNotes = () => {
             onUpload={handleUpload}
             open={open}
             setOpen={setOpen}
+            setModalOpen={setModalOpen}
+            modalOpen={modalOpen}
           />
         </div>
         {notesData.length === 0 ? (
-          <EmptyMyNotesVIew />
+          <EmptyMyNotesVIew 
+            setModalOpen={setModalOpen}
+            modalOpen={modalOpen}
+          />
         ) : (
           <div className='mt-8 grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-2 md:gap-x-6 md:gap-y-5 lg:grid-cols-3 xl:grid-cols-4'>
             {notesData.map((note, idx) => (

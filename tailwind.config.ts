@@ -64,7 +64,6 @@ export default {
         sidebarHoverBg: '#DBE5F0',
         navbartextColor: '#334155',
         lightShadeWhiteColor: '#B8B8BA',
-        lightAquaTextColor: '#64748B',
         cardBG: '#E7E7E7',
         sidebar: {
           DEFAULT: 'hsl(var(--sidebar-background))',
