@@ -56,7 +56,7 @@ export const CommunityTable: React.FC<{
       accessorKey: 'lastNoteAdded',
       header: () => <div className='font-bold'>Last note added</div>,
       cell: ({ row }) => (
-        <Badge variant='secondary' className='text-xs font-medium bg-white text-black border border-lightborderColor'>
+        <Badge variant='secondary' className='text-xs font-medium bg-white text-black border border-lightborderColor hover:bg-white'>
           {row.getValue('lastNoteAdded')}
         </Badge>
       ),
