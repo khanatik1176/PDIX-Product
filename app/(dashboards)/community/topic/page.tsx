@@ -27,25 +27,27 @@ const Topic = () => {
       </div>
       <div>
         <TopicDetails />
-        <TopicToolBar />
         {viewFile ? (
-          <div className='px-3 pt-2 md:px-6 lg:px-7 lg:pt-0'> 
-          <div className='flex min-h-[300px] flex-col items-center justify-center border border-primary rounded-lg'>
-            <div className='mb-6 text-7xl font-semibold text-gray-700'>
-              Content coming soon 🥹
+          <div className='px-3 pt-2 md:px-6 lg:px-7 lg:pt-0'>
+            <div className='flex min-h-[300px] flex-col items-center justify-center rounded-lg border border-primary'>
+              <div className='mb-6 text-7xl font-semibold text-gray-700'>
+                Content coming soon 🥹
+              </div>
+              <button
+                className='rounded-lg bg-primary px-6 py-2 font-medium text-white shadow'
+                onClick={handleViewFile}
+              >
+                Back
+              </button>
             </div>
-            <button
-              className='rounded-lg bg-primary px-6 py-2 font-medium text-white shadow'
-              onClick={handleViewFile}
-            >
-              Back
-            </button>
-          </div>
           </div>
         ) : (
-          <div className='px-3 pt-2 md:px-6 lg:px-7 lg:pt-0'>
-            <TopicTable currentPage={1} handleViewFile={handleViewFile} />
-          </div>
+          <>
+            <TopicToolBar />
+            <div className='px-3 pt-2 md:px-6 lg:px-7 lg:pt-0'>
+              <TopicTable currentPage={1} handleViewFile={handleViewFile} />
+            </div>
+          </>
         )}
       </div>
     </div>
