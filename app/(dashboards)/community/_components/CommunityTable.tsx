@@ -6,6 +6,7 @@ import { GenericTable } from '@/components/GenericTable';
 import { CommunityNote } from '@/types/CommunityTypes';
 import { tableData } from '@/utils/TempData/CommunityData';
 import { Badge } from '@/components/ui/badge';
+import { useRouter } from 'next/navigation';
 
 const headerClassNames = {
   topic: 'min-w-[160px] pl-4 text-left',
@@ -29,34 +30,48 @@ export const CommunityTable: React.FC<{
   currentPage: number;
   loading?: boolean;
 }> = ({ currentPage, loading = false }) => {
+  const router = useRouter();
+
+  const handleTopicClick = (topic: string) => {
+    router.push(`/community/topic?name=${encodeURIComponent(topic)}`);
+  };
+
   const columns: ColumnDef<CommunityNote>[] = [
     {
       accessorKey: 'topic',
-      header: () => <div className='font-bold'>Topic</div>,
+      header: () => <div className='font-medium text-inputFooterColor'>Topic</div>,
       cell: ({ row }) => (
-        <div className='font-medium'>{row.getValue('topic')}</div>
+        <div
+          className='cursor-pointer font-medium'
+          onClick={() => handleTopicClick(row.getValue('topic'))}
+        >
+          {row.getValue('topic')}
+        </div>
       ),
     },
     {
       accessorKey: 'subject',
-      header: () => <div className='font-bold'>Subject</div>,
+      header: () => <div className='font-medium text-inputFooterColor'>Subject</div>,
       cell: ({ row }) => <div>{row.getValue('subject')}</div>,
     },
     {
       accessorKey: 'classYear',
-      header: () => <div className='font-bold'>Class/Year</div>,
+      header: () => <div className='font-medium text-inputFooterColor'>Class/Year</div>,
       cell: ({ row }) => <div>{row.getValue('classYear')}</div>,
     },
     {
       accessorKey: 'totalNotes',
-      header: () => <div className='font-bold'>Total notes</div>,
+      header: () => <div className='font-medium text-inputFooterColor'>Total notes</div>,
       cell: ({ row }) => <div>{row.getValue('totalNotes')}</div>,
     },
     {
       accessorKey: 'lastNoteAdded',
-      header: () => <div className='font-bold'>Last note added</div>,
+      header: () => <div className='font-medium text-inputFooterColor'>Last note added</div>,
       cell: ({ row }) => (
-        <Badge variant='secondary' className='text-xs font-medium bg-white text-black border border-lightborderColor hover:bg-white'>
+        <Badge
+          variant='secondary'
+          className='border border-lightborderColor bg-white text-xs font-medium text-black hover:bg-white'
+        >
           {row.getValue('lastNoteAdded')}
         </Badge>
       ),
@@ -66,7 +81,10 @@ export const CommunityTable: React.FC<{
       header: () => <div className='text-center font-bold'></div>,
       cell: () => (
         <div className='flex justify-center'>
-          <Bookmark strokeWidth={1} className='h-5 w-5 text-black' />
+          <Bookmark
+            strokeWidth={1}
+            className='h-5 w-5 cursor-pointer text-black'
+          />
         </div>
       ),
       enableHiding: false,

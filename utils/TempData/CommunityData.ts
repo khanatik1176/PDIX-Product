@@ -70,3 +70,76 @@ export const tableData = [
     lastNoteAdded: '1 week ago',
   },
 ];
+
+export const topicTableData = [
+  {
+    fileName: 'Algebra_Basics.pdf',
+    rating: 4.5,
+    feedbacks: 12,
+    uploadedBy: 'John Doe',
+    uploadDate: '1 August, 2025',
+  },
+  {
+    fileName: 'World_History.pdf',
+    rating: 4.2,
+    feedbacks: 8,
+    uploadedBy: 'Jane Smith',
+    uploadDate: '28 July, 2025',
+  },
+  {
+    fileName: 'Organic_Chemistry.pdf',
+    rating: 4.8,
+    feedbacks: 15,
+    uploadedBy: 'Alice Brown',
+    uploadDate: '30 July, 2025',
+  },
+  {
+    fileName: 'Calculus_I.pdf',
+    rating: 4.1,
+    feedbacks: 20,
+    uploadedBy: 'Bob Lee',
+    uploadDate: '25 July, 2025',
+  },
+  {
+    fileName: 'Modern_Physics.pdf',
+    rating: 4.7,
+    feedbacks: 10,
+    uploadedBy: 'Charlie Kim',
+    uploadDate: '22 July, 2025',
+  },
+  {
+    fileName: 'British_Literature.pdf',
+    rating: 4.0,
+    feedbacks: 7,
+    uploadedBy: 'Diana Green',
+    uploadDate: '20 July, 2025',
+  },
+  {
+    fileName: 'Geometry_Essentials.pdf',
+    rating: 4.3,
+    feedbacks: 9,
+    uploadedBy: 'Evan White',
+    uploadDate: '18 July, 2025',
+  },
+  {
+    fileName: 'Ancient_Civilizations.pdf',
+    rating: 4.6,
+    feedbacks: 6,
+    uploadedBy: 'Fiona Black',
+    uploadDate: '15 July, 2025',
+  },
+  {
+    fileName: 'Physics_Lab.pdf',
+    rating: 4.4,
+    feedbacks: 11,
+    uploadedBy: 'George Brown',
+    uploadDate: '12 July, 2025',
+  },
+  {
+    fileName: 'Trigonometry.pdf',
+    rating: 4.9,
+    feedbacks: 13,
+    uploadedBy: 'Helen Clark',
+    uploadDate: '10 July, 2025',
+  },
+];
