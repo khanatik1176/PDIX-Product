@@ -6,11 +6,14 @@ import { Label } from '@/components/ui/label';
 
 const SignIn = () => {
   return (
-    <div className='flex min-h-screen items-center justify-center bg-bgSecondary'>
+    <div className='flex min-h-screen items-center justify-center bg-bgSecondary px-6 md:px-0'>
       <div className='w-full max-w-md rounded-lg bg-white p-8 shadow-lg'>
-        <h1 className='mb-6 text-center text-2xl font-bold text-primary'>
+        <h1 className='mb-2 text-start text-2xl font-bold text-black'>
           Sign In
         </h1>
+        <div className='mb-6 text-start text-sm text-inputFooterColor'>
+          Sign in to continue.
+        </div>
         <form className='flex flex-col gap-4'>
           <div>
             <Label htmlFor='email' className='mb-1 block text-sm font-medium'>
