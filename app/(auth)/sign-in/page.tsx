@@ -1,10 +1,54 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Label } from '@/components/ui/label';
+import { useRouter } from 'next/navigation';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { TSignInFormInputs } from '@/types/AuthTypes';
+import { SignInSchema } from '@/schema/AuthSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { handleSignIn } from '@/helpers/Auth/AuthApi';
+import { BaseInput } from '@/components/BaseInput';
+import { Circle, Eye, EyeOff } from 'lucide-react';
 
 const SignIn = () => {
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<TSignInFormInputs>({
+    resolver: zodResolver(SignInSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
+
+  const SignInMutation = useMutation({
+    mutationFn: handleSignIn,
+    onSuccess: () => {
+      router.push('/home');
+    },
+    onError: (error: any) => {
+      if (error.message) {
+        console.log(error);
+        setErrorMessage(error?.response?.data?.message);
+      }
+    },
+  });
+
+  const handleSubmission: SubmitHandler<TSignInFormInputs> = (data) => {
+    setErrorMessage(null);
+    SignInMutation.mutate(data);
+  };
+
   return (
     <div className='flex min-h-screen items-center justify-center bg-bgSecondary px-6 md:px-0'>
       <div className='w-full max-w-md rounded-lg bg-white p-8 shadow-lg'>
@@ -14,36 +58,65 @@ const SignIn = () => {
         <div className='mb-6 text-start text-sm text-inputFooterColor'>
           Sign in to continue.
         </div>
-        <form className='flex flex-col gap-4'>
-          <div>
-            <Label htmlFor='email' className='mb-1 block text-sm font-medium'>
-              Email
+        <form
+          className='flex flex-col gap-4'
+          onSubmit={handleSubmit(handleSubmission)}
+        >
+          <div className='relative mb-2'>
+            <Label
+              htmlFor='username'
+              className='mb-1 block text-sm font-medium'
+            >
+              User Name
             </Label>
-            <Input
+            <BaseInput
+              control={control}
+              errors={errors}
+              name='username'
               id='email'
               type='email'
               placeholder='Enter your email'
               className='w-full'
-              required
             />
           </div>
-          <div>
+          <div className='relative mb-2'>
             <Label
               htmlFor='password'
               className='mb-1 block text-sm font-medium'
             >
               Password
             </Label>
-            <Input
-              id='password'
-              type='password'
-              placeholder='Enter your password'
-              className='w-full'
-              required
-            />
+            <div className='relative'>
+              <BaseInput
+                control={control}
+                errors={errors}
+                externalError={errorMessage}
+                name='password'
+                id='password'
+                type={showPassword ? 'text' : 'password'}
+                placeholder='Enter your password'
+                className='w-full pr-10'
+              />
+              <button
+                type='button'
+                className='absolute right-2 top-2'
+                onClick={() => setShowPassword((v) => !v)}
+                tabIndex={-1}
+              >
+                {showPassword ? (
+                  <EyeOff className='h-5 w-5 text-inputFooterColor' />
+                ) : (
+                  <Eye className='h-5 w-5 text-inputFooterColor' />
+                )}
+              </button>
+            </div>
           </div>
           <Button type='submit' className='mt-2 w-full'>
-            Sign In
+            {SignInMutation.isPending ? (
+              <Circle className='animate-spin' />
+            ) : (
+              'Sign in'
+            )}
           </Button>
         </form>
         <div className='mt-6 text-center text-sm'>
