@@ -38,7 +38,7 @@ const footerLinks = [
 
 const LandingFooter: FC<LandingGeneralProps> = ({ DarkModeActive }) => {
   const textColor = DarkModeActive ? 'text-white' : 'text-black';
-  const sectionBg = DarkModeActive ? 'bg-black' : 'bg-[#e5e5e5]';
+  const sectionBg = DarkModeActive ? 'bg-black' : 'bg-[#E5E5E5F2]';
 
   return (
     <footer

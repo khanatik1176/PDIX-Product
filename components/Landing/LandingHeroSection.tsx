@@ -15,7 +15,7 @@ const LandingHeroSection: FC<LandingGeneralProps> = ({ DarkModeActive }) => {
   const placeholderColor = DarkModeActive ? 'placeholder:text-placeholder' : 'placeholder:text-placeholder';
 
   return (
-    <div>
+    <div className='bg-notepad'>
       <div className="flex items-center justify-center py-12 lg:pb-12 lg:pt-16">
         <Image src={heroImg} alt="Hero Image" />
       </div>

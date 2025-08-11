@@ -3,6 +3,7 @@
 import { type LucideIcon } from 'lucide-react';
 import {
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -29,7 +30,7 @@ export function NavMain({
   selectedItem: string | null;
   onItemClick: (title: string) => void;
 }) {
-  const activeItems = ['Dashboard', 'Repositories', 'Vulnerabilities', 'Dependencies', 'Licenses', 'Integrations', 'Access Control'];
+  const activeItems = ['Home', 'Draft', 'Saved', 'My notes', 'Community', 'Bin'];
   const pathname = usePathname();
 
   // If the current path is /profile, /profile/edit, or /profile/change-password, set selectedItem to null
@@ -39,7 +40,7 @@ export function NavMain({
 
   return (
     <SidebarGroup>
-      {/* <SidebarGroupLabel className='text-sidebarSecondaryColor'>Platform</SidebarGroupLabel> */}
+      <SidebarGroupLabel className='text-[#3D3D3DB2]'>Activities</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
