@@ -42,7 +42,7 @@ const MyNotes = () => {
           />
         ) : (
           <div className='mt-8 grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-2 md:gap-x-6 md:gap-y-5 lg:grid-cols-3 xl:grid-cols-4'>
-            {notesData.map((note, idx) => (
+            {notesData.map((note: { title: string; imageSrc: string; iconType: string }, idx: number) => (
               <MyNotesCard
                 key={idx}
                 title={note.title}
