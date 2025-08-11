@@ -1,5 +1,5 @@
 import React from 'react';
-import Image, from 'next/image';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { HomeCardProps } from '@/types/HomeTypes';
 
