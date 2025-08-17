@@ -13,7 +13,6 @@ const MyNotes = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleUpload = () => {
-    // Handle the upload logic here
     setModalOpen(true);
     console.log('Upload Notes clicked');
   };

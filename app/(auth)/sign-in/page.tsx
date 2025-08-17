@@ -13,6 +13,8 @@ import { useMutation } from '@tanstack/react-query';
 import { handleSignIn } from '@/helpers/Auth/AuthApi';
 import { BaseInput } from '@/components/BaseInput';
 import { Circle, Eye, EyeOff } from 'lucide-react';
+import Cookies from 'js-cookie';
+
 
 const SignIn = () => {
   const router = useRouter();
@@ -33,7 +35,8 @@ const SignIn = () => {
 
   const SignInMutation = useMutation({
     mutationFn: handleSignIn,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      Cookies.set('user_data', JSON.stringify(data), { expires: 7 });
       router.push('/home');
     },
     onError: (error: any) => {

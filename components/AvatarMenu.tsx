@@ -11,14 +11,18 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { getInitials } from '@/constants/globalFunctions';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 const AvatarMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
   const defaultAvatarUrl =
     'https://via.placeholder.com/150/0000FF/808080?Text=Default+Avatar';
 
   const handleLogout = async () => {
-    // router.replace('/sign-in');
+    Cookies.remove('user_data');
+    router.replace('/sign-in');
   };
 
   const handleAvatarClick = () => {
