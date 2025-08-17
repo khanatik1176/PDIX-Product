@@ -33,7 +33,7 @@ const StepOneInput: React.FC<StepOneInputProps> = ({
         className='mt-2'
         onSubmit={async (e) => {
           e.preventDefault();
-          const valid = await trigger('file_url');
+          const valid = await trigger('fileUrl');
           if (valid) setStep(2);
         }}
         autoComplete='off'
@@ -43,7 +43,7 @@ const StepOneInput: React.FC<StepOneInputProps> = ({
             URL <span className='text-red-500'>*</span>
           </label>
           <Controller
-            name='file_url'
+            name='fileUrl'
             control={control}
             render={({ field }) => (
               <Input
@@ -58,9 +58,11 @@ const StepOneInput: React.FC<StepOneInputProps> = ({
             )}
           />
         </div>
-        {url && (
-          <div className='relative mb-7'>
-            <div className='flex w-full items-center justify-between rounded bg-[#F1F5F9] px-2 py-2'>
+        <div
+          className='relative mb-12 flex flex-col justify-between'
+        >
+          {url && (
+            <div className='flex w-full items-center justify-between rounded bg-[#F1F5F9] px-2 py-2 absolute'>
               <span
                 className='flex max-w-[400px] items-center gap-2 overflow-x-auto whitespace-nowrap text-sm font-medium text-black'
                 style={{ scrollbarWidth: 'thin' }}
@@ -70,19 +72,19 @@ const StepOneInput: React.FC<StepOneInputProps> = ({
               </span>
               <button
                 type='button'
-                onClick={() => setValue('file_url', '')}
+                onClick={() => setValue('fileUrl', '')}
                 className='ml-2'
               >
                 <X className='h-4 w-4 text-black' />
               </button>
             </div>
-            {errors.file_url && (
-              <div className='absolute left-0 top-full mt-1 text-xs text-red-500'>
-                {errors.file_url.message}
-              </div>
-            )}
-          </div>
-        )}
+          )}
+          {errors.fileUrl && (
+            <div className='absolute left-0 top-full mt-1 text-xs text-red-500'>
+              {errors.fileUrl.message}
+            </div>
+          )}
+        </div>
         <Button
           type='submit'
           className='w-full'

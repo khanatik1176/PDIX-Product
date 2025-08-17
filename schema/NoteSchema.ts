@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const NoteSchema = z.object({
-  file_url: z
+  fileUrl: z
     .string()
     .trim()
     .min(1, { message: 'URL is required.' })
@@ -22,7 +22,7 @@ export const NoteSchema = z.object({
     .min(1, { message: 'Education level is required.' }),
   classId: z.string().min(1, { message: 'Class/year is required.' }),
   subjectName: z.string().min(1, { message: 'Subject is required.' }),
-  anonymous: z.boolean().optional(),
-  allow_feedback: z.boolean().optional(),
-  allow_downloads: z.boolean().optional(),
+  isAnonymous: z.boolean().optional(),
+  isFeedbackAllowed: z.boolean().optional(),
+  isDownloadAllowed: z.boolean().optional(),
 });

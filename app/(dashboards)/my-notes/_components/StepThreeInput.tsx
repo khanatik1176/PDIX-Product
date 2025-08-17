@@ -50,7 +50,7 @@ const StepThreeInput: React.FC<StepThreeInputProps> = ({
         <h3 className='mb-2 text-base font-semibold'>Post anonymously</h3>
         <label className='flex items-center gap-2'>
           <Controller
-            name='anonymous'
+            name='isAnonymous'
             control={control}
             render={({ field }) => (
               <input
@@ -71,7 +71,7 @@ const StepThreeInput: React.FC<StepThreeInputProps> = ({
         <h3 className='mb-2 text-base font-semibold'>Allow feedback</h3>
         <label className='flex items-center gap-2'>
           <Controller
-            name='allow_feedback'
+            name='isFeedbackAllowed'
             control={control}
             render={({ field }) => (
               <input
@@ -92,7 +92,7 @@ const StepThreeInput: React.FC<StepThreeInputProps> = ({
         <h3 className='mb-2 text-base font-semibold'>Enable downloads</h3>
         <label className='flex items-center gap-2'>
           <Controller
-            name='allow_downloads'
+            name='isDownloadAllowed'
             control={control}
             render={({ field }) => (
               <input

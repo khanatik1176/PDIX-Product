@@ -4,24 +4,18 @@ import { UploadNoteModalProps } from '@/types/MyNotesType';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NoteSchema } from '@/schema/NoteSchema';
-import { NoteFormType } from '@/types/NoteTypes';
+import { EducationLevel, NoteFormType } from '@/types/NoteTypes';
 
 // Import your step components
 import StepOneInput from './StepOneInput';
 import StepTwoInput from './StepTwoInput';
 import StepThreeInput from './StepThreeInput';
-
-const educationOptions = [
-  { value: 'high-school', label: 'High School' },
-  { value: 'university', label: 'University' },
-];
-
-const classYearOptions = [
-  { value: 'grade-1', label: 'Grade 1' },
-  { value: 'grade-2', label: 'Grade 2' },
-  { value: 'grade-10', label: 'Grade 10' },
-  { value: 'bsc', label: 'BSc' },
-];
+import {
+  classYearOptions,
+  educationOptions,
+} from '@/constants/DummyDataFactory';
+import { useQuery } from '@tanstack/react-query';
+import { getAllEducationLevels } from '@/helpers/Notes/NotesApi';
 
 const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
   const [step, setStep] = useState(1);
@@ -38,29 +32,36 @@ const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
   } = useForm<NoteFormType>({
     resolver: zodResolver(NoteSchema),
     defaultValues: {
-      file_url: '',
+      fileUrl: '',
       topicName: '',
       educationLevel: '',
       classId: '',
       subjectName: '',
-      anonymous: false,
-      allow_feedback: false,
-      allow_downloads: false,
+      isAnonymous: false,
+      isFeedbackAllowed: false,
+      isDownloadAllowed: false,
     },
   });
 
-  const url = watch('file_url');
+  const url = watch('fileUrl');
   const topic = watch('topicName');
   const educationLevel = watch('educationLevel');
   const classYear = watch('classId');
   const subject = watch('subjectName');
 
-
-    const handleClose = () => {
+  const handleClose = () => {
     reset();
     setStep(1);
     onClose();
   };
+
+  const { data: educationLevels } = useQuery<EducationLevel[]>({
+    queryKey: ['educationLevels'],
+    queryFn: getAllEducationLevels,
+  });
+
+  
+  console.log(educationLevels);
 
   if (!open) return null;
 
@@ -86,10 +87,10 @@ const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
               <div
                 className={`mt-4 flex h-7 w-7 items-center justify-center rounded-full border-2 font-semibold ${
                   step === n
-                    ? 'bg-primary border-primary text-white'
+                    ? 'border-primary bg-primary text-white'
                     : step > n
-                    ? 'bg-primary border-primary text-white'
-                    : 'bg-[#F6F6F6] text-primary border-none'
+                      ? 'border-primary bg-primary text-white'
+                      : 'border-none bg-[#F6F6F6] text-primary'
                 }`}
               >
                 {step > n ? <Check className='h-4 w-4 text-white' /> : n}
@@ -126,8 +127,7 @@ const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
             educationLevel={educationLevel}
             classYear={classYear}
             subject={subject}
-            educationOptions={educationOptions}
-            classYearOptions={classYearOptions}
+            educationOptions={educationLevels ?? []}
           />
         )}
         {step === 3 && (

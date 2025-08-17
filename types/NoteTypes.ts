@@ -1,12 +1,12 @@
 export type NoteFormType = {
-  file_url: string;
+  fileUrl: string;
   classId: string;
   subjectName: string;
   topicName: string;
   educationLevel: string;
-  allow_feedback?: boolean;
-  allow_downloads?: boolean;
-  anonymous?: boolean;
+  isFeedbackAllowed?: boolean;
+  isDownloadAllowed?: boolean;
+  isAnonymous?: boolean;
 };
 
 export type StepOneInputProps = {
@@ -28,8 +28,8 @@ export type StepTwoInputProps = {
   educationLevel: string;
   classYear: string;
   subject: string;
-  educationOptions: { value: string; label: string }[];
-  classYearOptions: { value: string; label: string }[];
+  educationOptions: EducationLevel[];
+  classYearOptions?: { value: string; label: string }[];
 }
 
 
@@ -41,3 +41,13 @@ export type StepThreeInputProps = {
   handleClose: () => void;
   reset: () => void;
 }
+
+export type EducationLevel = {
+  id: string;
+  name: string;
+};
+
+export type Option = {
+  id: string;
+  name: string;
+};

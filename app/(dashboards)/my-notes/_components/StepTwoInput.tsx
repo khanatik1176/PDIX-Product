@@ -1,3 +1,5 @@
+import React, { FC } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Controller } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -9,9 +11,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { FileText } from 'lucide-react';
-import { StepTwoInputProps } from '@/types/NoteTypes';
+import { Option, StepTwoInputProps } from '@/types/NoteTypes';
+import { getClassesByEducationLevel, getSubjectByClassId } from '@/helpers/Notes/NotesApi';
 
-const StepTwoInput: React.FC<StepTwoInputProps> = ({
+const StepTwoInput: FC<StepTwoInputProps> = ({
   control,
   trigger,
   setStep,
@@ -22,8 +25,22 @@ const StepTwoInput: React.FC<StepTwoInputProps> = ({
   classYear,
   subject,
   educationOptions,
-  classYearOptions,
 }) => {
+  const { data: classYearOptions = [], isLoading: isClassLoading } = useQuery({
+    queryKey: ['classes', educationLevel],
+    queryFn: () => getClassesByEducationLevel(educationLevel),
+    enabled: !!educationLevel,
+  });
+
+  const { data: subjectOptions = [], isLoading: isSubjectLoading } = useQuery({
+    queryKey: ['subjects', classYear],
+    queryFn: () => getSubjectByClassId(classYear),
+    enabled: !!classYear,
+  });
+
+  console.log(classYear);
+  console.log("subject",subjectOptions);
+
   return (
     <form
       className='flex flex-col gap-3'
@@ -42,10 +59,10 @@ const StepTwoInput: React.FC<StepTwoInputProps> = ({
       <div className='mb-2 flex items-center gap-2'>
         <FileText className='h-5 w-5 text-black' />
         <span
-          className='max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-black cursor-pointer'
-          title={getValues('file_url')}
+          className='max-w-[200px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-black'
+          title={getValues('fileUrl')}
         >
-          {getValues('file_url')}
+          {getValues('fileUrl')}
         </span>
       </div>
       {/* Topic name */}
@@ -76,15 +93,33 @@ const StepTwoInput: React.FC<StepTwoInputProps> = ({
           control={control}
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
-              <SelectTrigger className='w-full'>
+              <SelectTrigger className='flex w-full items-center justify-between'>
                 <SelectValue placeholder='Select education level' />
+                <span className='ml-2'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='h-4 w-4 text-gray-500'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M19 9l-7 7-7-7'
+                    />
+                  </svg>
+                </span>
               </SelectTrigger>
               <SelectContent>
-                {educationOptions.map((opt) => (
-                  <SelectItem key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </SelectItem>
-                ))}
+                {educationOptions
+                  .filter((opt) => opt.id && opt.id.trim() !== '')
+                  .map((opt) => (
+                    <SelectItem key={opt.id} value={opt.id}>
+                      {opt.name}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
           )}
@@ -105,15 +140,39 @@ const StepTwoInput: React.FC<StepTwoInputProps> = ({
           control={control}
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
-              <SelectTrigger className='w-full'>
+              <SelectTrigger className='flex w-full items-center justify-between'>
                 <SelectValue placeholder='Select class/year' />
+                <span className='ml-2'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='h-4 w-4 text-gray-500'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M19 9l-7 7-7-7'
+                    />
+                  </svg>
+                </span>
               </SelectTrigger>
               <SelectContent>
-                {classYearOptions.map((opt) => (
-                  <SelectItem key={opt.value} value={opt.value}>
-                    {opt.label}
+                {isClassLoading ? (
+                  <SelectItem disabled value='loading'>
+                    Loading...
                   </SelectItem>
-                ))}
+                ) : (
+                  classYearOptions
+                    .filter((opt: Option) => opt.id && opt.id.trim() !== '')
+                    .map((opt: { id: string; name: string }) => (
+                      <SelectItem key={opt.id} value={opt.id}>
+                        {opt.name}
+                      </SelectItem>
+                    ))
+                )}
               </SelectContent>
             </Select>
           )}
@@ -133,7 +192,36 @@ const StepTwoInput: React.FC<StepTwoInputProps> = ({
           name='subjectName'
           control={control}
           render={({ field }) => (
-            <Input {...field} placeholder='Enter subject' />
+            <Select value={field.value} onValueChange={field.onChange}>
+              <SelectTrigger className='flex w-full items-center justify-between'>
+                <SelectValue placeholder='Select subject' />
+                <span className='ml-2'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='h-4 w-4 text-gray-500'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M19 9l-7 7-7-7'
+                    />
+                  </svg>
+                </span>
+              </SelectTrigger>
+              <SelectContent>
+                {subjectOptions
+                  .filter((opt: Option) => opt.id && opt.id.trim() !== '')
+                  .map((opt: Option) => (
+                  <SelectItem key={opt.id} value={opt.id}>
+                    {opt.name}
+                  </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
           )}
         />
         {errors.subjectName && (
