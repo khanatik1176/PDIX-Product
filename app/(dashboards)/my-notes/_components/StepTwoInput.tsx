@@ -11,7 +11,6 @@ import {
 import { FileText } from 'lucide-react';
 import { StepTwoInputProps } from '@/types/NoteTypes';
 
-
 const StepTwoInput: React.FC<StepTwoInputProps> = ({
   control,
   trigger,
@@ -42,7 +41,10 @@ const StepTwoInput: React.FC<StepTwoInputProps> = ({
     >
       <div className='mb-2 flex items-center gap-2'>
         <FileText className='h-5 w-5 text-black' />
-        <span className='break-all text-sm font-medium text-black'>
+        <span
+          className='max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-black cursor-pointer'
+          title={getValues('file_url')}
+        >
           {getValues('file_url')}
         </span>
       </div>
