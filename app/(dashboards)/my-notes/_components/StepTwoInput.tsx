@@ -12,7 +12,10 @@ import {
 } from '@/components/ui/select';
 import { FileText } from 'lucide-react';
 import { Option, StepTwoInputProps } from '@/types/NoteTypes';
-import { getClassesByEducationLevel, getSubjectByClassId } from '@/helpers/Notes/NotesApi';
+import {
+  getClassesByEducationLevel,
+  getSubjectByClassId,
+} from '@/helpers/Notes/NotesApi';
 
 const StepTwoInput: FC<StepTwoInputProps> = ({
   control,
@@ -31,15 +34,6 @@ const StepTwoInput: FC<StepTwoInputProps> = ({
     queryFn: () => getClassesByEducationLevel(educationLevel),
     enabled: !!educationLevel,
   });
-
-  const { data: subjectOptions = [], isLoading: isSubjectLoading } = useQuery({
-    queryKey: ['subjects', classYear],
-    queryFn: () => getSubjectByClassId(classYear),
-    enabled: !!classYear,
-  });
-
-  console.log(classYear);
-  console.log("subject",subjectOptions);
 
   return (
     <form
@@ -74,7 +68,12 @@ const StepTwoInput: FC<StepTwoInputProps> = ({
           name='topicName'
           control={control}
           render={({ field }) => (
-            <Input {...field} placeholder='Enter topic name' />
+            <Input
+              {...field}
+              placeholder="e.g., Newton's Laws of Motion"
+              className='placeholder:text-inputFooterColor placeholder:italic'
+              disabled={!subject}
+            />
           )}
         />
         {errors.topicName && (
@@ -192,36 +191,7 @@ const StepTwoInput: FC<StepTwoInputProps> = ({
           name='subjectName'
           control={control}
           render={({ field }) => (
-            <Select value={field.value} onValueChange={field.onChange}>
-              <SelectTrigger className='flex w-full items-center justify-between'>
-                <SelectValue placeholder='Select subject' />
-                <span className='ml-2'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='h-4 w-4 text-gray-500'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M19 9l-7 7-7-7'
-                    />
-                  </svg>
-                </span>
-              </SelectTrigger>
-              <SelectContent>
-                {subjectOptions
-                  .filter((opt: Option) => opt.id && opt.id.trim() !== '')
-                  .map((opt: Option) => (
-                  <SelectItem key={opt.id} value={opt.id}>
-                    {opt.name}
-                  </SelectItem>
-                  ))}
-              </SelectContent>
-            </Select>
+            <Input {...field} placeholder='e.g., Physics, Literature' className='mb-1 placeholder:text-inputFooterColor placeholder:italic' />
           )}
         />
         {errors.subjectName && (
