@@ -37,7 +37,9 @@ const StepThreeInput: React.FC<StepThreeInputProps> = ({
   });
 
   const handleSubmission = (data: any) => {
-    noteUploadMutation.mutate(data);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { educationLevel, ...filteredData } = data;
+    noteUploadMutation.mutate(filteredData);
   };
 
   return (

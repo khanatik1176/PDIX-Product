@@ -51,3 +51,16 @@ export type Option = {
   id: string;
   name: string;
 };
+
+export type NoteUploadMutationProps = {
+  fileUrl: string;
+  classId: string;
+  subjectName: string;
+  topicName: string;
+  educationLevel?: string;
+  isFeedbackAllowed?: boolean;
+  isDownloadAllowed?: boolean;
+  isAnonymous?: boolean;
+};
+
+export type NoteUploadPayload = Omit<NoteFormType, 'educationLevel'>;
