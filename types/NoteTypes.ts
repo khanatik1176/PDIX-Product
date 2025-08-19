@@ -30,6 +30,8 @@ export type StepTwoInputProps = {
   subject: string;
   educationOptions: EducationLevel[];
   classYearOptions?: { value: string; label: string }[];
+  subjects?: Option[];
+  topics?: Option[];
 }
 
 

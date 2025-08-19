@@ -4,18 +4,12 @@ import { UploadNoteModalProps } from '@/types/MyNotesType';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NoteSchema } from '@/schema/NoteSchema';
-import { EducationLevel, NoteFormType } from '@/types/NoteTypes';
-
-// Import your step components
+import { NoteFormType, Option } from '@/types/NoteTypes';
 import StepOneInput from './StepOneInput';
 import StepTwoInput from './StepTwoInput';
 import StepThreeInput from './StepThreeInput';
-import {
-  classYearOptions,
-  educationOptions,
-} from '@/constants/DummyDataFactory';
 import { useQuery } from '@tanstack/react-query';
-import { getAllEducationLevels } from '@/helpers/Notes/NotesApi';
+import { getAllEducationLevels, getSubjectByClassId, getTopicSuggestions } from '@/helpers/Notes/NotesApi';
 
 const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
   const [step, setStep] = useState(1);
@@ -55,13 +49,28 @@ const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
     onClose();
   };
 
-  const { data: educationLevels } = useQuery<EducationLevel[]>({
+  const { data: educationLevels } = useQuery<Option[]>({
     queryKey: ['educationLevels'],
     queryFn: getAllEducationLevels,
   });
 
-  
-  console.log(educationLevels);
+  const { data: subjects } = useQuery<Option[]>({
+    queryKey: ['subjects', classYear],
+    queryFn: () => getSubjectByClassId(classYear),
+    enabled: !!classYear,
+  });
+
+  const { data: topics } = useQuery<Option[]>({
+    queryKey: ['topics', topic],
+    queryFn: () => getTopicSuggestions(topic),
+    enabled: !!topic,
+  });
+
+  console.log("Topic", topic);
+  console.log("Education Levels", educationLevels);
+  console.log("Class", classYear);
+  console.log("subjects", subjects);
+  console.log("topics", topics);
 
   if (!open) return null;
 
@@ -128,6 +137,8 @@ const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
             classYear={classYear}
             subject={subject}
             educationOptions={educationLevels ?? []}
+            subjects={subjects ?? []}
+            topics={topics ?? []}
           />
         )}
         {step === 3 && (
