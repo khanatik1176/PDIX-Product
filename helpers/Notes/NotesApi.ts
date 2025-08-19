@@ -43,3 +43,12 @@ export const getSubjectByClassId = async (classId: string) => {
   });
   return response.data;
 };
+
+export const getTopicSuggestions = async (topicName: string) => {
+  const response = await axios.get(`${TEMP_BACKEND_URI}/topics/suggestions?keyword=${topicName}`, {
+    headers: {
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+    },
+  });
+  return response.data;
+};

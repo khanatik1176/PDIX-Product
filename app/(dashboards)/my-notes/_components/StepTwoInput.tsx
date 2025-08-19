@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC, useCallback, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Controller } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
@@ -12,10 +12,8 @@ import {
 } from '@/components/ui/select';
 import { FileText } from 'lucide-react';
 import { Option, StepTwoInputProps } from '@/types/NoteTypes';
-import {
-  getClassesByEducationLevel,
-  getSubjectByClassId,
-} from '@/helpers/Notes/NotesApi';
+import { getClassesByEducationLevel } from '@/helpers/Notes/NotesApi';
+import { debounce } from 'lodash';
 
 const StepTwoInput: FC<StepTwoInputProps> = ({
   control,
@@ -27,13 +25,42 @@ const StepTwoInput: FC<StepTwoInputProps> = ({
   educationLevel,
   classYear,
   subject,
+  subjects,
   educationOptions,
+  topics,
 }) => {
+  const [filteredSubjects, setFilteredSubjects] = useState<Option[]>([]);
+  const [filteredTopics, setFilteredTopics] = useState<Option[]>([]);
+
   const { data: classYearOptions = [], isLoading: isClassLoading } = useQuery({
     queryKey: ['classes', educationLevel],
     queryFn: () => getClassesByEducationLevel(educationLevel),
     enabled: !!educationLevel,
   });
+
+  const handleSubjectInputChange = debounce((inputValue: string) => {
+    if (!inputValue?.trim()) {
+      setFilteredSubjects([]);
+      return;
+    }
+    setFilteredSubjects(
+      (subjects ?? []).filter((subject) =>
+        subject.name.toLowerCase().includes(inputValue.toLowerCase())
+      )
+    );
+  }, 300);
+
+  const handleTopicInputChange = debounce((inputValue: string) => {
+    if (!inputValue?.trim()) {
+      setFilteredTopics([]);
+      return;
+    }
+    setFilteredTopics(
+      (topics ?? []).filter((topic) =>
+        topic.name.toLowerCase().includes(inputValue.toLowerCase())
+      )
+    );
+  }, 300);
 
   return (
     <form
@@ -68,12 +95,34 @@ const StepTwoInput: FC<StepTwoInputProps> = ({
           name='topicName'
           control={control}
           render={({ field }) => (
-            <Input
-              {...field}
-              placeholder="e.g., Newton's Laws of Motion"
-              className='placeholder:text-inputFooterColor placeholder:italic'
-              disabled={!subject}
-            />
+            <div className='relative'>
+              <Input
+                {...field}
+                placeholder="e.g., Newton's Laws of Motion"
+                className='mb-1 placeholder:italic placeholder:text-inputFooterColor'
+                onChange={(e) => {
+                  field.onChange(e);
+                  handleTopicInputChange(e.target.value);
+                }}
+                disabled={!subject}
+              />
+              {filteredTopics.length > 0 && (
+                <ul className='absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg'>
+                  {filteredTopics.map((topic) => (
+                    <li
+                      key={topic.id}
+                      className='cursor-pointer px-3 py-2 hover:bg-gray-100'
+                      onClick={() => {
+                        field.onChange(topic.name);
+                        setFilteredTopics([]);
+                      }}
+                    >
+                      {topic.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           )}
         />
         {errors.topicName && (
@@ -191,7 +240,33 @@ const StepTwoInput: FC<StepTwoInputProps> = ({
           name='subjectName'
           control={control}
           render={({ field }) => (
-            <Input {...field} placeholder='e.g., Physics, Literature' className='mb-1 placeholder:text-inputFooterColor placeholder:italic' />
+            <div className='relative'>
+              <Input
+                {...field}
+                placeholder='e.g., Physics, Literature'
+                className='mb-1 placeholder:italic placeholder:text-inputFooterColor'
+                onChange={(e) => {
+                  field.onChange(e);
+                  handleSubjectInputChange(e.target.value);
+                }}
+              />
+              {filteredSubjects.length > 0 && (
+                <ul className='absolute z-10 w-full rounded-md border border-gray-300 bg-white shadow-lg'>
+                  {filteredSubjects.map((subject) => (
+                    <li
+                      key={subject.id}
+                      className='cursor-pointer px-3 py-2 hover:bg-gray-100'
+                      onClick={() => {
+                        field.onChange(subject.name);
+                        setFilteredSubjects([]);
+                      }}
+                    >
+                      {subject.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           )}
         />
         {errors.subjectName && (
