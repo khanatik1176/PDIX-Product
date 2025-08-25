@@ -66,3 +66,15 @@ export type NoteUploadMutationProps = {
 };
 
 export type NoteUploadPayload = Omit<NoteFormType, 'educationLevel'>;
+
+
+export type INoteHeadingProps = {
+  title: string;
+  subTitle?: string;
+  titleclassName?: string;
+  subTitleClassName?: string;
+  className?: string;
+  subject?: string;
+  classYear?: string;
+  totalNotes?: number;
+};

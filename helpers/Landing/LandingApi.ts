@@ -1,5 +1,5 @@
 import { backendUrl } from '@/utils/config';
-import { LandingFormTypes } from '@/types/LandingFormTypes';
+import { LandingFormTypes } from '@/types/LandingForm.types';
 import axios from 'axios';
 
 export const LandingContact = async (formData: LandingFormTypes) => {

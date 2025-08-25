@@ -11,7 +11,7 @@ import {
   AlertDialogAction,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { RemoveNoteDialogProps } from '@/types/MyNotesType';
+import { RemoveNoteDialogProps } from '@/types/MyNotes.types';
 
 
 

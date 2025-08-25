@@ -1,13 +1,8 @@
 import React, { FC } from 'react';
 import { cn } from '@/lib/utils';
+import { IHeadingProps } from '@/types/Global.types';
 
-interface IHeadingProps {
-  title: string;
-  subTitle?: string;
-  titleclassName?: string;
-  subTitleClassName?: string;
-  className?: string;
-}
+
 
 const PageHeading: FC<IHeadingProps> = ({ title, subTitle, titleclassName, subTitleClassName, className }) => {
   return (

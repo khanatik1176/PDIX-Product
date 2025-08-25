@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { FileText, MoreHorizontal, Link } from 'lucide-react';
-import { MyNotesCardProps } from '@/types/MyNotesType';
+import { MyNotesCardProps } from '@/types/MyNotes.types';
 import Image from 'next/image';
 import CardMenu from './CardMenu';
 import RenameFileModal from './RenameFileModal';

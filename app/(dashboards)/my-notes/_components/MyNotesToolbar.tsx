@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { MyNotesToolbarProps } from '@/types/MyNotesType';
+import { MyNotesToolbarProps } from '@/types/MyNotes.types';
 import UploadNoteModal from './UploadNoteModal';
 
 const MyNotesToolbar: FC<MyNotesToolbarProps> = ({

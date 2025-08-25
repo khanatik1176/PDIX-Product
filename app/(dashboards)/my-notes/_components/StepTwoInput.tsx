@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { FileText } from 'lucide-react';
-import { Option, StepTwoInputProps } from '@/types/NoteTypes';
+import { Option, StepTwoInputProps } from '@/types/Note.types';
 import { getClassesByEducationLevel } from '@/helpers/Notes/NotesApi';
 import { debounce } from 'lodash';
 

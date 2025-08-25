@@ -2,7 +2,7 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import { StepThreeInputProps } from '@/types/NoteTypes';
+import { StepThreeInputProps } from '@/types/Note.types';
 import { useMutation } from '@tanstack/react-query';
 import { handleNoteUpload } from '@/helpers/Notes/NotesApi';
 import { toast } from '@/hooks/use-toast';

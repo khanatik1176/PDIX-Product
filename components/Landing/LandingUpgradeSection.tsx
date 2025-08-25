@@ -1,5 +1,5 @@
 'use client';
-import { LandingGeneralProps } from '@/types/LandingTypes';
+import { LandingGeneralProps } from '@/types/Landing.types';
 import { FC } from 'react';
 import UpgradeFigure from '@/public/Images/Upgrade-Fig.svg';
 import Image from 'next/image';

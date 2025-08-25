@@ -1,6 +1,6 @@
 'use client';
 import React, { FC } from 'react';
-import { LandingGeneralProps } from '@/types/LandingTypes';
+import { LandingGeneralProps } from '@/types/Landing.types';
 import { Button } from '../ui/button';
 import { ArrowRight } from 'lucide-react';
 import Figure1 from '@/public/Images/Overview-Fig-1.svg';

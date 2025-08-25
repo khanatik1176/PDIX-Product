@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
-import { LandingGeneralProps } from '@/types/LandingTypes';
+import { LandingGeneralProps } from '@/types/Landing.types';
 
 // Replace these with your actual image imports
 import GooglePlay from '@/public/Images/GooglePlay.svg';

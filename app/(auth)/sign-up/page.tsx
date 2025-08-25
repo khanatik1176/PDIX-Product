@@ -8,7 +8,7 @@ import { Circle, Eye, EyeOff } from 'lucide-react';
 import { GoogleLogo } from '@/constants/globalFunctions';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { TBasicSignupFormInputs } from '@/types/AuthTypes';
+import { TBasicSignupFormInputs } from '@/types/Auth.types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpSchema } from '@/schema/AuthSchema';
 import { useMutation } from '@tanstack/react-query';

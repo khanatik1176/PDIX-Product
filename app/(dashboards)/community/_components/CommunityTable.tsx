@@ -3,7 +3,7 @@ import React from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 import { Bookmark } from 'lucide-react';
 import { GenericTable } from '@/components/GenericTable';
-import { CommunityNote } from '@/types/CommunityTypes';
+import { CommunityNote } from '@/types/Community.types';
 import { tableData } from '@/utils/TempData/CommunityData';
 import { Badge } from '@/components/ui/badge';
 import { useRouter } from 'next/navigation';

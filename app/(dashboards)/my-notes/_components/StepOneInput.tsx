@@ -2,7 +2,7 @@ import { Controller } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { X, FileText } from 'lucide-react';
-import { StepOneInputProps } from '@/types/NoteTypes';
+import { StepOneInputProps } from '@/types/Note.types';
 
 const StepOneInput: React.FC<StepOneInputProps> = ({
   control,

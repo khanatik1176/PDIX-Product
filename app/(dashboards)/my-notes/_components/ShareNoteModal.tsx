@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { X, Copy, SendHorizontal, Check } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { ShareNoteModalProps } from '@/types/MyNotesType';
+import { ShareNoteModalProps } from '@/types/MyNotes.types';
 
 const ShareNoteModal: FC<ShareNoteModalProps> = ({
   open,

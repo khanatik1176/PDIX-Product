@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import LightTrophy from '@/public/Images/LightTrophy.svg';
 import DarkTrophy from '@/public/Images/DarkTrophy.svg';
 import Image from 'next/image';
-import { LandingGeneralProps } from '@/types/LandingTypes';
+import { LandingGeneralProps } from '@/types/Landing.types';
 import Computer from '@/public/Images/Computer.svg';
 import Books from '@/public/Images/Course Materials.svg';
 import Curriculum from '@/public/Images/Curriculum.svg';

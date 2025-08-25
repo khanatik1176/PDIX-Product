@@ -7,7 +7,7 @@ import NavLogo from '@/public/logo/NavLogo.svg';
 import SmallNavLogo from '@/public/logo/SmallNavLogo.svg';
 import DarkNavLogo from '@/public/logo/DarkNavLogo.svg';
 import DarkSmallNavLogo from '@/public/logo/DarkSmallNavLogo.svg';
-import { LandingGeneralProps } from '@/types/LandingTypes';
+import { LandingGeneralProps } from '@/types/Landing.types';
 import Link from 'next/link';
 import { ModeContext } from '@/contexts/ModeContext';
 import { Button } from '../ui/button';

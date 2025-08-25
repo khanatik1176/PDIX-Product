@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { TSignInFormInputs } from '@/types/AuthTypes';
+import { TSignInFormInputs } from '@/types/Auth.types';
 import { SignInSchema } from '@/schema/AuthSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
