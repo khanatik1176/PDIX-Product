@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import {
   AlertDialog,
-  AlertDialogTrigger,
   AlertDialogContent,
   AlertDialogHeader,
   AlertDialogTitle,

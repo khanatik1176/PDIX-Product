@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import { GenericTable } from '@/components/GenericTable';
-import { Badge } from '@/components/ui/badge';
 import { topicTableData } from '@/utils/TempData/CommunityData';
 
 

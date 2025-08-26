@@ -2,7 +2,7 @@
 import BreadcrumbWithAvatar from '@/components/BreadCrumbiwthAvatar';
 import PageHeader from '@/components/PageHeader';
 import PageHeading from '@/components/pageHeading';
-import React, { useState } from 'react';
+import React from 'react';
 import NotePageHeading from './_components/NoteHeading';
 import NoteUploadSection from './_components/NoteUploadSection';
 import FeedBackSection from './_components/FeedBackSection';
