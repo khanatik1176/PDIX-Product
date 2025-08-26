@@ -38,18 +38,18 @@ const NotePageHeading: FC<INoteHeadingProps> = ({
         ) : null}
         <div className='mt-3 flex flex-col items-start gap-4 lg:flex-row lg:items-center'>
           <div className='flex flex-col gap-2 lg:flex-row lg:gap-4'>
-            <span className='flex items-center gap-2 rounded-md bg-[#E0F7FA] px-3 py-1 text-sm font-medium text-[#00796B]'>
+            <span className='flex items-center gap-2 rounded-md bg-white px-3 py-1 text-sm font-medium text-black border'>
               <BookOpen className='h-4 w-4' />
               <strong>Subject:</strong> {subject}
             </span>
 
-            <span className='flex items-center gap-2 rounded-md bg-[#FFF3E0] px-3 py-1 text-sm font-medium text-[#BF360C]'>
+            <span className='flex items-center gap-2 rounded-md bg-white px-3 py-1 text-sm font-medium text-black border'>
               <GraduationCap className='h-4 w-4' />
               <strong>Class/Year:</strong> {classYear}
             </span>
           </div>
 
-          <span className='flex items-center gap-2 rounded-md bg-[#E8F5E9] px-3 py-1 text-sm font-medium text-[#1B5E20]'>
+          <span className='flex items-center gap-2 rounded-md bg-white px-3 py-1 text-sm font-medium text-black border'>
             <FileText className='h-4 w-4' />
             <strong>Total Notes:</strong> {totalNotes}
           </span>
