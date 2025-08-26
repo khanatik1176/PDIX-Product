@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
-import { HomeCardProps } from '@/types/HomeTypes';
+import { HomeCardProps } from '@/types/Home.types';
 
 
 const HomeCard: React.FC<HomeCardProps> = ({

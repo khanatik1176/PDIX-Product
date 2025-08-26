@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { NoteFormType } from '@/types/NoteTypes';
+import { NoteFormType } from '@/types/Note.types';
 import { TEMP_BACKEND_URI } from '@/utils/config';
 import Cookies from 'js-cookie';
 

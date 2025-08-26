@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { EditNoteModalProps } from '@/types/MyNotesType';
+import { EditNoteModalProps } from '@/types/MyNotes.types';
 
 const educationOptions = [
   { value: 'high-school', label: 'High School' },

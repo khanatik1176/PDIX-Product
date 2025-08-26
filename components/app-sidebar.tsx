@@ -6,7 +6,6 @@ import {
   BookOpen,
   Bookmark,
   Earth,
-  FolderKey,
   House,
 } from 'lucide-react';
 

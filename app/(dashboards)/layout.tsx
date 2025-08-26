@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import '../globals.css';
-import { SessionProvider } from 'next-auth/react';
 import { Toaster } from '@/components/ui/toaster';
 import { Inter } from 'next/font/google';
 import Sidebar from '@/components/sidebar';
@@ -21,9 +20,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className={inter.className}>
       <Sidebar>{children}</Sidebar>
       <Toaster />
-    </>
+    </div>
   );
 }

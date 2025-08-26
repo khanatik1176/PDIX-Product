@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { BookX, Plus } from 'lucide-react';
 import UploadNoteModal from './UploadNoteModal';
-import { EmptyNoteTypes } from '@/types/MyNotesType';
+import { EmptyNoteTypes } from '@/types/MyNotes.types';
 
 const EmptyMyNotesVIew: React.FC<EmptyNoteTypes> = ({ setModalOpen, modalOpen }) => {
   return (

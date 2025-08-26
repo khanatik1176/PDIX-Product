@@ -3,14 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 import {
   LogOut,
-  X,
   Sparkles,
   BadgeCheck,
   CreditCard,
   Moon,
 } from 'lucide-react';
 import Link from 'next/link';
-import { getInitials } from '@/constants/globalFunctions';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 

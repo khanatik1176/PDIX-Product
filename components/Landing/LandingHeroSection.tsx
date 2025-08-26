@@ -1,6 +1,6 @@
 'use client';
 import React, { FC } from 'react';
-import { LandingGeneralProps } from '@/types/LandingTypes';
+import { LandingGeneralProps } from '@/types/Landing.types';
 import HeroImage from '@/public/Images/HeroLogo.svg';
 import DarkHeroImage from '@/public/Images/DarkHeroLogo.svg';
 import Image from 'next/image';

@@ -7,7 +7,7 @@ import {
   Info,
   Trash2,
 } from 'lucide-react';
-import { CardMenuProps } from '@/types/MyNotesType';
+import { CardMenuProps } from '@/types/MyNotes.types';
 
 const CardMenu: FC<CardMenuProps> = ({
   open,

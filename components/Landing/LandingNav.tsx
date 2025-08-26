@@ -1,5 +1,5 @@
 'use client';
-import { Menu, Moon, Sun, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import React, { FC, useContext, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,7 +7,7 @@ import NavLogo from '@/public/logo/NavLogo.svg';
 import SmallNavLogo from '@/public/logo/SmallNavLogo.svg';
 import DarkNavLogo from '@/public/logo/DarkNavLogo.svg';
 import DarkSmallNavLogo from '@/public/logo/DarkSmallNavLogo.svg';
-import { LandingGeneralProps } from '@/types/LandingTypes';
+import { LandingGeneralProps } from '@/types/Landing.types';
 import Link from 'next/link';
 import { ModeContext } from '@/contexts/ModeContext';
 import { Button } from '../ui/button';

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { X, Check } from 'lucide-react';
-import { UploadNoteModalProps } from '@/types/MyNotesType';
+import { UploadNoteModalProps } from '@/types/MyNotes.types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NoteSchema } from '@/schema/NoteSchema';
-import { NoteFormType, Option } from '@/types/NoteTypes';
+import { NoteFormType, Option } from '@/types/Note.types';
 import StepOneInput from './StepOneInput';
 import StepTwoInput from './StepTwoInput';
 import StepThreeInput from './StepThreeInput';

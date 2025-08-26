@@ -1,4 +1,4 @@
-import { FacilityCardProps } from '@/types/LandingTypes';
+import { FacilityCardProps } from '@/types/Landing.types';
 import Image from 'next/image';
 import React, { FC } from 'react';
 

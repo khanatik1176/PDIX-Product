@@ -1,4 +1,4 @@
-import { TBasicSignupFormInputs, TSignInFormInputs } from "@/types/AuthTypes";
+import { TBasicSignupFormInputs, TSignInFormInputs } from "@/types/Auth.types";
 import { TEMP_BACKEND_URI } from "@/utils/config";
 import axios from "axios";
 

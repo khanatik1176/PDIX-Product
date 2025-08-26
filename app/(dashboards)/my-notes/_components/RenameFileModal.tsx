@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { RenameFileModalProps } from '@/types/MyNotesType';
+import { RenameFileModalProps } from '@/types/MyNotes.types';
 
 const RenameFileModal: FC<RenameFileModalProps> = ({
   open,

@@ -2,7 +2,7 @@
 
 import React, { FC, useEffect, useState} from 'react';
 import MarqueeRow from './_components/MarqueRow';
-import { LandingGeneralProps } from '@/types/LandingTypes';
+import { LandingGeneralProps } from '@/types/Landing.types';
 import { Button } from '../ui/button';
 
 const upperCardsData = [
