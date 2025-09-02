@@ -9,6 +9,7 @@ export type MyNotesToolbarProps = {
 };
 
 export type MyNotesCardProps = {
+  id: string;
   title: string;
   imageSrc: string;
   iconType: 'file' | 'link';

@@ -8,8 +8,14 @@ import { toast } from '@/hooks/use-toast';
 import EditNoteModal from './EditNoteModal';
 import ShareNoteModal from './ShareNoteModal';
 import RemoveNoteDialog from './RemoveNoteDialog';
+import { useRouter } from 'next/navigation';
 
-const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
+const MyNotesCard: FC<MyNotesCardProps> = ({
+  title,
+  imageSrc,
+  iconType,
+  id,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [renameOpen, setRenameOpen] = useState(false);
   const [filename, setFilename] = useState(title);
@@ -21,6 +27,12 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
   const [shareOpen, setShareOpen] = useState(false);
   const shareLink = 'https://yourapp.com/note/123'; // Replace with your actual link
   const [removeDialogOpen, setRemoveDialogOpen] = useState(false);
+
+  const router = useRouter();
+
+  const handleNoteClick = (id: string) => {
+    router.push(`/community/topic/note/${id}`);
+  };
 
   const handleRenameClick = () => {
     setMenuOpen(false);
@@ -54,10 +66,13 @@ const MyNotesCard: FC<MyNotesCardProps> = ({ title, imageSrc, iconType }) => {
       description: 'You can restore it from the bin anytime.',
       variant: 'default',
     });
-  }
+  };
 
   return (
-    <div className='mb-5 flex w-full flex-col gap-2 rounded-lg border bg-[#E7E7E799] p-4 shadow-sm md:h-[310px] 2xl:h-[350px]'>
+    <div
+      className='mb-5 flex w-full cursor-pointer flex-col gap-2 rounded-lg border bg-[#E7E7E799] p-4 shadow-sm md:h-[310px] 2xl:h-[350px]'
+      onClick={() => handleNoteClick(id)}
+    >
       <div className='flex items-center justify-between pb-6'>
         <div className='flex items-center gap-2'>
           {iconType === 'file' ? (

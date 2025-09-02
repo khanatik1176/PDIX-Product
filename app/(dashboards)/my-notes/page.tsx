@@ -6,7 +6,11 @@ import BreadcrumbWithAvatar from '@/components/BreadCrumbiwthAvatar';
 import EmptyMyNotesVIew from './_components/EmptyMyNotesVIew';
 import MyNotesToolbar from './_components/MyNotesToolbar';
 import MyNotesCard from './_components/MyNotesCard';
-import { notesData } from '@/utils/TempData/MynotesData';
+import { getAllNotes } from '@/helpers/Notes/NotesApi';
+import { useQuery } from '@tanstack/react-query';
+import Preview1 from '../../../public/Images/Preview-1.svg';
+import CustomLoader from '@/components/CustomLoader';
+
 const MyNotes = () => {
   const [open, setOpen] = useState(false);
   const [filterValue, setFilterValue] = useState('last-added');
@@ -16,6 +20,11 @@ const MyNotes = () => {
     setModalOpen(true);
     console.log('Upload Notes clicked');
   };
+
+  const { data: notes = [], isLoading: isNotesLoading } = useQuery({
+    queryKey: ['notes'],
+    queryFn: getAllNotes,
+  });
 
   return (
     <div>
@@ -34,21 +43,31 @@ const MyNotes = () => {
             modalOpen={modalOpen}
           />
         </div>
-        {notesData.length === 0 ? (
-          <EmptyMyNotesVIew 
-            setModalOpen={setModalOpen}
-            modalOpen={modalOpen}
-          />
+        {isNotesLoading ? (
+          <div className="h-[600px]">
+            <CustomLoader />
+          </div>
+        ) : notes.length === 0 ? (
+          <EmptyMyNotesVIew setModalOpen={setModalOpen} modalOpen={modalOpen} />
         ) : (
           <div className='mt-8 grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-2 md:gap-x-6 md:gap-y-5 lg:grid-cols-3 xl:grid-cols-4'>
-            {notesData.map((note: { title: string; imageSrc: string; iconType: string }, idx: number) => (
-              <MyNotesCard
-                key={idx}
-                title={note.title}
-                imageSrc={note.imageSrc}
-                iconType={note.iconType === 'file' || note.iconType === 'link' ? note.iconType : 'file'}
-              />
-            ))}
+            {notes.map(
+              (
+                note: { fileUrl: string; imageSrc: string; iconType: string, id: string },
+              ) => (
+                <MyNotesCard
+                  key={note.id}
+                  title={note.fileUrl}
+                  imageSrc={note.imageSrc ?? Preview1}
+                  iconType={
+                    note.iconType === 'file' || note.iconType === 'link'
+                      ? note.iconType
+                      : 'file'
+                  }
+                  id={note.id}
+                />
+              )
+            )}
           </div>
         )}
       </div>

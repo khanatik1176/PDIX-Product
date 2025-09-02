@@ -52,3 +52,21 @@ export const getTopicSuggestions = async (topicName: string) => {
   });
   return response.data;
 };
+
+export const getAllNotes = async () => {
+  const response = await axios.get(`${TEMP_BACKEND_URI}/notes/search`, {
+    headers: {
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+    },
+  });
+  return response.data;
+};
+
+export const getNoteDetailsByID = async (noteId: string) => {
+  const response = await axios.get(`${TEMP_BACKEND_URI}/notes/${noteId}`, {
+    headers: {
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+    },
+  });
+  return response.data;
+};
