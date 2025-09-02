@@ -77,4 +77,5 @@ export type INoteHeadingProps = {
   subject?: string;
   classYear?: string;
   totalNotes?: number;
+  isNotesLoading?: boolean;
 };
