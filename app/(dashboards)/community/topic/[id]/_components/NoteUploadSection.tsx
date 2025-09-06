@@ -24,8 +24,15 @@ import { GenericTable } from '@/components/GenericTable';
 import { GenericPagination } from '@/components/GenericPagination';
 import { Badge } from '@/components/ui/badge';
 import { TopicNoteUploadType } from '@/types/Note.types';
+import NoteCard from './NoteCard';
+import ViewModeToggle from './ViewModeToggle';
+import NoteFilters from './noteFilters';
+import NoteCardSkeleton from './NoteCardSkeleton';
 
-const NoteUploadSection: FC<TopicNoteUploadType> = ({ notes }) => {
+const NoteUploadSection: FC<TopicNoteUploadType> = ({
+  notes,
+  topicNoteLoading,
+}) => {
   const [liked, setLiked] = useState<{ [key: number]: boolean }>({});
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isAtStart, setIsAtStart] = useState(true);
@@ -82,7 +89,8 @@ const NoteUploadSection: FC<TopicNoteUploadType> = ({ notes }) => {
   const filteredNotes = mappedNotes
     .filter((n) => (filterType === 'all' ? true : n.type === filterType))
     .sort((a, b) => {
-      if (filterSort === 'uploaded') return mappedNotes.indexOf(a) - mappedNotes.indexOf(b);
+      if (filterSort === 'uploaded')
+        return mappedNotes.indexOf(a) - mappedNotes.indexOf(b);
       if (filterSort === 'downloads') return b.feedbacks - a.feedbacks; // repurposed
       if (filterSort === 'upvotes') return b.likes - a.likes; // repurposed
       return 0;
@@ -154,102 +162,34 @@ const NoteUploadSection: FC<TopicNoteUploadType> = ({ notes }) => {
         <div className='flex items-center justify-between'>
           <h1 className='text-2xl font-semibold md:text-2xl'>Uploads</h1>
           <div className='hidden items-center gap-4 md:flex lg:hidden'>
-            <button
-              onClick={() =>
-                setViewMode(viewMode === 'card' ? 'table' : 'card')
-              }
-              className='rounded-full bg-primary p-2 text-white'
-            >
-              {viewMode === 'card' ? (
-                <List className='h-5 w-5' />
-              ) : (
-                <Grid className='h-5 w-5' />
-              )}
-            </button>
-            <button
-              onClick={handleScrollLeft}
-              disabled={isAtStart}
-              className={`rounded-full p-2 ${
-                isAtStart || viewMode === 'table'
-                  ? 'cursor-not-allowed bg-gray-300 text-gray-500'
-                  : 'bg-primary text-white'
-              }`}
-            >
-              <ChevronLeft className='h-5 w-5' />
-            </button>
-            <button
-              onClick={handleScrollRight}
-              disabled={isAtEnd}
-              className={`rounded-full p-2 ${
-                isAtEnd || viewMode === 'table'
-                  ? 'cursor-not-allowed bg-gray-300 text-gray-500'
-                  : 'bg-primary text-white'
-              }`}
-            >
-              <ChevronRight className='h-5 w-5' />
-            </button>
+            <ViewModeToggle
+              viewMode={viewMode}
+              setViewMode={setViewMode}
+              handleScrollLeft={handleScrollLeft}
+              handleScrollRight={handleScrollRight}
+              isAtStart={isAtStart}
+              isAtEnd={isAtEnd}
+              showArrows={true}
+            />
           </div>
         </div>
         <div className='flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
-          <div className='flex w-full gap-4 md:flex-row md:items-center'>
-            <Select value={filterType} onValueChange={setFilterType}>
-              <SelectTrigger className='flex w-48 items-center justify-between'>
-                <SelectValue placeholder='Filter by Type' />
-                <ChevronDown className='h-4 w-4 text-gray-500' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='all'>All</SelectItem>
-                <SelectItem value='PDF'>PDF</SelectItem>
-                <SelectItem value='DOC'>DOC</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select value={filterSort} onValueChange={setFilterSort}>
-              <SelectTrigger className='flex w-48 items-center justify-between'>
-                <SelectValue placeholder='Sort by' />
-                <ChevronDown className='h-4 w-4 text-gray-500' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='uploaded'>Uploaded</SelectItem>
-                <SelectItem value='downloads'>Feedbacks</SelectItem>
-                <SelectItem value='upvotes'>Likes</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          <NoteFilters
+            filterType={filterType}
+            setFilterType={setFilterType}
+            filterSort={filterSort}
+            setFilterSort={setFilterSort}
+          />
           <div className='flex items-center justify-end gap-4 md:hidden lg:flex'>
-            <button
-              onClick={() =>
-                setViewMode(viewMode === 'card' ? 'table' : 'card')
-              }
-              className='rounded-full bg-primary p-2 text-white'
-            >
-              {viewMode === 'card' ? (
-                <List className='h-5 w-5' />
-              ) : (
-                <Grid className='h-5 w-5' />
-              )}
-            </button>
-            <button
-              onClick={handleScrollLeft}
-              disabled={isAtStart}
-              className={`rounded-full p-2 ${
-                isAtStart || viewMode === 'table'
-                  ? 'cursor-not-allowed bg-gray-300 text-gray-500'
-                  : 'bg-primary text-white'
-              }`}
-            >
-              <ChevronLeft className='h-5 w-5' />
-            </button>
-            <button
-              onClick={handleScrollRight}
-              disabled={isAtEnd}
-              className={`rounded-full p-2 ${
-                isAtEnd || viewMode === 'table'
-                  ? 'cursor-not-allowed bg-gray-300 text-gray-500'
-                  : 'bg-primary text-white'
-              }`}
-            >
-              <ChevronRight className='h-5 w-5' />
-            </button>
+            <ViewModeToggle
+              viewMode={viewMode}
+              setViewMode={setViewMode}
+              handleScrollLeft={handleScrollLeft}
+              handleScrollRight={handleScrollRight}
+              isAtStart={isAtStart}
+              isAtEnd={isAtEnd}
+              showArrows={true}
+            />
           </div>
         </div>
       </div>
@@ -260,73 +200,27 @@ const NoteUploadSection: FC<TopicNoteUploadType> = ({ notes }) => {
             ref={carouselRef}
             className='no-scrollbar flex gap-4 overflow-x-auto scroll-smooth'
           >
-            {filteredNotes.map((note) => {
-              const isLiked = liked[note.id];
-              return (
-                <div
-                  key={note.id}
-                  className='mb-3 w-full max-w-[400px] flex-shrink-0 rounded-lg border border-gray-300 bg-white p-4 shadow-md sm:mt-6 sm:h-[500px] sm:w-[600px]'
-                >
-                  {/* Top Section: Ratings */}
-                  <div className='mb-3 flex items-center justify-between'>
-                    <div className='flex items-center gap-2'>
-                      {note.icon}
-                      <span className='text-sm font-medium text-gray-700'>
-                        {note.type}
-                      </span>
-                    </div>
-                    <div className='flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 text-gray-700'>
-                      <Star className='h-4 w-4 fill-yellow-500 text-yellow-500' />
-                      <span className='text-sm font-medium'>
-                        {note.ratings}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Preview Section: always placeholder now */}
-                  <div className='mb-3'>
-                    <div className='flex h-[280px] w-full max-w-[365px] items-center justify-center rounded-lg bg-gray-100 lg:h-[330px]'>
-                      <p className='text-sm italic text-gray-400'>
-                        No preview available
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Note Name */}
-                  <div className='mb-3'>
-                    <p className='text-md truncate font-medium text-gray-800'>
-                      {note.name}
-                    </p>
-                  </div>
-
-                  {/* Bottom Section: time, feedbacks, likes */}
-                  <div className='flex items-center gap-2'>
-                    <span className='flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 text-xs text-gray-700'>
-                      {note.uploadedTime}
-                    </span>
-                    <span className='flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 text-xs text-gray-700'>
-                      <MessageCircle className='h-4 w-4' />
-                      {note.feedbacks}
-                    </span>
-                    <button
-                      onClick={() => toggleLike(note.id)}
-                      className={`flex items-center gap-1 rounded-md px-2 py-1 text-xs ${
-                        isLiked
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-gray-100 text-gray-700'
-                      }`}
-                    >
-                      <ThumbsUp
-                        className={`h-4 w-4 transition-colors ${
-                          isLiked ? 'text-green-700' : 'text-gray-700'
-                        }`}
-                      />
-                      {note.likes + (isLiked ? 1 : 0)}
-                    </button>
-                  </div>
+            {topicNoteLoading ? (
+              <>
+                <div className='hidden gap-4 sm:flex'>
+                  {[1, 2, 3].map((i) => (
+                    <NoteCardSkeleton key={i} />
+                  ))}
                 </div>
-              );
-            })}
+                <div className='flex w-full flex-col gap-4 sm:hidden'>
+                  <NoteCardSkeleton />
+                </div>
+              </>
+            ) : (
+              filteredNotes.map((note) => (
+                <NoteCard
+                  key={note.id}
+                  note={note}
+                  isLiked={liked[note.id]}
+                  onLike={toggleLike}
+                />
+              ))
+            )}
           </div>
         </div>
       ) : (

@@ -45,6 +45,7 @@ const Topic = () => {
       </div>
       <NoteUploadSection 
         notes={topic?.notes || []}
+        topicNoteLoading={isTopicLoading}
       />
     </div>
   );
