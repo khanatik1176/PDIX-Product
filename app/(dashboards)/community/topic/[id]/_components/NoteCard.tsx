@@ -1,6 +1,5 @@
 import React from "react";
 import { Star, ThumbsUp, MessageCircle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { NoteCardProps } from "@/types/Note.types";
 
 

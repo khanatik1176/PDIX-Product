@@ -132,7 +132,7 @@ const splitCardsForMobile = (upper: any[], lower: any[]) => {
 };
 
 const LandingNotesSection: FC<LandingGeneralProps> = ({ DarkModeActive }) => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [, setIsMobile] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 1024);

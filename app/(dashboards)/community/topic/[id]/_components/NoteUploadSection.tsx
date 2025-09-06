@@ -3,22 +3,7 @@ import React, { useState, useRef, useEffect, FC } from 'react';
 import {
   FileText,
   File,
-  ThumbsUp,
-  ChevronLeft,
-  ChevronRight,
-  ChevronDown,
-  List,
-  Grid,
-  Star,
-  MessageCircle,
 } from 'lucide-react';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { ColumnDef } from '@tanstack/react-table';
 import { GenericTable } from '@/components/GenericTable';
 import { GenericPagination } from '@/components/GenericPagination';
@@ -26,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { TopicNoteUploadType } from '@/types/Note.types';
 import NoteCard from './NoteCard';
 import ViewModeToggle from './ViewModeToggle';
-import NoteFilters from './noteFilters';
+import NoteFilters from './NoteFilters';
 import NoteCardSkeleton from './NoteCardSkeleton';
 
 const NoteUploadSection: FC<TopicNoteUploadType> = ({
@@ -263,5 +248,4 @@ const NoteUploadSection: FC<TopicNoteUploadType> = ({
     </div>
   );
 };
-
 export default NoteUploadSection;
