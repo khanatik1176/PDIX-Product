@@ -77,5 +77,21 @@ export type INoteHeadingProps = {
   subject?: string;
   classYear?: string;
   totalNotes?: number;
-  isNotesLoading?: boolean;
+  isTopicLoading?: boolean;
 };
+
+export type NoteType = 
+{
+  noteId: string;
+  title: string;
+  fileName: string;
+  totalRatings: number;
+  totalFeedbacks: string;
+  uploadedBy: string;
+  uploadDate: string;
+}
+
+export type TopicNoteUploadType = 
+{
+  notes: NoteType[];
+}
