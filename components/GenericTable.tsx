@@ -143,7 +143,7 @@ export const GenericTable = <T,>({
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
-                      className='h-12 leading-none'
+                      className='h-16 sm:h-12 leading-none'
                     >
                       {row.getVisibleCells().map((cell: any) => (
                         <TableCell

@@ -77,5 +77,46 @@ export type INoteHeadingProps = {
   subject?: string;
   classYear?: string;
   totalNotes?: number;
-  isNotesLoading?: boolean;
+  isTopicLoading?: boolean;
 };
+
+export type NoteType = 
+{
+  noteId: string;
+  title: string;
+  fileName: string;
+  totalRatings: number;
+  totalFeedbacks: string;
+  uploadedBy: string;
+  uploadDate: string;
+}
+
+export type TopicNoteUploadType = 
+{
+  notes: NoteType[];
+  topicNoteLoading: boolean
+
+}
+
+export type NoteCardProps = {
+  note: any;
+  isLiked: boolean;
+  onLike: (id: number) => void;
+}
+
+export type NoteFiltersProps = {
+  filterType: string;
+  setFilterType: (value: string) => void;
+  filterSort: string;
+  setFilterSort: (value: string) => void;
+}
+
+export type ViewModeToggleProps = {
+  viewMode: 'card' | 'table';
+  setViewMode: (mode: 'card' | 'table') => void;
+  handleScrollLeft?: () => void;
+  handleScrollRight?: () => void;
+  isAtStart?: boolean;
+  isAtEnd?: boolean;
+  showArrows?: boolean;
+}

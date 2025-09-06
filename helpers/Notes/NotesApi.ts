@@ -62,8 +62,8 @@ export const getAllNotes = async () => {
   return response.data;
 };
 
-export const getNoteDetailsByID = async (noteId: string) => {
-  const response = await axios.get(`${TEMP_BACKEND_URI}/notes/${noteId}`, {
+export const getTopicDetailsByID = async (topicId: string) => {
+  const response = await axios.get(`${TEMP_BACKEND_URI}/topics/${topicId}`, {
     headers: {
       ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
     },
