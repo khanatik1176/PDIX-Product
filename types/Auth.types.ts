@@ -9,3 +9,8 @@ export type TSignInFormInputs =
   username: string;
   password: string;
 };
+
+export type GoogleSignInButtonProps = {
+  onClick?: () => void;
+  className?: string;
+}

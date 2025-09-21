@@ -12,8 +12,9 @@ import { TBasicSignupFormInputs } from '@/types/Auth.types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpSchema } from '@/schema/AuthSchema';
 import { useMutation } from '@tanstack/react-query';
-import { handleBasicSignup } from '@/helpers/Auth/AuthApi';
+import { handleBasicSignup, handleGoogleSignIn } from '@/helpers/Auth/AuthApi';
 import { BaseInput } from '@/components/BaseInput';
+import GoogleSignInButton from '@/components/GoogleSignInButton';
 
 const SignUp = () => {
   const router = useRouter();
@@ -171,12 +172,12 @@ const SignUp = () => {
               </Label>
             </div>
             {errorMessage && (
-              <div className='text-medium text-sm text-destructive absolute mt-1'>
+              <div className='text-medium absolute mt-1 text-sm text-destructive'>
                 {errorMessage}
               </div>
             )}
           </div>
-          <Button type='submit' className='mt-2 w-full'>
+          <Button type='submit' className='w-full'>
             {basicSignUpMutation.isPending ? (
               <Circle className='animate-spin' />
             ) : (
@@ -184,13 +185,7 @@ const SignUp = () => {
             )}
           </Button>
         </form>
-        <Button
-          variant='outline'
-          className='mt-4 flex w-full items-center justify-center gap-2'
-        >
-          <GoogleLogo />
-          Continue with Google
-        </Button>
+        <GoogleSignInButton onClick={handleGoogleSignIn} />
         <div className='mt-6 text-center text-sm'>
           Already have an account?{' '}
           <Link href='/sign-in' className='text-primary underline'>
