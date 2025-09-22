@@ -1,16 +1,17 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC, use } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 import { LogOut, Sparkles, BadgeCheck, CreditCard, Moon } from 'lucide-react';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/superbaseClient';
+import { AvatarMenuProps } from '@/types/Global.types';
 
-const AvatarMenu = () => {
+const AvatarMenu: FC<AvatarMenuProps> = ({ userData }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
-  const defaultAvatarUrl =
+  const defaultAvatarUrl = userData?.user_metadata?.avatar_url ||
     'https://via.placeholder.com/150/0000FF/808080?Text=Default+Avatar';
 
   const handleLogout = async () => {
@@ -20,6 +21,8 @@ const AvatarMenu = () => {
       console.error('Supabase sign out error:', error);
     }
     Cookies.remove('user_data');
+    Cookies.remove('access_token');
+    Cookies.remove('refresh_token');
     router.replace('/sign-in');
   };
 
@@ -70,9 +73,9 @@ const AvatarMenu = () => {
               </Avatar>
               <div className='flex flex-col'>
                 <p className='text-sm font-semibold text-gray-900'>
-                  Khan Atik Faisal
+                  {userData?.user_metadata?.full_name || 'NA'}
                 </p>
-                <p className='text-xs text-gray-500'>khan.atik@example.com</p>
+                <p className='text-xs text-gray-500'>{userData?.email}</p>
               </div>
             </div>
           </div>

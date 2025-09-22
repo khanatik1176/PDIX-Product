@@ -5,23 +5,23 @@ import PageHeading from '@/components/pageHeading';
 import React from 'react';
 import NotePageHeading from './_components/NoteHeading';
 import NoteUploadSection from './_components/NoteUploadSection';
-import {getTopicDetailsByID } from '@/helpers/Notes/NotesApi';
+import { getTopicDetailsByID } from '@/helpers/Notes/NotesApi';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { capitalizeFirstLetter } from '@/constants/globalFunctions';
+import { UserDetails } from '@/contexts/UserContext';
 
 const Topic = () => {
+  const { id: topicId } = useParams();
 
-  const {id:topicId} = useParams();
+  const { userData } = UserDetails();
 
-  console.log("THIS IS ID",topicId)
+  console.log('THIS IS ID', topicId);
 
   const { data: topic = [], isLoading: isTopicLoading } = useQuery({
     queryKey: ['notes', topicId],
     queryFn: () => getTopicDetailsByID(String(topicId)),
   });
-
-  console.log("Note details are", topic);
 
   return (
     <div>
@@ -31,6 +31,7 @@ const Topic = () => {
         initialLink='/community'
         secondaryData='Topic'
         secondaryLink='/community/topic'
+        userData={userData}
       />
       <div className='px-3 lg:px-6'>
         <PageHeading title='Topic' className='pl-2 pt-3' />
@@ -43,7 +44,7 @@ const Topic = () => {
           className='pl-2 pt-3'
         />
       </div>
-      <NoteUploadSection 
+      <NoteUploadSection
         notes={topic?.notes || []}
         topicNoteLoading={isTopicLoading}
       />
