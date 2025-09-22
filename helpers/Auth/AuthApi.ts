@@ -24,14 +24,10 @@ export const handleSignIn = async (data: TSignInFormInputs) => {
 };
 
 export const handleGoogleSignIn = async () => {
-  const { error } = await supabase.auth.signInWithOAuth({
+  await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `http://localhost:3001/home`,
+      redirectTo: `${window.location.origin}/callback`,
     },
   });
-  if (error) {
-    alert(error.message);
-    console.error(error.message);
-  }
 };
