@@ -1,3 +1,4 @@
+import { supabase } from "@/lib/superbaseClient";
 import { TBasicSignupFormInputs, TSignInFormInputs } from "@/types/Auth.types";
 import { TEMP_BACKEND_URI } from "@/utils/config";
 import axios from "axios";
@@ -20,4 +21,17 @@ export const handleSignIn = async (data: TSignInFormInputs) => {
   });
 
   return response.data;
+};
+
+export const handleGoogleSignIn = async () => {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `http://localhost:3001/home`,
+    },
+  });
+  if (error) {
+    alert(error.message);
+    console.error(error.message);
+  }
 };

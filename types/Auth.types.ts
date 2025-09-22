@@ -4,8 +4,14 @@ export type TBasicSignupFormInputs = {
   confirm?: string;
 };
 
-export type TSignInFormInputs = 
-{
+export type TSignInFormInputs = {
   username: string;
   password: string;
 };
+
+export type GoogleSignInButtonProps = {
+  onClick?: () => void;
+  className?: string;
+};
+
+

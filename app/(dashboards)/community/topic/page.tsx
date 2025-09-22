@@ -6,12 +6,15 @@ import React, { useState } from 'react';
 import TopicDetails from './_components/TopicDetails';
 import TopicToolBar from './_components/TopicToolBar';
 import TopicTable from './_components/TopicTable';
+import { UserDetails } from '@/contexts/UserContext';
 
 const Topic = () => {
   const [viewFile, setViewFile] = useState(false);
   const handleViewFile = () => {
     setViewFile(!viewFile);
   };
+
+  const { userData } = UserDetails();
 
   return (
     <div>
@@ -21,6 +24,7 @@ const Topic = () => {
         initialLink='/community'
         secondaryData='Topic'
         secondaryLink='/community/topic'
+        userData={userData}
       />
       <div className='px-3 lg:px-6'>
         <PageHeading title='Topic' className='pl-2 pt-3' />

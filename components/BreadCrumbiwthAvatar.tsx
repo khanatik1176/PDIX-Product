@@ -2,19 +2,16 @@ import React from 'react';
 import AvatarMenu from '@/components/AvatarMenu';
 import GlobalBreadCrumb from '@/components/globalBreadCrumb';
 import { Bell } from 'lucide-react';
+import { BreadcrumbWithAvatarProps } from '@/types/Global.types';
 
-interface BreadcrumbWithAvatarProps {
-  initialData: string;
-  initialLink: string;
-  secondaryData?: string;
-  secondaryLink?: string;
-}
+
 
 const BreadcrumbWithAvatar: React.FC<BreadcrumbWithAvatarProps> = ({
   initialData,
   initialLink,
   secondaryData,
   secondaryLink,
+  userData,
 }) => {
   return (
     <div className='flex items-center justify-between px-3 pt-4 lg:px-6'>
@@ -26,7 +23,7 @@ const BreadcrumbWithAvatar: React.FC<BreadcrumbWithAvatarProps> = ({
       />
       <span className='hidden items-center gap-4 pr-2 md:flex'>
         <Bell className='h-5 w-5 cursor-pointer text-black' />
-        <AvatarMenu />
+        <AvatarMenu userData={userData} />
       </span>
     </div>
   );

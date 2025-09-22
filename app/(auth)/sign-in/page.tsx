@@ -9,11 +9,11 @@ import { TSignInFormInputs } from '@/types/Auth.types';
 import { SignInSchema } from '@/schema/AuthSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { handleSignIn } from '@/helpers/Auth/AuthApi';
+import { handleGoogleSignIn, handleSignIn } from '@/helpers/Auth/AuthApi';
 import { BaseInput } from '@/components/BaseInput';
 import { Circle, Eye, EyeOff } from 'lucide-react';
 import Cookies from 'js-cookie';
-
+import GoogleSignInButton from '@/components/GoogleSignInButton';
 
 const SignIn = () => {
   const router = useRouter();
@@ -113,13 +113,18 @@ const SignIn = () => {
               </button>
             </div>
           </div>
-          <Button type='submit' className='mt-2 w-full'>
-            {SignInMutation.isPending ? (
-              <Circle className='animate-spin' />
-            ) : (
-              'Sign in'
-            )}
-          </Button>
+          <div className='flex w-full flex-col gap-1'>
+            <Button type='submit' className='mt-2 w-full'>
+              {SignInMutation.isPending ? (
+                <Circle className='animate-spin' />
+              ) : (
+                'Sign in'
+              )}
+            </Button>
+            <GoogleSignInButton
+              onClick={handleGoogleSignIn}
+            />
+          </div>
         </form>
         <div className='mt-6 text-center text-sm'>
           Don&apos;t have an account?{' '}

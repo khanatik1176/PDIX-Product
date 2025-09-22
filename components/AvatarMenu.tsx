@@ -1,25 +1,28 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
-import {
-  LogOut,
-  Sparkles,
-  BadgeCheck,
-  CreditCard,
-  Moon,
-} from 'lucide-react';
+import { LogOut, Sparkles, BadgeCheck, CreditCard, Moon } from 'lucide-react';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/superbaseClient';
+import { AvatarMenuProps } from '@/types/Global.types';
 
-const AvatarMenu = () => {
+const AvatarMenu: FC<AvatarMenuProps> = ({ userData }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
-  const defaultAvatarUrl =
+  const defaultAvatarUrl = userData?.user_metadata?.avatar_url ||
     'https://via.placeholder.com/150/0000FF/808080?Text=Default+Avatar';
 
   const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+    } catch (error) {
+      console.error('Supabase sign out error:', error);
+    }
     Cookies.remove('user_data');
+    Cookies.remove('access_token');
+    Cookies.remove('refresh_token');
     router.replace('/sign-in');
   };
 
@@ -60,24 +63,24 @@ const AvatarMenu = () => {
       </div>
       {isMenuOpen && (
         <div className='avatar-menu-content absolute right-0 z-10 mt-2 w-64 rounded border border-gray-200 bg-white shadow-lg'>
-          <div className='flex items-center justify-between border-b px-4 py-3 bg-[#f1f5f9]'>
+          <div className='flex items-center justify-between border-b bg-[#f1f5f9] px-4 py-3'>
             <div className='flex items-center gap-3'>
               <Avatar className='h-10 w-10 rounded-xl'>
                 <AvatarImage src={defaultAvatarUrl} alt='Avatar' />
-                <AvatarFallback className='bg-primary text-white '>
+                <AvatarFallback className='bg-primary text-white'>
                   {'NA'}
                 </AvatarFallback>
               </Avatar>
               <div className='flex flex-col'>
                 <p className='text-sm font-semibold text-gray-900'>
-                  Khan Atik Faisal
+                  {userData?.user_metadata?.full_name || 'NA'}
                 </p>
-                <p className='text-xs text-gray-500'>khan.atik@example.com</p>
+                <p className='text-xs text-gray-500'>{userData?.email}</p>
               </div>
             </div>
           </div>
           <ul className='py-1'>
-            <li className='cursor-pointer px-4 py-2 text-start hover:bg-gray-100 border-b'>
+            <li className='cursor-pointer border-b px-4 py-2 text-start hover:bg-gray-100'>
               <Link href='/upgrade'>
                 <div className='flex items-center gap-x-3'>
                   <span>
@@ -87,7 +90,7 @@ const AvatarMenu = () => {
                 </div>
               </Link>
             </li>
-            <li className='cursor-pointer px-4 py-2 text-start hover:bg-gray-100 border-b'>
+            <li className='cursor-pointer border-b px-4 py-2 text-start hover:bg-gray-100'>
               <Link href='/account'>
                 <div className='flex items-center gap-x-3'>
                   <span>
@@ -97,7 +100,7 @@ const AvatarMenu = () => {
                 </div>
               </Link>
             </li>
-            <li className='cursor-pointer px-4 py-2 text-start hover:bg-gray-100 border-b'>
+            <li className='cursor-pointer border-b px-4 py-2 text-start hover:bg-gray-100'>
               <Link href='/billing'>
                 <div className='flex items-center gap-x-3'>
                   <span>

@@ -1,15 +1,18 @@
+'use client';
 import BreadcrumbWithAvatar from '@/components/BreadCrumbiwthAvatar';
 import PageHeader from '@/components/PageHeader';
 import PageHeading from '@/components/pageHeading';
 import React from 'react';
 import CommunityToolBar from './_components/CommunityToolBar';
 import CommunityTable from './_components/CommunityTable';
+import { UserDetails } from '@/contexts/UserContext';
 
 const Community = () => {
+  const { userData } = UserDetails();
   return (
     <div>
       <PageHeader title='Community • Scribbbleer' />
-      <BreadcrumbWithAvatar initialData='Community' initialLink='/community' />
+      <BreadcrumbWithAvatar initialData='Community' initialLink='/community' userData={userData} />
       <div className='px-3 lg:px-6'>
         <PageHeading title='Community' className='pl-2 pt-3' />
       </div>

@@ -1,3 +1,4 @@
+'use client';
 import BreadcrumbWithAvatar from '@/components/BreadCrumbiwthAvatar';
 import PageHeader from '@/components/PageHeader';
 import PageHeading from '@/components/pageHeading';
@@ -10,17 +11,27 @@ import HomeImage2 from '../../../public/Images/HomeImage2.svg';
 import HomeImage3 from '../../../public/Images/HomeImage3.svg';
 import HomeImage4 from '../../../public/Images/HomeImage4.svg';
 import HomeCard from './_components/HomeCard';
+import { UserDetails } from '@/contexts/UserContext';
+
 const Home = () => {
+  const { userData } = UserDetails();
   return (
     <div>
       <PageHeader title='Home • Scribbbleer' />
-      <BreadcrumbWithAvatar initialData='Home' initialLink='/home' />
+      <BreadcrumbWithAvatar initialData='Home' initialLink='/home' userData={userData} />
       <div className='px-4 md:px-6 lg:px-9 xl:px-6'>
         <PageHeading title='Home' className='pl-2 pt-3' />
         <div className='flex flex-col items-center'>
-          <div className='flex py-4 sm:h-[20vh] flex-col items-center justify-center'>
+          <div className='flex flex-col items-center justify-center py-4 sm:h-[20vh]'>
             <p className='text-[20px] font-normal text-black'>
-              Hello <span className='text-primary'>John!</span>
+              Hello{' '}
+              <span className='text-primary'>
+                {userData === null ? (
+                  <span className='inline-block h-5 w-24 animate-pulse rounded bg-gray-200 align-middle' />
+                ) : (
+                  userData?.identities?.[0]?.identity_data?.full_name || 'John'
+                )}
+              </span>
             </p>
             <p className='pt-2 text-[24px] font-medium text-black'>
               Welcome to Scribbbleer!{' '}
@@ -34,7 +45,7 @@ const Home = () => {
                 className='w-full pl-10 placeholder:text-[#b2bac5]'
               />
             </div>
-            <Button className='bg-[#CE7411] w-full max-w-[40px] sm:max-w-[128px]'>
+            <Button className='w-full max-w-[40px] bg-[#CE7411] sm:max-w-[128px]'>
               <Search className='h-4 w-4 sm:hidden' />
               <span className='hidden sm:inline'>Search</span>
             </Button>
