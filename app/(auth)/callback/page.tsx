@@ -13,8 +13,8 @@ export default function CallbackPage() {
       if (data.session) {
         router.replace("/home");
       } else if (error) {
-        alert("Authentication failed: " + error.message);
-        router.replace("/auth/sign-in");
+        alert(`Authentication failed: ${error.message}`);
+        router.replace("/sign-in");
       }
       setLoading(false);
     };

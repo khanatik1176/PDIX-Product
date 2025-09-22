@@ -1,3 +1,4 @@
+/* eslint-disable no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import React, { useState, useRef, useEffect, FC } from 'react';
