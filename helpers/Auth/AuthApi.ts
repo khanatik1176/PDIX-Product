@@ -23,6 +23,8 @@ export const handleSignIn = async (data: TSignInFormInputs) => {
   return response.data;
 };
 
+// Google OAuth Sign-In
+
 export const handleGoogleSignIn = async () => {
   await supabase.auth.signInWithOAuth({
     provider: 'google',
