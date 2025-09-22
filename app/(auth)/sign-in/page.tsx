@@ -14,7 +14,6 @@ import { BaseInput } from '@/components/BaseInput';
 import { Circle, Eye, EyeOff } from 'lucide-react';
 import Cookies from 'js-cookie';
 import GoogleSignInButton from '@/components/GoogleSignInButton';
-import { supabase } from '@/lib/superbaseClient';
 
 const SignIn = () => {
   const router = useRouter();

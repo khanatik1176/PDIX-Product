@@ -3,7 +3,7 @@ import BreadcrumbWithAvatar from '@/components/BreadCrumbiwthAvatar';
 import PageHeader from '@/components/PageHeader';
 import PageHeading from '@/components/pageHeading';
 import { Input } from '@/components/ui/input';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import HomeImage1 from '../../../public/Images/HomeImage1.svg';
@@ -11,8 +11,6 @@ import HomeImage2 from '../../../public/Images/HomeImage2.svg';
 import HomeImage3 from '../../../public/Images/HomeImage3.svg';
 import HomeImage4 from '../../../public/Images/HomeImage4.svg';
 import HomeCard from './_components/HomeCard';
-import { supabase } from '@/lib/superbaseClient';
-import Cookies from 'js-cookie';
 import { UserDetails } from '@/contexts/UserContext';
 
 const Home = () => {

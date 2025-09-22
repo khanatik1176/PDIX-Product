@@ -5,7 +5,6 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Circle, Eye, EyeOff } from 'lucide-react';
-import { GoogleLogo } from '@/constants/globalFunctions';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { TBasicSignupFormInputs } from '@/types/Auth.types';

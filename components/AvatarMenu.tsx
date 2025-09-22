@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, FC, use } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 import { LogOut, Sparkles, BadgeCheck, CreditCard, Moon } from 'lucide-react';
 import Link from 'next/link';
