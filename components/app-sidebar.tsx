@@ -1,12 +1,10 @@
 'use client';
 
 import {
-  Trash2,
-  NotepadTextDashed,
   BookOpen,
   Bookmark,
-  Earth,
   House,
+  LibraryBig,
 } from 'lucide-react';
 
 
@@ -44,10 +42,15 @@ const defaultData = {
       icon: House,
       isActive: true,
     },
+    // {
+    //   title: 'Draft',
+    //   url: '/draft',
+    //   icon: NotepadTextDashed,
+    // },
     {
-      title: 'Draft',
-      url: '/draft',
-      icon: NotepadTextDashed,
+      title: 'Library',
+      url: '/library',
+      icon: LibraryBig, 
     },
     {
       title: 'Saved',
@@ -59,16 +62,16 @@ const defaultData = {
       url: '/my-notes',
       icon: BookOpen,
     },
-    {
-      title: 'Community',
-      url: '/community',
-      icon: Earth,
-    },
-    {
-      title: 'Bin',
-      url: '/bin',
-      icon: Trash2,
-    },
+    // {
+    //   title: 'Community',
+    //   url: '/community',
+    //   icon: Earth,
+    // },
+    // {
+    //   title: 'Bin',
+    //   url: '/bin',
+    //   icon: Trash2,
+    // },
   ],
 };
 

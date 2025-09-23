@@ -29,7 +29,7 @@ export const handleGoogleSignIn = async () => {
   await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `https://pdix-qx27.vercel.app/callback`,
+      redirectTo: `http://localhost:3001/callback`,
     },
   });
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import {X } from 'lucide-react';
+import { X } from 'lucide-react';
 import Image from 'next/image';
 
 import {
@@ -40,12 +40,14 @@ export function TeamSwitcher({
               <activeTeam.logo />
             )}
           </div>
+          {/* 
           <div className='grid flex-1 text-left leading-tight'>
             <span className='truncate font-semibold text-sm text-miniSubheadingColor'>
               {activeTeam.name}
             </span>
             <span className='truncate text-tweleve font-normal text-miniSubheadingColor'>{activeTeam.plan}</span>
           </div>
+          */}
           <X strokeWidth={1} className='ml-auto h-4 w-4 block md:hidden cursor-pointer' onClick={() => toggleSidebar()} />
           {/* <ChevronsUpDown className='ml-auto cursor-not-allowed' /> */}
         </SidebarMenuButton>
