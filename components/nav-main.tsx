@@ -30,7 +30,7 @@ export function NavMain({
   selectedItem: string | null;
   onItemClick: (title: string) => void;
 }) {
-  const activeItems = ['Home', 'Draft', 'Saved', 'My notes', 'Community', 'Bin'];
+  const activeItems = ['Home', 'Draft', 'Saved', 'My notes', 'Community', 'Bin', 'Library'];
   const pathname = usePathname();
 
   // If the current path is /profile, /profile/edit, or /profile/change-password, set selectedItem to null
