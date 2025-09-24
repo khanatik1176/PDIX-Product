@@ -21,6 +21,10 @@ export const DUMMY_NOTES: NoteItem[] = [
     views: 120,
     downloads: 80,
     feedback: 15,
+    previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    rating: 4.5,
+    likes: 25,
+    uploadedBy: 'John Doe',
   },
   {
     id: 2,
@@ -30,6 +34,10 @@ export const DUMMY_NOTES: NoteItem[] = [
     views: 110,
     downloads: 90,
     feedback: 10,
+    previewUrl: 'https://www.orimi.com/pdf-test.pdf',
+    rating: 4.0,
+    likes: 18,
+    uploadedBy: 'Jane Smith',
   },
   {
     id: 3,
@@ -39,6 +47,10 @@ export const DUMMY_NOTES: NoteItem[] = [
     views: 95,
     downloads: 60,
     feedback: 5,
+    previewUrl: 'https://file-examples.com/wp-content/uploads/2017/10/file-sample_150kB.pdf',
+    rating: 3.8,
+    likes: 10,
+    uploadedBy: 'Alice Johnson',
   },
   {
     id: 4,
@@ -48,6 +60,10 @@ export const DUMMY_NOTES: NoteItem[] = [
     views: 130,
     downloads: 100,
     feedback: 20,
+    previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    rating: 4.7,
+    likes: 30,
+    uploadedBy: 'Bob Brown',
   },
   {
     id: 5,
@@ -57,6 +73,10 @@ export const DUMMY_NOTES: NoteItem[] = [
     views: 80,
     downloads: 70,
     feedback: 8,
+    previewUrl: 'https://www.orimi.com/pdf-test.pdf',
+    rating: 4.2,
+    likes: 15,
+    uploadedBy: 'Charlie Davis',
   },
   {
     id: 6,
@@ -66,6 +86,10 @@ export const DUMMY_NOTES: NoteItem[] = [
     views: 140,
     downloads: 110,
     feedback: 12,
+    previewUrl: 'https://file-examples.com/wp-content/uploads/2017/10/file-sample_150kB.pdf',
+    rating: 4.6,
+    likes: 22,
+    uploadedBy: 'Diana Evans',
   },
   {
     id: 7,
@@ -75,6 +99,10 @@ export const DUMMY_NOTES: NoteItem[] = [
     views: 100,
     downloads: 85,
     feedback: 7,
+    previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    rating: 4.1,
+    likes: 17,
+    uploadedBy: 'Ethan Foster',
   },
   {
     id: 8,
@@ -84,6 +112,10 @@ export const DUMMY_NOTES: NoteItem[] = [
     views: 75,
     downloads: 60,
     feedback: 4,
+    previewUrl: 'https://www.orimi.com/pdf-test.pdf',
+    rating: 3.9,
+    likes: 12,
+    uploadedBy: 'Fiona Green',
   },
   {
     id: 9,
@@ -93,6 +125,10 @@ export const DUMMY_NOTES: NoteItem[] = [
     views: 125,
     downloads: 95,
     feedback: 9,
+    previewUrl: 'https://file-examples.com/wp-content/uploads/2017/10/file-sample_150kB.pdf',
+    rating: 4.3,
+    likes: 20,
+    uploadedBy: 'George Harris',
   },
   {
     id: 10,
@@ -102,8 +138,12 @@ export const DUMMY_NOTES: NoteItem[] = [
     views: 90,
     downloads: 70,
     feedback: 6,
+    previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    rating: 4.0,
+    likes: 14,
+    uploadedBy: 'Hannah Irvine',
   },
-    {
+  {
     id: 11,
     subject: 'Physics',
     name: "Newton's Laws Summary 2",
@@ -111,6 +151,10 @@ export const DUMMY_NOTES: NoteItem[] = [
     views: 150,
     downloads: 80,
     feedback: 0,
+    previewUrl: 'https://www.orimi.com/pdf-test.pdf',
+    rating: 4.5,
+    likes: 25,
+    uploadedBy: 'John Doe',
   },
 ];
 
