@@ -15,6 +15,7 @@ export type NoteItem = {
   date: string;
   views: number;
   downloads: number;
+  feedback?: number;
 }
 
 export type NotesTabListProps = {

@@ -20,6 +20,7 @@ export const DUMMY_NOTES: NoteItem[] = [
     date: '2025-09-20',
     views: 120,
     downloads: 80,
+    feedback: 15,
   },
   {
     id: 2,
@@ -28,6 +29,7 @@ export const DUMMY_NOTES: NoteItem[] = [
     date: '2025-09-19',
     views: 110,
     downloads: 90,
+    feedback: 10,
   },
   {
     id: 3,
@@ -36,6 +38,7 @@ export const DUMMY_NOTES: NoteItem[] = [
     date: '2025-09-18',
     views: 95,
     downloads: 60,
+    feedback: 5,
   },
   {
     id: 4,
@@ -44,6 +47,7 @@ export const DUMMY_NOTES: NoteItem[] = [
     date: '2025-09-17',
     views: 130,
     downloads: 100,
+    feedback: 20,
   },
   {
     id: 5,
@@ -52,6 +56,7 @@ export const DUMMY_NOTES: NoteItem[] = [
     date: '2025-09-16',
     views: 80,
     downloads: 70,
+    feedback: 8,
   },
   {
     id: 6,
@@ -60,6 +65,7 @@ export const DUMMY_NOTES: NoteItem[] = [
     date: '2025-09-15',
     views: 140,
     downloads: 110,
+    feedback: 12,
   },
   {
     id: 7,
@@ -68,6 +74,7 @@ export const DUMMY_NOTES: NoteItem[] = [
     date: '2025-09-14',
     views: 100,
     downloads: 85,
+    feedback: 7,
   },
   {
     id: 8,
@@ -76,6 +83,7 @@ export const DUMMY_NOTES: NoteItem[] = [
     date: '2025-09-13',
     views: 75,
     downloads: 60,
+    feedback: 4,
   },
   {
     id: 9,
@@ -84,6 +92,7 @@ export const DUMMY_NOTES: NoteItem[] = [
     date: '2025-09-12',
     views: 125,
     downloads: 95,
+    feedback: 9,
   },
   {
     id: 10,
@@ -92,6 +101,7 @@ export const DUMMY_NOTES: NoteItem[] = [
     date: '2025-09-11',
     views: 90,
     downloads: 70,
+    feedback: 6,
   },
     {
     id: 11,
@@ -100,6 +110,7 @@ export const DUMMY_NOTES: NoteItem[] = [
     date: '2025-09-20',
     views: 150,
     downloads: 80,
+    feedback: 0,
   },
 ];
 

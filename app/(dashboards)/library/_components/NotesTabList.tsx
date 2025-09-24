@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
-import { Download, Eye, FileText } from 'lucide-react';
+import { Download, Eye, FileText, MessageCircle } from 'lucide-react';
 import { NotesTabListProps } from '@/types/Library.types';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
+import { formatDate } from '@/constants/globalFunctions';
 
 const TABS = ['Most Viewed', 'Most Downloaded'];
 const PAGE_SIZE = 10;
@@ -60,20 +68,30 @@ const NotesTabList: React.FC<NotesTabListProps> = ({
             className='flex w-full cursor-pointer items-center justify-between rounded-md border bg-white p-2 hover:shadow'
           >
             <div className='flex min-w-0 flex-1 items-center gap-x-4'>
-              <FileText className='h-6 w-6 text-gray-600' />
-              <span
-                className={`min-w-[80px] flex-shrink-0 rounded-md border border-gray-300 bg-white px-2 py-0.5 text-center text-xs font-semibold text-black`}
-              >
-                {note.subject}
-              </span>
+              <div className='flex flex-col md:flex-row items-center gap-2'>
+                <FileText className='h-6 w-6 text-gray-600' />
+                <span
+                  className={`min-w-[80px] flex-shrink-0 rounded-md border border-gray-300 bg-white px-2 py-0.5 text-center text-xs font-semibold text-black`}
+                >
+                  {note.subject}
+                </span>
+              </div>
               <div className='min-w-0'>
-                <div className='w-full max-w-[100px] truncate font-medium md:max-w-full'>
+                <div className='w-full max-w-[200px] truncate font-medium md:max-w-full'>
                   {note.name}
                 </div>
-                <div className='text-xs text-gray-400'>{note.date}</div>
+                <div className='flex flex-col gap-2 text-xs text-gray-400 md:flex-row md:items-center'>
+                  {formatDate(note.date)}
+                  <div className='flex items-center gap-1'>
+                    <MessageCircle className='h-4 w-4 text-gray-400' />
+                    <span className='font-medium text-gray-600'>
+                      {note.feedback ?? 0}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className='flex items-center'>
+            <div className='flex items-center gap-1'>
               {activeTab === 0 ? (
                 <Eye className='h-4 w-4 text-secondary' />
               ) : (
@@ -93,7 +111,11 @@ const NotesTabList: React.FC<NotesTabListProps> = ({
               <PaginationPrevious
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 aria-disabled={page === 1}
-                className={page === 1 ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
+                className={
+                  page === 1
+                    ? 'cursor-not-allowed opacity-50'
+                    : 'cursor-pointer'
+                }
               />
             </PaginationItem>
             {[...Array(totalPages)].map((_, idx) => (
@@ -111,7 +133,9 @@ const NotesTabList: React.FC<NotesTabListProps> = ({
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 aria-disabled={page === totalPages}
                 className={
-                  page === totalPages ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+                  page === totalPages
+                    ? 'cursor-not-allowed opacity-50'
+                    : 'cursor-pointer'
                 }
               />
             </PaginationItem>
