@@ -15,6 +15,11 @@ export type NoteItem = {
   date: string;
   views: number;
   downloads: number;
+  feedback?: number;
+  likes?: number;
+  rating?: number;
+  previewUrl?: string;
+  uploadedBy?: string;
 }
 
 export type NotesTabListProps = {
@@ -26,4 +31,22 @@ export type SubjectFilterProps = {
   subjects: string[];
   selectedSubjects: string[];
   onChange: (subject: string) => void;
+}
+
+export type ILibraryNoteHeadingProps = {
+  title: string;
+  subTitle?: string;
+  titleclassName?: string;
+  subTitleClassName?: string;
+  className?: string;
+  subject?: string;
+  classYear?: string;
+  totalNotes?: number;
+  isTopicLoading?: boolean;
+};
+
+export type NoteModalProps = {
+  open: boolean;
+  onClose: () => void;
+  note: any;
 }
