@@ -11,7 +11,6 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { formatDate } from '@/constants/globalFunctions';
-import { useRouter } from 'next/navigation';
 import NoteModal from './NoteModal';
 
 const TABS = ['Most Viewed', 'Most Downloaded'];
