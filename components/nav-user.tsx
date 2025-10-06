@@ -103,7 +103,7 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            {/* <DropdownMenuGroup>
               <DropdownMenuItem className='hover:bg-gray-100'>
                 <span
                   className='flex cursor-pointer items-center gap-[7px]'
@@ -113,10 +113,10 @@ export function NavUser({
                   Upgrade to Pro
                 </span>
               </DropdownMenuItem>
-            </DropdownMenuGroup>
+            </DropdownMenuGroup> */}
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className='hover:bg-gray-100'>
+              {/* <DropdownMenuItem className='hover:bg-gray-100'>
                 <span
                   className='flex cursor-pointer items-center gap-[7px]'
                   
@@ -133,7 +133,7 @@ export function NavUser({
                   <CreditCard />
                   Billing
                 </span>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuItem className='hover:bg-gray-100'>
                 <span
                   className='flex cursor-pointer items-center gap-[7px]'

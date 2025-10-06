@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, FC } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
-import { LogOut, Sparkles, BadgeCheck, CreditCard, Moon } from 'lucide-react';
+import { LogOut, Sparkles, BadgeCheck, CreditCard, Moon, CircleUser } from 'lucide-react';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
@@ -80,7 +80,7 @@ const AvatarMenu: FC<AvatarMenuProps> = ({ userData }) => {
             </div>
           </div>
           <ul className='py-1'>
-            <li className='cursor-pointer border-b px-4 py-2 text-start hover:bg-gray-100'>
+            {/* <li className='cursor-pointer border-b px-4 py-2 text-start hover:bg-gray-100'>
               <Link href='/upgrade'>
                 <div className='flex items-center gap-x-3'>
                   <span>
@@ -117,7 +117,17 @@ const AvatarMenu: FC<AvatarMenuProps> = ({ userData }) => {
                 </span>
                 <span className='text-sm text-gray-700'>Dark theme</span>
               </div>
-            </li>
+            </li>*/}
+                     <li className='cursor-pointer px-4 py-2 text-start hover:bg-gray-100'>
+                      <Link href='/profile'>
+              <div className='flex items-center gap-x-3'>
+                <span>
+                  <CircleUser size={16} />
+                </span>
+                <span className='text-sm text-gray-700'>View Profile</span>
+              </div>
+              </Link>
+            </li> 
             <li className='mt-1 cursor-pointer border-t px-4 py-2 text-start hover:bg-gray-100'>
               <div className='flex items-center gap-x-3' onClick={handleLogout}>
                 <span>
