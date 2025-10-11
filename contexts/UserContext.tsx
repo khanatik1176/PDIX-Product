@@ -11,6 +11,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const getSessionAndSetCookie = async () => {
       const { data } = await supabase.auth.getSession();
+      console.log('Supabase session data:', data);
       if (data?.session) {
         Cookies.set('user_data', JSON.stringify(data.session.user), { expires: 7 });
         setUserData(data.session.user);

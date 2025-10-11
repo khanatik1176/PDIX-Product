@@ -52,7 +52,7 @@ const AvatarMenu: FC<AvatarMenuProps> = ({ userData }) => {
   }, [isMenuOpen]);
 
   return (
-    <div className='relative'>
+    <div className='relative z-50'>
       <div onClick={handleAvatarClick} className='cursor-pointer'>
         <Avatar className='h-8 w-8 rounded-xl'>
           <AvatarImage src={defaultAvatarUrl} alt='Avatar' />
