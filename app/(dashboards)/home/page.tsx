@@ -16,12 +16,20 @@ import {
   SUBJECT_TOPIC_INFO,
   SUBJECTS,
 } from '@/constants/DummyDataFactory';
+import { useRouter } from 'next/navigation';
 
 const NotesGallery = () => {
   const { userData } = UserDetails();
 
+  const router = useRouter();
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
+  const [searchText, setSearchText] = useState('');
 
+  const handleSearch = () => {
+    if (searchText.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchText.trim())}`);
+    }
+  };
   const handleSubjectChange = (subject: string) => {
     setSelectedSubjects((prev) =>
       prev.includes(subject)
@@ -40,7 +48,10 @@ const NotesGallery = () => {
             'Select a subject to explore curated notes, or use the search to find exactly what you need.',
         };
 
-        console.log('User Data:', userData?.identities?.[0]?.identity_data?.full_name);
+  console.log(
+    'User Data:',
+    userData?.identities?.[0]?.identity_data?.full_name
+  );
 
   return (
     <div>
@@ -51,7 +62,11 @@ const NotesGallery = () => {
         userData={userData}
       />
       <div className='px-0 md:px-6 lg:px-9 xl:px-6'>
-        <PageHeading title={`Welcome ${userData?.name}!`} subTitle='Explore your library of notes' className='pl-2 pt-3' />
+        <PageHeading
+          title={`Welcome ${userData?.name}!`}
+          subTitle='Explore your library of notes'
+          className='pl-2 pt-3'
+        />
         <div className='grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 xl:grid-cols-4'>
           <LibraryCard title='Total Notes' value={120} />
           <LibraryCard title='Uploaded Today' value={8} />
@@ -65,15 +80,21 @@ const NotesGallery = () => {
           subtitle={topicInfo.subtitle}
         />
       </div>
-      <div className='mb-4 mt-4 md:mt-8 flex w-full items-center justify-center gap-2 px-4 sm:gap-6 md:px-0'>
+      <div className='mb-4 mt-4 flex w-full items-center justify-center gap-2 px-4 sm:gap-6 md:mt-8 md:px-0'>
         <div className='relative w-full md:max-w-[300px] lg:max-w-[520px] xl:max-w-[800px]'>
           <Search className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#7e8086]' />
           <Input
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
             placeholder='Title, Topic Name, whatever comes in your mind!'
             className='w-full pl-10 placeholder:text-[#b2bac5]'
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
           />
         </div>
-        <Button className='w-full max-w-[40px] bg-[#CE7411] sm:max-w-[128px]'>
+        <Button
+          className='w-full max-w-[40px] bg-[#CE7411] sm:max-w-[128px]'
+          onClick={handleSearch}
+        >
           <Search className='h-4 w-4 sm:hidden' />
           <span className='hidden sm:inline'>Search</span>
         </Button>

@@ -9,6 +9,7 @@ import { UserDetails } from '@/contexts/UserContext';
 import { Avatar } from '@/components/ui/avatar';
 import { Mail, GraduationCap } from 'lucide-react';
 import Image from 'next/image';
+import { GoogleLogo } from '@/constants/globalFunctions';
 
 const dummyUser = {
   full_name: 'John Doe',
@@ -20,7 +21,7 @@ const dummyUser = {
   location: 'San Francisco, CA, USA',
   department: 'Product Management',
   avatar: '',
-  provider: 'email', // or 'google'
+  provider: 'google', // or 'google'
   providerEmail: 'john.doe@email.com',
 };
 
@@ -116,16 +117,10 @@ const Profile = () => {
               <div className="flex items-center gap-3 mb-2">
                 <span className="font-medium text-gray-700">Logged in using:</span>
                 {provider === 'google' ? (
-                  <>
-                    <Image
-                      src="/google-logo.svg"
-                      alt="Google"
-                      width={20}
-                      height={20}
-                      className="inline-block"
-                    />
+                  <div className="flex items-center gap-0">
+                    <GoogleLogo/>
                     <span className="text-gray-800 font-semibold">{providerEmail}</span>
-                  </>
+                  </div>
                 ) : (
                   <>
                     <Mail className="h-5 w-5 text-primary" />
