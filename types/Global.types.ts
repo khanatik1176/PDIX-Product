@@ -6,8 +6,8 @@ export type IHeadingProps = {
   className?: string;
 };
 export type BreadcrumbWithAvatarProps = {
-  initialData: string;
-  initialLink: string;
+  initialData?: string;
+  initialLink?: string;
   secondaryData?: string;
   secondaryLink?: string;
   userData?: any;
@@ -16,3 +16,10 @@ export type BreadcrumbWithAvatarProps = {
 export type AvatarMenuProps = {
   userData?: any;
 };
+
+export type ViewType = 'table' | 'card';
+
+export type ViewToggleProps = {
+  viewType: ViewType;
+  setViewType: (type: ViewType) => void;
+}

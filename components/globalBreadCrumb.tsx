@@ -11,18 +11,18 @@ import { Ellipsis } from "lucide-react";
 
 type GlobalBreadCrumbProps = {
   initialData?: string;
-  secondayData?: string;
+  secondaryData?: string;
   thirdData?: string;
-  initalLink?: string;
-  secondayLink?: string;
+  initialLink?: string;
+  secondaryLink?: string;
   thirdLink?: string;
 };
 
 const GlobalBreadCrumb: FC<GlobalBreadCrumbProps> = ({
-  initalLink,
+  initialLink,
   initialData,
-  secondayData,
-  secondayLink,
+  secondaryData,
+  secondaryLink,
   thirdData,
   thirdLink,
 }) => {
@@ -35,21 +35,21 @@ const GlobalBreadCrumb: FC<GlobalBreadCrumbProps> = ({
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink
-                href={initalLink}
-                className={secondayData || thirdData ? "text-subHeading text-sm" : "!text-black text-sm"}
+                href={initialLink}
+                className={secondaryData || thirdData ? "text-subHeading text-sm" : "!text-black text-sm"}
               >
                 {initialData}
               </BreadcrumbLink>
             </BreadcrumbItem>
-            {secondayData ? (
+            {secondaryData ? (
               <>
                 <BreadcrumbSeparator className="text-subHeading" />
                 <BreadcrumbItem>
                   <BreadcrumbLink
-                    href={secondayLink}
+                    href={secondaryLink}
                     className={thirdData ? "text-subHeading text-sm hidden md:block" : "!text-black text-sm"}
                   >
-                    {secondayData}
+                    {secondaryData}
                   </BreadcrumbLink>
                   {thirdData ? (
                     <BreadcrumbItem className="md:hidden">

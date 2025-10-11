@@ -17,9 +17,9 @@ const BreadcrumbWithAvatar: React.FC<BreadcrumbWithAvatarProps> = ({
     <div className='flex items-center justify-between px-3 pt-4 lg:px-6'>
       <GlobalBreadCrumb
         initialData={initialData}
-        initalLink={initialLink}
-        secondayData={secondaryData}
-        secondayLink={secondaryLink}
+        initialLink={initialLink}
+        secondaryData={secondaryData}
+        secondaryLink={secondaryLink}
       />
       <span className='hidden items-center gap-4 pr-2 md:flex'>
         <Bell className='h-5 w-5 cursor-pointer text-black' />

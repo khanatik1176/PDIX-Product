@@ -47,11 +47,11 @@ const defaultData = {
     //   url: '/draft',
     //   icon: NotepadTextDashed,
     // },
-    {
-      title: 'Library',
-      url: '/library',
-      icon: LibraryBig, 
-    },
+    // {
+    //   title: 'Library',
+    //   url: '/library',
+    //   icon: LibraryBig, 
+    // },
     {
       title: 'Saved',
       url: '/saved',
