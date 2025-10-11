@@ -24,6 +24,7 @@ const NotesTabList: React.FC<NotesTabListProps> = ({
   const [page, setPage] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedNote, setSelectedNote] = useState<any>(null);
+
   // Filter notes by selected subjects
   const filteredNotes = selectedSubjects.length
     ? notes.filter((n) => selectedSubjects.includes(n.subject))
@@ -119,44 +120,53 @@ const NotesTabList: React.FC<NotesTabListProps> = ({
           </li>
         ))}
       </ul>
-      {totalPages > 1 && (
-        <Pagination className='mt-4'>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                aria-disabled={page === 1}
-                className={
-                  page === 1
-                    ? 'cursor-not-allowed opacity-50'
-                    : 'cursor-pointer'
-                }
-              />
-            </PaginationItem>
-            {[...Array(totalPages)].map((_, idx) => (
-              <PaginationItem key={idx}>
-                <PaginationLink
-                  isActive={page === idx + 1}
-                  onClick={() => setPage(idx + 1)}
-                >
-                  {idx + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            <PaginationItem>
-              <PaginationNext
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                aria-disabled={page === totalPages}
-                className={
-                  page === totalPages
-                    ? 'cursor-not-allowed opacity-50'
-                    : 'cursor-pointer'
-                }
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      )}
+      <div className="mt-4 flex w-full items-center justify-between">
+        {/* Row count on the left */}
+        <span className="text-sm text-gray-500">
+          {paginatedNotes.length} of {sortedNotes.length} row(s) showing
+        </span>
+        {/* Pagination on the right */}
+        <div>
+          {totalPages > 1 && (
+            <Pagination className="w-auto">
+              <PaginationContent className="flex justify-end">
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                    aria-disabled={page === 1}
+                    className={
+                      page === 1
+                        ? 'cursor-not-allowed opacity-50'
+                        : 'cursor-pointer'
+                    }
+                  />
+                </PaginationItem>
+                {[...Array(totalPages)].map((_, idx) => (
+                  <PaginationItem key={idx}>
+                    <PaginationLink
+                      isActive={page === idx + 1}
+                      onClick={() => setPage(idx + 1)}
+                    >
+                      {idx + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                    aria-disabled={page === totalPages}
+                    className={
+                      page === totalPages
+                        ? 'cursor-not-allowed opacity-50'
+                        : 'cursor-pointer'
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
+        </div>
+      </div>
       <NoteModal
         open={modalOpen}
         onClose={handleCloseModal}

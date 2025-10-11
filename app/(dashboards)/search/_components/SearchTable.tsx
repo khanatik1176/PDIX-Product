@@ -63,9 +63,7 @@ const SearchTable: React.FC<NotesTabListProps> = ({
             <div className='flex min-w-0 flex-1 items-center gap-x-4'>
               <div className='flex flex-col items-center gap-2 md:flex-row'>
                 <FileText className='h-6 w-6 text-gray-600' />
-                <span
-                  className='min-w-[80px] flex-shrink-0 rounded-md border border-gray-300 bg-white px-2 py-0.5 text-center text-xs font-semibold text-black'
-                >
+                <span className='min-w-[80px] flex-shrink-0 rounded-md border border-gray-300 bg-white px-2 py-0.5 text-center text-xs font-semibold text-black'>
                   {note.subject}
                 </span>
               </div>
@@ -102,44 +100,53 @@ const SearchTable: React.FC<NotesTabListProps> = ({
           </li>
         ))}
       </ul>
-      {totalPages > 1 && (
-        <Pagination className='mt-4'>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                aria-disabled={page === 1}
-                className={
-                  page === 1
-                    ? 'cursor-not-allowed opacity-50'
-                    : 'cursor-pointer'
-                }
-              />
-            </PaginationItem>
-            {[...Array(totalPages)].map((_, idx) => (
-              <PaginationItem key={idx}>
-                <PaginationLink
-                  isActive={page === idx + 1}
-                  onClick={() => setPage(idx + 1)}
-                >
-                  {idx + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            <PaginationItem>
-              <PaginationNext
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                aria-disabled={page === totalPages}
-                className={
-                  page === totalPages
-                    ? 'cursor-not-allowed opacity-50'
-                    : 'cursor-pointer'
-                }
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      )}
+      <div className='mt-4 flex w-full items-center justify-between'>
+        {/* Row count on the left */}
+        <span className='text-sm text-gray-500'>
+          {paginatedNotes.length} of {filteredNotes.length} row(s) showing
+        </span>
+        {/* Pagination on the right */}
+        <div>
+          {totalPages > 1 && (
+            <Pagination className='w-auto'>
+              <PaginationContent className='flex justify-end'>
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                    aria-disabled={page === 1}
+                    className={
+                      page === 1
+                        ? 'cursor-not-allowed opacity-50'
+                        : 'cursor-pointer'
+                    }
+                  />
+                </PaginationItem>
+                {[...Array(totalPages)].map((_, idx) => (
+                  <PaginationItem key={idx}>
+                    <PaginationLink
+                      isActive={page === idx + 1}
+                      onClick={() => setPage(idx + 1)}
+                    >
+                      {idx + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                    aria-disabled={page === totalPages}
+                    className={
+                      page === totalPages
+                        ? 'cursor-not-allowed opacity-50'
+                        : 'cursor-pointer'
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
+        </div>
+      </div>
       <SearchModal
         open={modalOpen}
         onClose={handleCloseModal}
