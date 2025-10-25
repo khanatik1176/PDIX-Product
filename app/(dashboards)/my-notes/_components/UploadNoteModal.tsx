@@ -39,6 +39,7 @@ const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
   });
 
   const url = watch('fileUrl');
+  const title = watch('title');
   const topic = watch('topicName');
   const educationLevel = watch('educationLevel');
   const classYear = watch('classId');
@@ -124,6 +125,7 @@ const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
             setValue={setValue}
             errors={errors}
             url={url}
+            title={title}
           />
         )}
         {step === 2 && (

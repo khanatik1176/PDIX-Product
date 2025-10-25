@@ -17,6 +17,7 @@ export type StepOneInputProps = {
   setValue: any;
   errors: any;
   url: string;
+  title: string;
 }
 
 export type StepTwoInputProps = {

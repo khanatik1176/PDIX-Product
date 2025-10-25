@@ -12,6 +12,7 @@ const StepOneInput: React.FC<StepOneInputProps> = ({
   setValue,
   errors,
   url,
+  title,
 }) => {
   return (
     <>
@@ -126,7 +127,7 @@ const StepOneInput: React.FC<StepOneInputProps> = ({
         <Button
           type='submit'
           className='w-full'
-          disabled={!url || !!errors.fileUrl || !!errors.title}
+          disabled={!url || !title || !!errors.fileUrl || !!errors.title}
         >
           Next
         </Button>
