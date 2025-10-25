@@ -56,16 +56,12 @@ const NotesGallery = () => {
   return (
     <div>
       <PageHeader title='Home • Scribbbleer' />
-      <BreadcrumbWithAvatar
-        // initialData='Library'
-        // initialLink='/library'
-        userData={userData}
-      />
       <div className='px-0 md:px-6 lg:px-9 xl:px-6'>
         <PageHeading
           title={`Welcome ${userData?.name}!`}
           subTitle='Explore your library of notes'
-          className='pl-2 pt-3'
+          isHome={true}
+          className='pl-2 pt-3 xl:pt-6'
         />
         <div className='grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 xl:grid-cols-4'>
           <LibraryCard title='Total Notes' value={120} />

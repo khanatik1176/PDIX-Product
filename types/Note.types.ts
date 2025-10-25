@@ -1,4 +1,5 @@
 export type NoteFormType = {
+  title: string;
   fileUrl: string;
   classId: string;
   subjectName: string;

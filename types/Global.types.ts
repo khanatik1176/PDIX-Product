@@ -4,12 +4,19 @@ export type IHeadingProps = {
   titleclassName?: string;
   subTitleClassName?: string;
   className?: string;
+  isHome?: boolean;
 };
 export type BreadcrumbWithAvatarProps = {
   initialData?: string;
   initialLink?: string;
   secondaryData?: string;
   secondaryLink?: string;
+  userData?: any;
+};
+
+export type SearchHeaderProps = {
+  title?: string;
+  subTitle?: string;
   userData?: any;
 };
 

@@ -1,3 +1,4 @@
+'use client';
 import { Controller } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -29,15 +30,46 @@ const StepOneInput: React.FC<StepOneInputProps> = ({
           Enter URL
         </button>
       </div>
+
       <form
         className='mt-2'
         onSubmit={async (e) => {
           e.preventDefault();
-          const valid = await trigger('fileUrl');
+          const valid = await trigger(['title', 'fileUrl']);
           if (valid) setStep(2);
         }}
         autoComplete='off'
       >
+        {/* Title input (added above URL) */}
+        <div className='relative mb-4'>
+          <label className='mb-1 flex items-center gap-1 text-sm font-medium'>
+            Title <span className='text-red-500'>*</span>
+          </label>
+          <Controller
+            name='title'
+            control={control}
+            render={({ field }) => (
+              <Input
+                {...field}
+                placeholder='Enter Title'
+                className='mb-1'
+                value={field.value}
+                onChange={(e) => {
+                  field.onChange(e.target.value);
+                  // re-run validation for title on change so errors update immediately
+                  trigger('title');
+                }}
+              />
+            )}
+          />
+          {errors.title && (
+            <div className='absolute left-0 top-full mt-1 text-xs text-red-500'>
+              {errors.title.message}
+            </div>
+          )}
+        </div>
+
+        {/* URL input */}
         <div className='relative mb-2'>
           <label className='mb-1 flex items-center gap-1 text-sm font-medium'>
             URL <span className='text-red-500'>*</span>
@@ -53,14 +85,15 @@ const StepOneInput: React.FC<StepOneInputProps> = ({
                 value={field.value}
                 onChange={(e) => {
                   field.onChange(e.target.value);
+                  // re-run validation for fileUrl on change so errors update immediately
+                  trigger('fileUrl');
                 }}
               />
             )}
           />
         </div>
-        <div
-          className='relative mb-12 flex flex-col justify-between'
-        >
+
+        <div className='relative mb-12 flex flex-col justify-between'>
           {url && (
             <div className='flex w-full items-center justify-between rounded bg-[#F1F5F9] px-2 py-2 absolute'>
               <span
@@ -72,7 +105,11 @@ const StepOneInput: React.FC<StepOneInputProps> = ({
               </span>
               <button
                 type='button'
-                onClick={() => setValue('fileUrl', '')}
+                onClick={() => {
+                  setValue('fileUrl', '');
+                  // trigger validation after clearing so button state updates
+                  trigger('fileUrl');
+                }}
                 className='ml-2'
               >
                 <X className='h-4 w-4 text-black' />
@@ -85,10 +122,11 @@ const StepOneInput: React.FC<StepOneInputProps> = ({
             </div>
           )}
         </div>
+
         <Button
           type='submit'
           className='w-full'
-          disabled={!url || !!errors.file_url}
+          disabled={!url || !!errors.fileUrl || !!errors.title}
         >
           Next
         </Button>

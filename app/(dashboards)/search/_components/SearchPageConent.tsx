@@ -7,6 +7,9 @@ import { Search } from 'lucide-react';
 import { DUMMY_NOTES } from '@/constants/DummyDataFactory';
 import SearchFilter from './SearchFilter';
 import SearchTable from './SearchTable';
+import BreadcrumbWithAvatar from '@/components/BreadCrumbiwthAvatar';
+import { UserDetails } from '@/contexts/UserContext';
+import SearchHeaderComponent from './SearchHeaderComponent';
 
 const getSortedNotes = (notes: any[], sortBy: string, sortOrder: any) => {
   let sorted = [...notes];
@@ -37,6 +40,7 @@ const SearchPageContent = () => {
   const router = useRouter();
   const initialQuery = searchParams.get('query') || '';
   const [searchText, setSearchText] = useState(initialQuery);
+  const { userData } = UserDetails();
 
   // Filter panel state
   const [selectedTopic, setSelectedTopic] = useState('');
@@ -69,6 +73,10 @@ const SearchPageContent = () => {
   return (
     <div className='mt-6 w-full px-4 md:px-6 xl:px-10'>
       {/* Top: Search and Filter side by side */}
+      <SearchHeaderComponent
+        title='Search Results'
+        userData={userData}
+      />
       <div className='mb-4 flex w-full flex-col gap-4 md:flex-row md:items-center'>
         {/* Search Bar */}
         <div className='flex flex-1 items-center gap-2'>

@@ -26,6 +26,7 @@ const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
   } = useForm<NoteFormType>({
     resolver: zodResolver(NoteSchema),
     defaultValues: {
+      title: '',
       fileUrl: '',
       topicName: '',
       educationLevel: '',
