@@ -23,7 +23,7 @@ export type NoteItem = {
 }
 
 export type NotesTabListProps = {
-  notes: NoteItem[];
+  notes?: NoteItem[];
   selectedSubjects: string[];
 }
 

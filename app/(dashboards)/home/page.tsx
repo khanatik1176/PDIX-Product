@@ -1,3 +1,4 @@
+// ...existing code...
 'use client';
 import BreadcrumbWithAvatar from '@/components/BreadCrumbiwthAvatar';
 import PageHeader from '@/components/PageHeader';
@@ -17,6 +18,8 @@ import {
   SUBJECTS,
 } from '@/constants/DummyDataFactory';
 import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { fetchAnalyticsData, fetchNotesByStatus, fetchTopicList } from '@/helpers/Home/HomeApi';
 
 const NotesGallery = () => {
   const { userData } = UserDetails();
@@ -30,11 +33,11 @@ const NotesGallery = () => {
       router.push(`/search?query=${encodeURIComponent(searchText.trim())}`);
     }
   };
+
+  // UPDATED: only one subject can be selected at a time
   const handleSubjectChange = (subject: string) => {
     setSelectedSubjects((prev) =>
-      prev.includes(subject)
-        ? prev.filter((s) => s !== subject)
-        : [...prev, subject]
+      prev.includes(subject) ? [] : [subject] // if already selected -> deselect, otherwise replace with single selection
     );
   };
 
@@ -48,10 +51,16 @@ const NotesGallery = () => {
             'Select a subject to explore curated notes, or use the search to find exactly what you need.',
         };
 
-  console.log(
-    'User Data:',
-    userData?.identities?.[0]?.identity_data?.full_name
-  );
+  // ...rest of the existing code remains unchanged...
+  const { data: analyticsData = [], isLoading: isAnalyticsLoading } = useQuery({
+    queryKey: ['analytics'],
+    queryFn: fetchAnalyticsData,
+  });
+
+  const { data: topics = [], isLoading: isTopicsLoading } = useQuery({
+    queryKey: ['topics'],
+    queryFn: fetchTopicList,
+  });
 
   return (
     <div>
@@ -64,10 +73,10 @@ const NotesGallery = () => {
           className='pl-2 pt-3 xl:pt-6'
         />
         <div className='grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 xl:grid-cols-4'>
-          <LibraryCard title='Total Notes' value={120} />
-          <LibraryCard title='Uploaded Today' value={8} />
-          <LibraryCard title='Total Registered' value={350} />
-          <LibraryCard title='Registered Today' value={3} />
+          <LibraryCard title='Total Notes' value={analyticsData?.totalNotes} />
+          <LibraryCard title='Uploaded Today' value={analyticsData?.todayUploadedNotes} />
+          <LibraryCard title='Total Registered' value={analyticsData?.totalUsers} />
+          <LibraryCard title='Registered Today' value={analyticsData?.todayRegisteredUsers} />
         </div>
       </div>
       <div className='mb-3 mt-3 flex flex-col items-start px-4 md:px-10 lg:px-12 xl:px-10'>
@@ -99,14 +108,13 @@ const NotesGallery = () => {
         {/* Left: NotesTabList */}
         <div className='w-full lg:w-2/3'>
           <NotesTabList
-            notes={DUMMY_NOTES}
             selectedSubjects={selectedSubjects}
           />
         </div>
         {/* Right: SubjectFilter */}
         <div className='w-full lg:w-1/3'>
           <SubjectFilter
-            subjects={SUBJECTS}
+            subjects={topics?.data}
             selectedSubjects={selectedSubjects}
             onChange={handleSubjectChange}
           />
@@ -117,3 +125,4 @@ const NotesGallery = () => {
 };
 
 export default NotesGallery;
+// ...existing code...

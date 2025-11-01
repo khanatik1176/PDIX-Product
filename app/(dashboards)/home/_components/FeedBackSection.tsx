@@ -1,11 +1,14 @@
 'use client';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { SendHorizontal, MoreHorizontal, ChevronDown, ChevronUp } from 'lucide-react';
 import Image from 'next/image';
 import DummyAvatar from '../../../../public/Images/DummyAvatar.png';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { feedbackProps } from '@/types/Home.types';
 
-const FeedBackSection = () => {
+  
+
+const FeedBackSection: FC<feedbackProps> = () => {
   const [feedbacks, setFeedbacks] = useState([
     {
       id: 1,

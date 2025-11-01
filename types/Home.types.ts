@@ -8,3 +8,33 @@ export type HomeCardProps = {
   imageAlt: string;
   backgroundColor?: string;
 }
+
+export type NoteShape = {
+  noteId?: string;
+  title?: string;
+  topicName?: string;
+  subjectName?: string;
+  uploadDate?: string;
+  totalViews?: string | number;
+  totalDownloads?: string | number;
+  totalFeedbacks?: string | number;
+  // fallback fields (if any)
+  id?: number | string;
+  name?: string;
+  subject?: string;
+  date?: string;
+  views?: number;
+  downloads?: number;
+  feedback?: number;
+};
+
+export type NoteItemProps = {
+  note: NoteShape;
+  activeTab: number;
+  onClick: (id: string | number) => void;
+};
+
+export type feedbackProps= 
+{
+  feedbacks?: any[];
+}
