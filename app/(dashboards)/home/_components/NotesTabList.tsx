@@ -37,9 +37,9 @@ const NotesTabList: React.FC<NotesTabListProps> = ({ notes, selectedSubjects }) 
   } = useQuery({
     queryKey: ['notesByStatus', sortKey, selectedSubjectId],
     queryFn: () => fetchNotesByStatus(sortKey, selectedSubjectId),
+    refetchOnWindowFocus: false,
   });
 
-  // normalize response into an array safely (avoid "map is not a function")
   const notesByStatus: any[] = Array.isArray(rawNotesByStatus)
     ? rawNotesByStatus
     : Array.isArray(rawNotesByStatus?.data)

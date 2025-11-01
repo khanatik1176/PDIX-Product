@@ -1,6 +1,7 @@
 export type LibraryCardProps = {
   title: string;
   value: string | number;
+  isAnalyticsLoading?: boolean;
 }
 
 export type LibraryTopicCardProps = {
@@ -25,12 +26,14 @@ export type NoteItem = {
 export type NotesTabListProps = {
   notes?: NoteItem[];
   selectedSubjects: string[];
+  isLoading?: boolean;
 }
 
 export type SubjectFilterProps = {
   subjects: string[];
   selectedSubjects: string[];
   onChange: (subject: string) => void;
+  isTopicsLoading?: boolean;
 }
 
 export type ILibraryNoteHeadingProps = {

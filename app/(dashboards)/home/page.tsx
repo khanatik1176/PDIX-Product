@@ -19,7 +19,7 @@ import {
 } from '@/constants/DummyDataFactory';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { fetchAnalyticsData, fetchNotesByStatus, fetchTopicList } from '@/helpers/Home/HomeApi';
+import { fetchAnalyticsData, fetchNotesByStatus, fetchSearchedNotes, fetchTopicList } from '@/helpers/Home/HomeApi';
 
 const NotesGallery = () => {
   const { userData } = UserDetails();
@@ -42,15 +42,6 @@ const NotesGallery = () => {
   };
 
   const selectedSubject = selectedSubjects[0];
-  const topicInfo =
-    selectedSubject && SUBJECT_TOPIC_INFO[selectedSubject]
-      ? SUBJECT_TOPIC_INFO[selectedSubject]
-      : {
-          title: 'Welcome to Your Notes Hub',
-          subtitle:
-            'Select a subject to explore curated notes, or use the search to find exactly what you need.',
-        };
-
   // ...rest of the existing code remains unchanged...
   const { data: analyticsData = [], isLoading: isAnalyticsLoading } = useQuery({
     queryKey: ['analytics'],
@@ -61,6 +52,39 @@ const NotesGallery = () => {
     queryKey: ['topics'],
     queryFn: fetchTopicList,
   });
+
+  // normalize topic list (support topics or topics.data)
+  const topicList: any[] = Array.isArray(topics)
+    ? topics
+    : Array.isArray(topics?.data)
+    ? topics.data
+    : [];
+
+  // derive title/subtitle from selected topic coming from server
+  const topicObj = selectedSubject
+    ? topicList.find(
+        (t: any) =>
+          String(t?.topicId ?? t?.id ?? t?.value ?? t?.name) === String(selectedSubject) ||
+          String(t?.topicName) === String(selectedSubject) ||
+          String(t?.name) === String(selectedSubject)
+      )
+    : null;
+
+  const topicInfo =
+    topicObj
+      ? {
+          title: topicObj.title ?? topicObj.topicName ?? topicObj.name ?? 'Topic',
+          subtitle:
+            topicObj.description ??
+            topicObj.subtitle ??
+            topicObj.summary ??
+            'Explore notes for this topic.',
+        }
+      : {
+          title: 'Welcome to Your Notes Hub',
+          subtitle:
+            'Select a subject to explore curated notes, or use the search to find exactly what you need.',
+        };
 
   return (
     <div>
@@ -73,10 +97,10 @@ const NotesGallery = () => {
           className='pl-2 pt-3 xl:pt-6'
         />
         <div className='grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 xl:grid-cols-4'>
-          <LibraryCard title='Total Notes' value={analyticsData?.totalNotes} />
-          <LibraryCard title='Uploaded Today' value={analyticsData?.todayUploadedNotes} />
-          <LibraryCard title='Total Registered' value={analyticsData?.totalUsers} />
-          <LibraryCard title='Registered Today' value={analyticsData?.todayRegisteredUsers} />
+          <LibraryCard title='Total Notes' value={analyticsData?.totalNotes} isAnalyticsLoading={isAnalyticsLoading} />
+          <LibraryCard title='Uploaded Today' value={analyticsData?.todayUploadedNotes} isAnalyticsLoading={isAnalyticsLoading} />
+          <LibraryCard title='Total Registered' value={analyticsData?.totalUsers} isAnalyticsLoading={isAnalyticsLoading} />
+          <LibraryCard title='Registered Today' value={analyticsData?.todayRegisteredUsers} isAnalyticsLoading={isAnalyticsLoading} />
         </div>
       </div>
       <div className='mb-3 mt-3 flex flex-col items-start px-4 md:px-10 lg:px-12 xl:px-10'>
@@ -117,6 +141,7 @@ const NotesGallery = () => {
             subjects={topics?.data}
             selectedSubjects={selectedSubjects}
             onChange={handleSubjectChange}
+            isTopicsLoading={isTopicsLoading}
           />
         </div>
       </div>

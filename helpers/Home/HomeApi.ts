@@ -48,3 +48,24 @@ export const fetchIndividualNote = async (noteId: string | number) => {
     });
     return response.data;
 }
+
+export const fetchSearchedNotes = async (
+  query: string,
+  options?: { sortBy?: string; order?: 'asc' | 'desc' }
+) => {
+  const params: Record<string, string> = {
+    search: query ?? '',
+    sortBy: options?.sortBy ?? 'uploadDate',
+    order: options?.order ?? 'desc',
+  };
+
+  const response = await axios.get(`${TEMP_BACKEND_URI}/notes/library`, {
+    params,
+    headers: {
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+    },
+  });
+
+  return response.data;
+};
+  

@@ -1,6 +1,6 @@
 'use client';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
@@ -10,6 +10,8 @@ import SearchTable from './SearchTable';
 import BreadcrumbWithAvatar from '@/components/BreadCrumbiwthAvatar';
 import { UserDetails } from '@/contexts/UserContext';
 import SearchHeaderComponent from './SearchHeaderComponent';
+import { fetchSearchedNotes } from '@/helpers/Home/HomeApi';
+import { useQuery } from '@tanstack/react-query';
 
 const getSortedNotes = (notes: any[], sortBy: string, sortOrder: any) => {
   let sorted = [...notes];
@@ -42,6 +44,11 @@ const SearchPageContent = () => {
   const [searchText, setSearchText] = useState(initialQuery);
   const { userData } = UserDetails();
 
+  // keep local state in sync when route param changes
+  useEffect(() => {
+    setSearchText(initialQuery);
+  }, [initialQuery]);
+
   // Filter panel state
   const [selectedTopic, setSelectedTopic] = useState('');
   const [sortBy, setSortBy] = useState('date');
@@ -53,7 +60,7 @@ const SearchPageContent = () => {
     []
   );
 
-  // Filter notes by name or subject only
+  // Filter notes by name or subject only (local fallback)
   const filteredNotes = useMemo(() => {
     let notes = DUMMY_NOTES.filter(
       (note) =>
@@ -70,13 +77,20 @@ const SearchPageContent = () => {
     router.push(`/search?query=${encodeURIComponent(searchText.trim())}`);
   };
 
+  // fetch searched notes from server using the query param (only when present)
+  const { data: searchedNotes = [], isLoading: isSearchedLoading } = useQuery({
+    queryKey: ['searchedNotes', searchText, selectedTopic, sortBy, sortOrder],
+    queryFn: () =>
+      fetchSearchedNotes(searchText, { order: sortOrder === 'asc' ? 'asc' : 'desc' }),
+    enabled: !!searchText?.trim(),
+  });
+
+  console.log('searchedNotes:', searchedNotes);
+
   return (
     <div className='mt-6 w-full px-4 md:px-6 xl:px-10'>
       {/* Top: Search and Filter side by side */}
-      <SearchHeaderComponent
-        title='Search Results'
-        userData={userData}
-      />
+      <SearchHeaderComponent title='Search Results' userData={userData} />
       <div className='mb-4 flex w-full flex-col gap-4 md:flex-row md:items-center'>
         {/* Search Bar */}
         <div className='flex flex-1 items-center gap-2'>
@@ -113,7 +127,9 @@ const SearchPageContent = () => {
       {/* Table: Full width */}
       <div className='w-full'>
         <SearchTable
-          notes={filteredNotes}
+          // prefer server results when a query exists, otherwise use local filteredNotes
+          notes={searchText?.trim() ? searchedNotes : filteredNotes}
+          isLoading={isSearchedLoading}
           selectedSubjects={selectedTopic ? [selectedTopic] : []}
         />
       </div>

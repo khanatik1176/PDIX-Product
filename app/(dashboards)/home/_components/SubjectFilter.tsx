@@ -1,5 +1,6 @@
 import { SubjectFilterProps } from "@/types/Library.types";
 import React from "react";
+import SubjectFilterSkeleton from "./SubjectFilterSkeleton";
 
 const getId = (s: any, idx: number) =>
   // prefer topicId, fallbacks to common id fields, finally index
@@ -12,33 +13,41 @@ const getLabel = (s: any) =>
 const SubjectFilter: React.FC<SubjectFilterProps> = ({
   subjects = [],
   selectedSubjects = [],
+  isTopicsLoading = false,
   onChange,
 }) => (
   <div className="bg-white rounded-lg shadow p-4 border">
     <div className="font-semibold mb-2">Filter by Topics</div>
-    <ul className="space-y-2">
-      {subjects.map((subject, idx) => {
-        const id = getId(subject, idx);
-        const label = getLabel(subject);
-        // selectedSubjects stores topicId strings/values
-        const checked = selectedSubjects.includes(id);
 
-        return (
-          <li key={id} className="flex items-center gap-2">
-            <input
-              id={`subject-${id}`}
-              type="checkbox"
-              checked={checked}
-              onChange={() => onChange(id)}
-              className="accent-[#CE7411]"
-            />
-            <label htmlFor={`subject-${id}`} className="text-gray-700 cursor-pointer truncate">
-              {label}
-            </label>
-          </li>
-        );
-      })}
-    </ul>
+    {isTopicsLoading ? (
+      <div className="max-h-56 overflow-hidden">
+        <SubjectFilterSkeleton />
+      </div>
+    ) : (
+      <ul className="space-y-2 max-h-56 overflow-y-auto pr-2">
+        {subjects.map((subject, idx) => {
+          const id = getId(subject, idx);
+          const label = getLabel(subject);
+          // selectedSubjects stores topicId strings/values
+          const checked = selectedSubjects.includes(id);
+
+          return (
+            <li key={id} className="flex items-center gap-2">
+              <input
+                id={`subject-${id}`}
+                type="checkbox"
+                checked={checked}
+                onChange={() => onChange(id)}
+                className="accent-[#CE7411]"
+              />
+              <label htmlFor={`subject-${id}`} className="text-gray-700 cursor-pointer truncate">
+                {label}
+              </label>
+            </li>
+          );
+        })}
+      </ul>
+    )}
   </div>
 );
 
