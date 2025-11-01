@@ -12,14 +12,9 @@ import { Button } from '@/components/ui/button';
 import LibraryTopicCard from './_components/LibraryTopicCard';
 import NotesTabList from './_components/NotesTabList';
 import SubjectFilter from './_components/SubjectFilter';
-import {
-  DUMMY_NOTES,
-  SUBJECT_TOPIC_INFO,
-  SUBJECTS,
-} from '@/constants/DummyDataFactory';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { fetchAnalyticsData, fetchNotesByStatus, fetchSearchedNotes, fetchTopicList } from '@/helpers/Home/HomeApi';
+import { fetchAnalyticsData,fetchTopicList } from '@/helpers/Home/HomeApi';
 
 const NotesGallery = () => {
   const { userData } = UserDetails();
@@ -34,15 +29,13 @@ const NotesGallery = () => {
     }
   };
 
-  // UPDATED: only one subject can be selected at a time
   const handleSubjectChange = (subject: string) => {
     setSelectedSubjects((prev) =>
-      prev.includes(subject) ? [] : [subject] // if already selected -> deselect, otherwise replace with single selection
+      prev.includes(subject) ? [] : [subject] 
     );
   };
 
   const selectedSubject = selectedSubjects[0];
-  // ...rest of the existing code remains unchanged...
   const { data: analyticsData = [], isLoading: isAnalyticsLoading } = useQuery({
     queryKey: ['analytics'],
     queryFn: fetchAnalyticsData,

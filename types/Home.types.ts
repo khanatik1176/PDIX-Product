@@ -38,3 +38,19 @@ export type feedbackProps=
 {
   feedbacks?: any[];
 }
+
+
+export type Notification = {
+  id: string;
+  title: string;
+  body?: string;
+  date?: string;
+  unread?: boolean;
+};
+
+export type NotificationProps = {
+  notifications?: Notification[];
+  onClose?: () => void;
+  className?: string;
+  onMarkAllRead?: () => void;
+};
