@@ -1,4 +1,4 @@
-import { StaticImageData } from "next/image";
+import { StaticImageData } from 'next/image';
 
 export type HomeCardProps = {
   title: string;
@@ -7,7 +7,7 @@ export type HomeCardProps = {
   image: StaticImageData;
   imageAlt: string;
   backgroundColor?: string;
-}
+};
 
 export type NoteShape = {
   noteId?: string;
@@ -34,11 +34,10 @@ export type NoteItemProps = {
   onClick: (id: string | number) => void;
 };
 
-export type feedbackProps= 
-{
+export type feedbackProps = {
   feedbacks?: any[];
-}
-
+  individualNoteData?: any;
+};
 
 export type Notification = {
   id: string;
@@ -53,4 +52,13 @@ export type NotificationProps = {
   onClose?: () => void;
   className?: string;
   onMarkAllRead?: () => void;
+};
+
+export type FeedbackItem = {
+  id: string | number;
+  avatar: any;
+  userName: string;
+  content: string;
+  timeAgo: string;
+  time: number;
 };

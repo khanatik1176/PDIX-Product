@@ -68,4 +68,16 @@ export const fetchSearchedNotes = async (
 
   return response.data;
 };
-  
+
+export const submitNoteFeedback = async (
+  noteId: string | number,
+  content: string,
+  anonymous?: boolean
+) => {
+  const response = await axios.post(`${TEMP_BACKEND_URI}/feedback/create/${noteId}`, { content, anonymous }, {
+    headers: {
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+    },
+  });
+  return response.data;
+};

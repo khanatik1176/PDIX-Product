@@ -1,67 +1,66 @@
 'use client';
-import React, { FC, useState } from 'react';
-import { SendHorizontal, MoreHorizontal, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { FC, useMemo, useState } from 'react';
+import {
+  SendHorizontal,
+  MoreHorizontal,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react';
 import Image from 'next/image';
 import DummyAvatar from '../../../../public/Images/DummyAvatar.png';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { feedbackProps } from '@/types/Home.types';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { FeedbackItem, feedbackProps } from '@/types/Home.types';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { submitNoteFeedback } from '@/helpers/Home/HomeApi';
+import { UserDetails } from '@/contexts/UserContext';
 
-  
 
-const FeedBackSection: FC<feedbackProps> = () => {
-  const [feedbacks, setFeedbacks] = useState([
-    {
-      id: 1,
-      avatar: DummyAvatar,
-      userName: 'John Doe',
-      content: 'This is a great note! Very helpful.',
-      timeAgo: '10mins ago',
-      time: 10, // Time in minutes for sorting
-    },
-    {
-      id: 2,
-      avatar: DummyAvatar,
-      userName: 'Jane Smith',
-      content: 'I found this note very informative. Thanks!',
-      timeAgo: '1hour ago',
-      time: 60,
-    },
-    {
-      id: 3,
-      avatar: DummyAvatar,
-      userName: 'Alice Johnson',
-      content: 'Amazing content! Keep it up.',
-      timeAgo: '2hours ago',
-      time: 120,
-    },
-    {
-      id: 4,
-      avatar: DummyAvatar,
-      userName: 'Bob Brown',
-      content: 'Very insightful note. Thanks for sharing!',
-      timeAgo: '3hours ago',
-      time: 180,
-    },
-  ]);
+const FeedBackSection: FC<feedbackProps> = ({ feedbacks = [], individualNoteData   }) => {
+  // local list state (initialized from prop)
+  const [items, setItems] = useState<FeedbackItem[]>(() =>
+    feedbacks.map((f: any) => ({ ...f }))
+  );
 
   const [newFeedback, setNewFeedback] = useState('');
   const [isFeedbackAreaOpen, setIsFeedbackAreaOpen] = useState(true);
   const [showAllFeedbacks, setShowAllFeedbacks] = useState(false);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
+  const { user } = UserDetails();
+
+  console.log("User in Feedback Section:", user);
+
+  const mutation = useMutation({
+    mutationFn: async ({ content, anonymous }: { content: string; anonymous?: boolean }) =>
+      submitNoteFeedback(individualNoteData?.noteId, content, !!anonymous),
+  });
+
   const handleSendFeedback = () => {
-    if (newFeedback.trim()) {
-      const newFeedbackEntry = {
-        id: feedbacks.length + 1,
-        avatar: DummyAvatar,
-        userName: 'You',
-        content: newFeedback,
-        timeAgo: 'Just now',
-        time: 0,
-      };
-      setFeedbacks([newFeedbackEntry, ...feedbacks]);
-      setNewFeedback('');
-    }
+    const trimmed = newFeedback.trim();
+    if (!trimmed) return;
+
+    // create optimistic item
+    const optimistic: FeedbackItem = {
+      id: individualNoteData?.noteId,
+      userName: 'You',
+      avatar: DummyAvatar,
+      content: trimmed,
+      time: Date.now(),
+      timeAgo: 'Just now',
+    };
+
+    // optimistic update
+    setItems((prev) => [optimistic, ...prev]);
+    setNewFeedback('');
+
+    // send mutation
+    mutation.mutate({ content: trimmed, anonymous: false });
   };
 
   const toggleFeedbackArea = () => {
@@ -74,24 +73,31 @@ const FeedBackSection: FC<feedbackProps> = () => {
 
   const handleSortChange = (order: 'asc' | 'desc') => {
     setSortOrder(order);
-    const sortedFeedbacks = [...feedbacks].sort((a, b) =>
-      order === 'asc' ? a.time - b.time : b.time - a.time
+    setItems((prev) =>
+      [...prev].sort((a, b) =>
+        order === 'asc' ? a.time - b.time : b.time - a.time
+      )
     );
-    setFeedbacks(sortedFeedbacks);
   };
 
-  const visibleFeedbacks = showAllFeedbacks ? feedbacks : feedbacks.slice(0, 3);
+  const visibleFeedbacks = useMemo(
+    () => (showAllFeedbacks ? items : items.slice(0, 3)),
+    [items, showAllFeedbacks]
+  );
 
   return (
     <div className='my-8 px-3 lg:px-6'>
       {/* Title Section */}
       <div className='flex items-center justify-between'>
-        <div className='flex flex-col md:flex-row md:items-center gap-4'>
+        <div className='flex flex-col gap-4 md:flex-row md:items-center'>
           <h2 className='text-2xl font-semibold md:text-2xl'>
-            Feedbacks ({feedbacks.length})
+            Feedbacks ({items.length})
           </h2>
-          <Select value={sortOrder} onValueChange={(value) => handleSortChange(value as 'asc' | 'desc')}>
-            <SelectTrigger className='w-48 flex items-center justify-between'>
+          <Select
+            value={sortOrder}
+            onValueChange={(value) => handleSortChange(value as 'asc' | 'desc')}
+          >
+            <SelectTrigger className='flex w-48 items-center justify-between'>
               <SelectValue placeholder='Sort by Time' />
               <ChevronDown className='h-4 w-4 text-gray-500' />
             </SelectTrigger>
@@ -136,8 +142,9 @@ const FeedBackSection: FC<feedbackProps> = () => {
               onChange={(e) => setNewFeedback(e.target.value)}
             />
             <button
-              className='flex items-center justify-center rounded-lg border border-gray-300 bg-white p-2 hover:bg-gray-100'
+              className='flex items-center justify-center rounded-lg border border-gray-300 bg-white p-2 hover:bg-gray-100 disabled:opacity-50'
               onClick={handleSendFeedback}
+              disabled={mutation.isPending}
             >
               <SendHorizontal className='h-5 w-5 text-gray-700' />
             </button>
@@ -145,49 +152,69 @@ const FeedBackSection: FC<feedbackProps> = () => {
         </div>
       )}
 
-      {/* Feedback List */}
+      {/* Feedback List / Empty State */}
       {isFeedbackAreaOpen && (
         <div className='space-y-4'>
-          {visibleFeedbacks.map((feedback) => (
-            <div
-              key={feedback.id}
-              className='relative flex items-center rounded-lg px-1 py-4'
-            >
-              {/* Feedback Content */}
-              <div className='flex-1 pr-12'>
-                <div className='flex items-center justify-between'>
-                  <div className='flex items-center gap-2'>
-                    <div className='relative h-10 w-10'>
-                      <Image
-                        src={feedback.avatar}
-                        alt={`${feedback.userName}'s Avatar`}
-                        className='rounded-lg border'
-                        fill
-                      />
-                    </div>
-                    <span className='font-medium text-gray-800'>
-                      {feedback.userName}
-                    </span>
-                  </div>
-                  <span className='text-sm text-black'>{feedback.timeAgo}</span>
-                </div>
-                <p className='mt-2 text-gray-700'>{feedback.content}</p>
+          {items.length === 0 ? (
+            <div className='flex flex-col items-center justify-center gap-4 py-12'>
+              <div className='relative h-24 w-24'>
+                <Image
+                  src={DummyAvatar}
+                  alt='No feedbacks'
+                  className='rounded-lg'
+                  fill
+                />
               </div>
-              {/* MoreHorizontal Icon */}
-              <MoreHorizontal className='ml-4 h-5 w-5 cursor-pointer text-gray-500 hover:text-gray-700' />
+              <p className='text-center text-gray-600'>
+                No feedbacks available.
+              </p>
             </div>
-          ))}
+          ) : (
+            <>
+              {visibleFeedbacks.map((feedback) => (
+                <div
+                  key={feedback.id}
+                  className='relative flex items-center rounded-lg px-1 py-4'
+                >
+                  {/* Feedback Content */}
+                  <div className='flex-1 pr-12'>
+                    <div className='flex items-center justify-between'>
+                      <div className='flex items-center gap-2'>
+                        <div className='relative h-10 w-10'>
+                          <Image
+                            src={DummyAvatar}
+                            alt={`${feedback.userName}'s Avatar`}
+                            className='rounded-lg border'
+                            fill
+                          />
+                        </div>
+                        <span className='font-medium text-gray-800'>
+                          {feedback.userName}
+                        </span>
+                      </div>
+                      <span className='text-sm text-black'>
+                        {feedback.timeAgo}
+                      </span>
+                    </div>
+                    <p className='mt-2 text-gray-700'>{feedback.content}</p>
+                  </div>
+                  {/* MoreHorizontal Icon */}
+                  <MoreHorizontal className='ml-4 h-5 w-5 cursor-pointer text-gray-500 hover:text-gray-700' />
+                </div>
+              ))}
 
-          {/* Show More/Show Less Button */}
-          {feedbacks.length > 3 && (
-            <div className='flex justify-center pb-8'>
-              <button
-                className='mt-4 rounded-lg border border-gray-300 bg-lightAquaBg px-4 py-2 text-black hover:bg-gray-100'
-                onClick={toggleShowMore}
-              >
-                {showAllFeedbacks ? 'Show Less' : 'Show More'}
-              </button>
-            </div>
+              {/* Show More/Show Less Button */}
+              {items.length > 3 && (
+                <div className='flex justify-center pb-8'>
+                  <button
+                    className='mt-4 rounded-lg border border-gray-300 bg-lightAquaBg px-4 py-2 text-black hover:bg-gray-100'
+                    onClick={toggleShowMore}
+                  >
+                    {showAllFeedbacks ? 'Show Less' : 'Show More'}
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       )}

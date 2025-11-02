@@ -49,27 +49,36 @@ export type EditNoteModalProps = {
   onSubjectChange: (val: string) => void;
   onUpdate: () => void;
   setFilename: (val: string) => void;
-}
+};
 
 export type ShareNoteModalProps = {
   open: boolean;
   onClose: () => void;
   shareLink: string;
-}
+};
 
 export type RemoveNoteDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onRemove: () => void;
-}
+};
 
-export type UploadNoteModalProps ={
+export type UploadNoteModalProps = {
   open: boolean;
   onClose: () => void;
-}
+  refetchNotes?: () => void;
+};
 
 export type EmptyNoteTypes = {
   setModalOpen: (open: boolean) => void;
   modalOpen: boolean;
+  refetchNotes?: () => void;
 };
 
+export type MyNoteCardTypes = {
+  fileUrl: string;
+  title: string;
+  imageSrc?: string;
+  iconType?: string;
+  id: string;
+};

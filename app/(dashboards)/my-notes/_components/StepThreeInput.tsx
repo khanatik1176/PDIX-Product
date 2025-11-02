@@ -13,16 +13,19 @@ const StepThreeInput: React.FC<StepThreeInputProps> = ({
   setStep,
   reset,
   onClose,
+  refetchNotes,
 }) => {
   // Mutation for note upload
   const noteUploadMutation = useMutation({
     mutationFn: handleNoteUpload,
     onSuccess: () => {
+      refetchNotes?.();
       toast({
         title: 'Success',
         description: 'Note uploaded successfully!',
         variant: 'default',
       });
+
       reset();
       setStep(1);
       onClose();
@@ -59,7 +62,7 @@ const StepThreeInput: React.FC<StepThreeInputProps> = ({
                 type='checkbox'
                 className='h-4 w-4 accent-primary'
                 checked={field.value}
-                onChange={e => field.onChange(e.target.checked)}
+                onChange={(e) => field.onChange(e.target.checked)}
               />
             )}
           />
@@ -80,7 +83,7 @@ const StepThreeInput: React.FC<StepThreeInputProps> = ({
                 type='checkbox'
                 className='h-4 w-4 accent-primary'
                 checked={field.value}
-                onChange={e => field.onChange(e.target.checked)}
+                onChange={(e) => field.onChange(e.target.checked)}
               />
             )}
           />
@@ -101,7 +104,7 @@ const StepThreeInput: React.FC<StepThreeInputProps> = ({
                 type='checkbox'
                 className='h-4 w-4 accent-primary'
                 checked={field.value}
-                onChange={e => field.onChange(e.target.checked)}
+                onChange={(e) => field.onChange(e.target.checked)}
               />
             )}
           />
@@ -110,7 +113,11 @@ const StepThreeInput: React.FC<StepThreeInputProps> = ({
           </span>
         </label>
       </div>
-      <Button type='submit' className='mt-4 w-full' disabled={noteUploadMutation.isPending}>
+      <Button
+        type='submit'
+        className='mt-4 w-full'
+        disabled={noteUploadMutation.isPending}
+      >
         {noteUploadMutation.isPending ? 'Uploading...' : 'Upload note'}
       </Button>
       <Button

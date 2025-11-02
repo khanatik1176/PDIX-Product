@@ -145,7 +145,7 @@ const SearchModal: React.FC<NoteModalProps> = ({ open, onClose, note }) => {
         </div>
         {/* Feedback Section below both columns */}
         <div className='max-h-64 overflow-y-auto border-t border-gray-200 px-4'>
-          <FeedBackSection />
+          <FeedBackSection feedbacks={individualNoteData?.feedbacks} individualNoteData={individualNoteData} />
         </div>
       </div>
     </div>

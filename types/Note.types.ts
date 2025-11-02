@@ -44,6 +44,7 @@ export type StepThreeInputProps = {
   setStep: (step: number) => void;
   handleClose: () => void;
   reset: () => void;
+  refetchNotes?: () => void;
 }
 
 export type EducationLevel = {

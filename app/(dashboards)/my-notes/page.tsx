@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ColumnDef } from '@tanstack/react-table';
 import ViewToggle from '@/components/ViewToggle';
+import { MyNoteCardTypes } from '@/types/MyNotes.types';
 
 const MyNotes = () => {
   const [open, setOpen] = useState(false);
@@ -31,7 +32,7 @@ const MyNotes = () => {
     console.log('Upload Notes clicked');
   };
 
-  const { data: notes = [], isLoading: isNotesLoading } = useQuery({
+  const { data: notes = [], isLoading: isNotesLoading, refetch: refetchNotes } = useQuery({
     queryKey: ['notes'],
     queryFn: getAllNotes,
   });
@@ -42,13 +43,13 @@ const MyNotes = () => {
 
   const notesColumns: ColumnDef<any>[] = [
     {
-      accessorKey: 'fileUrl',
+      accessorKey: 'title',
       header: () => (
         <div className='font-medium text-inputFooterColor'>Title</div>
       ),
       cell: ({ row }: { row: any }) => (
         <div className='max-w-[200px] truncate font-medium'>
-          {row.getValue('fileUrl')}
+          {row.getValue('title')}
         </div>
       ),
     },
@@ -130,19 +131,14 @@ const MyNotes = () => {
             <CustomLoader />
           </div>
         ) : notes.length === 0 ? (
-          <EmptyMyNotesVIew setModalOpen={setModalOpen} modalOpen={modalOpen} />
+          <EmptyMyNotesVIew setModalOpen={setModalOpen} modalOpen={modalOpen} refetchNotes={refetchNotes} />
         ) : viewType === 'card' ? (
           <div className='mt-8 grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
             {notes.map(
-              (note: {
-                fileUrl: string;
-                imageSrc?: string;
-                iconType?: string;
-                id: string;
-              }) => (
+              (note: MyNoteCardTypes) => (
                 <MyNotesCard
                   key={note.id}
-                  title={note.fileUrl}
+                  title={note.title}
                   imageSrc={note.imageSrc ?? Preview1}
                   iconType={
                     note.iconType === 'file' || note.iconType === 'link'
@@ -163,7 +159,7 @@ const MyNotes = () => {
               currentPage={currentPage}
               loading={isNotesLoading}
               headerClassNames={{
-                fileUrl: 'min-w-[200px] w-[200px]',
+                title: 'min-w-[200px] w-[200px]',
                 uploadDate: 'min-w-[140px] w-[140px]',
                 status: 'min-w-[120px] w-[120px]',
                 viewCount: 'min-w-[120px] w-[120px]',
@@ -171,7 +167,7 @@ const MyNotes = () => {
                 actions: 'min-w-[100px] w-[100px] text-center',
               }}
               cellClassNames={{
-                fileUrl: 'min-w-[200px] w-[200px] truncate',
+                title: 'min-w-[200px] w-[200px] truncate',
                 uploadDate: 'min-w-[140px] w-[140px]',
                 status: 'min-w-[120px] w-[120px]',
                 viewCount: 'min-w-[120px] w-[120px] pl-4',

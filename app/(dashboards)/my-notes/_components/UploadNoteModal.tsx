@@ -11,7 +11,7 @@ import StepThreeInput from './StepThreeInput';
 import { useQuery } from '@tanstack/react-query';
 import { getAllEducationLevels, getSubjectByClassId, getTopicSuggestions } from '@/helpers/Notes/NotesApi';
 
-const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
+const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose, refetchNotes }) => {
   const [step, setStep] = useState(1);
 
   const {
@@ -152,6 +152,7 @@ const UploadNoteModal: React.FC<UploadNoteModalProps> = ({ open, onClose }) => {
             setStep={setStep}
             handleClose={handleClose}
             reset={reset}
+            refetchNotes={refetchNotes}
           />
         )}
       </div>
